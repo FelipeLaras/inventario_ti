@@ -8,6 +8,31 @@ $_SESSION["perfil"] != NULL ?: header('location: ../index.php');
 $dataHoje = date('d/m/yy');
 
 require_once('../inc/permissoes.php');
+
+//OFFICE
+$queryPermissaoEquipamento .= " AND MPE.id_equipamento IN (8, 9)";
+$result = $conn->query($queryPermissaoEquipamento);
+
+if(!empty($permissao = $result->fetch_assoc())){
+  $mostrar = "block";
+}else{
+  $mostrar = "none";
+}
+
+//SCANNER
+$queryPermissaoEquipamentoScanner = "SELECT 
+MPE.id_equipamento, 
+MDE.nome 
+FROM manager_profile_equip MPE
+LEFT JOIN manager_dropequipamentos MDE ON (MPE.id_equipamento = MDE.id_equip) WHERE MPE.id_profile = ".$_SESSION['id']." AND MPE.id_equipamento = 10";
+
+$resultScanner = $conn->query($queryPermissaoEquipamentoScanner);
+
+if(!empty($permissaoScanner = $resultScanner->fetch_assoc())){
+  $mostrarScanner = "block";
+}else{
+  $mostrarScanner = "none";
+}
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -83,7 +108,8 @@ require_once('../inc/permissoes.php');
                         <a class="collapse-item" href="equipamentos.php?pagina=5">Ativos</a>
                         <a class="collapse-item" href="equipamentosdisponiveis.php?pagina=5">Disponíveis</a>
                         <a class="collapse-item" href="equipcondenados.php?pagina=5">Condenados</a>
-                        <a class="collapse-item" href="office.php?pagina=5">Office's Disponíveis</a>
+                        <a class="collapse-item" href="office.php?pagina=5"  style="display: <?= $mostrar ?>;">Office Disponíveis</a>
+                        <a class="collapse-item" href="scanner.php?pagina=5"style="display: <?= $mostrarScanner ?>;">Scanner Disponíveis</a>
                     </div>
                 </div>
 

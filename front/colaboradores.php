@@ -37,7 +37,10 @@ $resultColaborador = $conn->query($queryColaborador);
     <span class="float-rigth"><a href="colaboradores.php?pagina=3" id="atualiz"><i class="fas fa-sync-alt"></i> Mostrar todos!</a></span>
   </h1>
   <hr />
-
+  <div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Colaboradores</h1>
+    <a href="#" data-toggle="modal" data-target="#adicionar" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Novo Colaborador</a>
+  </div>
   <!-- Page Heading -->
   <div class="row">
     <div class="col-xl-4 col-md-6 mb-4">
@@ -96,7 +99,6 @@ $resultColaborador = $conn->query($queryColaborador);
   <div class="card shadow mb-4">
     <div class="card-header py-3">
       <h6 class="m-0 font-weight-bold text-primary">lista de colaboradores
-        <a class="btn btn-success btn-pen-square btn-sm float-rigth" title="Adicionar" href="#" data-toggle="modal" data-target="#adicionar"><i class="fas fa-user-plus"></i></a>
       </h6>
     </div>
     <div class="card-body">

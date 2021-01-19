@@ -21,7 +21,7 @@ if (!empty($_GET['id'])) {
   <!-- Page Heading -->
   <h1 class="text-xs mb-6 text-gray-800">
     <a href="../front/front.php?pagina=1"><i class="fas fa-home"></i> Home</a> /
-    <a href="../front/equipamentos.php?pagina=5"><i class="fas fa-laptop"></i> Equipamentos</a> /
+    <a href="../front/listequipamentos.php?pagina=5"><i class="fas fa-laptop"></i> Equipamentos</a> /
     <a href="../front/office.php?pagina=5"><i class="fab fa-windows"></i> Office's </a> /
     <?= empty($_GET['id']) ? "<i class='fas fa-plus'></i> Novo Office" : '<i class="fas fa-pen"></i> Editar Office' ?>
   </h1>

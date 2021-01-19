@@ -14,7 +14,7 @@ if ($_GET['pagina'] == 5) {
 
   $id_funcionario = $_GET['id_fun'];
 
-  $paginacao = '<a href="equipamentos.php?pagina=5"><i class="fas fa-laptop"></i> Equipamentos</a> /';
+  $paginacao = '<a href="listequipamentos.php?pagina=5"><i class="fas fa-laptop"></i> Equipamentos</a> /';
 
 } else {
 

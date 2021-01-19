@@ -23,8 +23,8 @@ $resultFuncionario = $conn->query($queryColaborador);
   <!-- Page Heading -->
   <h1 class="text-xs mb-6 text-gray-800">
     <a href="front.php?pagina=1"><i class="fas fa-home"></i> Home</a> /
-    <a href="equipamentos.php?pagina=5"><i class="fas fa-laptop"></i> Equipamentos</a> /
-    <a href="office.php?pagina=5"><i class="fas fa-laptop"></i> Office's Disponíveis</a> /
+    <a href="listequipamentos.php?pagina=5"><i class="fas fa-laptop"></i> Equipamentos</a> /
+    <a href="office.php?pagina=5"><i class="fas fa-laptop"></i> Office</a> /
     <i class="fas fa-laptop-medical"></i> Vincular ao Equipamento
   </h1>
   <hr />

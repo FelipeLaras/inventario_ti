@@ -34,7 +34,7 @@ require_once('../inc/permissoes.php');
     </div>
     <!-- Pending Requests Card Example -->
     <div class="col-xl-3 col-md-6 mb-4" style="display: <?= $equipamentos ?>;">
-      <a href='equipamentos.php?pagina=5' class="text-decoration">
+      <a href='listequipamentos.php?pagina=5' class="text-decoration">
         <div class="card border-left-danger shadow h-100 py-2">
           <div class="card-body">
             <div class="row no-gutters align-items-center">
