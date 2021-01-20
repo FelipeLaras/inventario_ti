@@ -13,10 +13,10 @@ require_once('../inc/permissoes.php');
 $queryPermissaoEquipamento .= " AND MPE.id_equipamento IN (8, 9)";
 $result = $conn->query($queryPermissaoEquipamento);
 
-if(!empty($permissao = $result->fetch_assoc())){
-  $mostrar = "block";
-}else{
-  $mostrar = "none";
+if (!empty($permissao = $result->fetch_assoc())) {
+    $mostrar = "block";
+} else {
+    $mostrar = "none";
 }
 
 //SCANNER
@@ -24,14 +24,14 @@ $queryPermissaoEquipamentoScanner = "SELECT
 MPE.id_equipamento, 
 MDE.nome 
 FROM manager_profile_equip MPE
-LEFT JOIN manager_dropequipamentos MDE ON (MPE.id_equipamento = MDE.id_equip) WHERE MPE.id_profile = ".$_SESSION['id']." AND MPE.id_equipamento = 10";
+LEFT JOIN manager_dropequipamentos MDE ON (MPE.id_equipamento = MDE.id_equip) WHERE MPE.id_profile = " . $_SESSION['id'] . " AND MPE.id_equipamento = 10";
 
 $resultScanner = $conn->query($queryPermissaoEquipamentoScanner);
 
-if(!empty($permissaoScanner = $resultScanner->fetch_assoc())){
-  $mostrarScanner = "block";
-}else{
-  $mostrarScanner = "none";
+if (!empty($permissaoScanner = $resultScanner->fetch_assoc())) {
+    $mostrarScanner = "block";
+} else {
+    $mostrarScanner = "none";
 }
 ?>
 <!DOCTYPE html>
@@ -56,9 +56,9 @@ if(!empty($permissaoScanner = $resultScanner->fetch_assoc())){
     <link href="../css/sb-admin-2.min.css" rel="stylesheet">
     <link href="../css/style.css" rel="stylesheet">
 
-     <!-- Formulario Avançado -->
+    <!-- Formulario Avançado -->
     <script src="../ckeditor/ckeditor.js"></script>
-    
+
 </head>
 
 <body id="page-top" onload="moveRelogio()">
@@ -99,17 +99,18 @@ if(!empty($permissaoScanner = $resultScanner->fetch_assoc())){
             </li>
             <!-- Nav Item - Charts -->
             <li class="nav-item <?= $_GET['pagina'] == 5 ? 'active' : '' ?>" style="display: <?= $equipamentos ?>;">
-                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#equip" aria-expanded="true" aria-controls="equip">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#equip" aria-expanded="true" aria-controls="equip">
                     <i class="fas fa-laptop"></i>
                     <span>Equipamentos</span>
                 </a>
                 <div id="equip" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="escolhanovo.php?pagina=5"><i class="fas fa-plus"></i> Cadastrar Novo</a><hr>
                         <a class="collapse-item" href="equipamentos.php?pagina=5">Ativos</a>
                         <a class="collapse-item" href="equipamentosdisponiveis.php?pagina=5">Disponíveis</a>
                         <a class="collapse-item" href="equipcondenados.php?pagina=5">Condenados</a>
-                        <a class="collapse-item" href="office.php?pagina=5"  style="display: <?= $mostrar ?>;">Office Disponíveis</a>
-                        <a class="collapse-item" href="scanner.php?pagina=5"style="display: <?= $mostrarScanner ?>;">Scanner Disponíveis</a>
+                        <a class="collapse-item" href="office.php?pagina=5" style="display: <?= $mostrar ?>;">Office Disponíveis</a>
+                        <a class="collapse-item" href="scanner.php?pagina=5" style="display: <?= $mostrarScanner ?>;">Scanner Disponíveis</a>
                     </div>
                 </div>
 
@@ -279,10 +280,11 @@ if(!empty($permissaoScanner = $resultScanner->fetch_assoc())){
                 <script src="../js/demo/datatables-demo.js"></script>
 
                 <!-- FUNÇÕES -->
-
                 <script src="../js/funcoes.js"></script>
+                <script src="../js/addequipamento.js"></script>
+                <script src="../js/moeda.js"></script>
 
-              
+
                 <!-- Logout Modal-->
                 <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
