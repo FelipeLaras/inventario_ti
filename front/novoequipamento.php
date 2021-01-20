@@ -51,7 +51,7 @@ if (!empty($_GET['id'])) {
             </select>
           </div>
 
-
+          <!--CELULAR / TABLET-->
           <div id="celularTablet" style="display: none;">
             <!--MODELO CELULAR / TABLET-->
             <div class="form-group">
@@ -139,94 +139,192 @@ if (!empty($_GET['id'])) {
                 <input type="text" class="form-control iconeAjustar" name="valor" onKeyPress="return(moeda(this,'.',',',event))">
               </div>
             </div>
-            <!--* NOTA FISCAL CELULAR / TABLET-->
+          </div>
+          <!--FIM-->
+
+          <!--CHIP / MODEM-->
+          <div id="chipModem" style="display: none;">
+            <!--EMPRESA CHIP / MODEM-->
             <div class="form-group">
-              <label for="exampleFormControlSelect2">Possui Nota Fiscal?</label>
-              <div class="py-2 input-group">
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="todosEquipamentos" id="exampleRadios1" value="1" onclick="sim()">
-                  <label class="form-check-label" for="exampleRadios1">
-                    Sim
-                  </label>
-                </div>
-                <div class="form-check" style="margin-left: 10px;">
-                  <input class="form-check-input" type="radio" name="todosEquipamentos" id="exampleRadios2" value="2" onclick="nao()" checked="">
-                  <label class="form-check-label" for="exampleRadios2">
-                    Não
-                  </label>
-                </div>
+              <label for="exampleFormControlSelect2">Empresa:</label>
+              <select class="form-control" id="exampleFormControlSelect2" name="empresaChip">
+                <option>----------</option>
+                <?php
+
+                $resultEmpresa = $conn->query($queryEmpresa);
+
+                while ($empresa = $resultEmpresa->fetch_assoc()) {
+                  echo '<option value="' . $empresa['id'] . '">' . $empresa['nome'] . '</option>';
+                }
+                ?>
+              </select>
+            </div>
+            <!--OPERADOR CHIP / MODEM-->
+            <div class="form-group">
+              <label for="exampleFormControlSelect2">Operadora:</label>
+              <select class="form-control" id="exampleFormControlSelect2" name="operadoraChip">
+                <option>----------</option>
+                <?php
+
+                $resultqueryOperadora = $conn->query($queryOperadora);
+
+                while ($operadora = $resultqueryOperadora->fetch_assoc()) {
+                  echo '<option value="' . $operadora['id'] . '">' . $operadora['nome'] . '</option>';
+                }
+                ?>
+              </select>
+            </div>
+            <!--NUMERO CHIP / MODEM-->
+            <div class="form-group">
+              <label for="exampleFormControlSelect2">Número:</label>
+              <input type="text" class="form-control" name="numeroChip" id="telefone" maxlength="15" placeholder="(xx) xxxx-xxx">
+            </div>
+            <!--PLANOS CHIP / MODEM-->
+            <div class="form-group">
+              <label for="voz">Planos:</label><br>
+              <input type="checkbox" name="planosChip[]" value="voz" id="voz">
+              <label class="form-check-label" for="voz">Voz</label><br>
+
+              <input type="checkbox" name="planosChip[]" value="dados" id="dados">
+              <label class="form-check-label" for="dados">Dados</label><br>
+            </div>
+            <!--STATUS CHIP / MODEM-->
+            <div class="form-group">
+              <label for="exampleFormControlSelect2">Status:</label>
+              <select class="form-control" id="exampleFormControlSelect2" name="statusChip">
+                <option>----------</option>
+                <?php
+
+                $resultStatusCHIP = $conn->query($queryStatusEquipamento);
+
+                while ($chip = $resultStatusCHIP->fetch_assoc()) {
+                  echo '<option value="' . $chip['id'] . '">' . $chip['nome'] . '</option>';
+                }
+                ?>
+              </select>
+            </div>
+            <!--IMEI CHIP / MODEM-->
+            <div class="form-group">
+              <label for="exampleFormControlSelect2">IMEI:</label>
+              <input type="text" class="form-control" name="imeiChip">
+            </div>
+          </div>
+          <!--FIM-->
+
+          <!--RAMAL IP-->
+          <div id="ramalIP" style="display: none;">
+
+            <!--IMEI RAMAL-->
+            <div class="form-group">
+              <label for="exampleFormControlSelect2">Modelo:</label>
+              <input type="text" class="form-control" name="modeloRamal">
+            </div>
+            <!--NUMERO RAMAL-->
+            <div class="form-group">
+              <label for="exampleFormControlSelect2">Número:</label>
+              <input type="text" class="form-control" name="numeroChip" maxlength="15">
+            </div>
+            <!--EMPRESA CHIP / MODEM-->
+            <div class="form-group">
+              <label for="exampleFormControlSelect2">Empresa:</label>
+              <select class="form-control" id="exampleFormControlSelect2" name="empresaChip">
+                <option>----------</option>
+                <?php
+
+                $resultEmpresa = $conn->query($queryEmpresa);
+
+                while ($empresa = $resultEmpresa->fetch_assoc()) {
+                  echo '<option value="' . $empresa['id'] . '">' . $empresa['nome'] . '</option>';
+                }
+                ?>
+              </select>
+            </div>
+            <!--LOCACAO CHIP / MODEM-->
+            <div class="form-group">
+              <label for="exampleFormControlSelect2">Locação:</label>
+              <select class="form-control" id="exampleFormControlSelect2" name="locacaoChip">
+                <option>----------</option>
+                <?php
+
+                $resultLocacao = $conn->query($queryLocacao);
+
+                while ($locacao = $resultLocacao->fetch_assoc()) {
+                  echo '<option value="' . $locacao['id'] . '">' . $locacao['nome'] . '</option>';
+                }
+                ?>
+              </select>
+            </div>
+          </div>
+          <!--FIM-->
+
+          <!-- NOTA FISCAL-->
+          <div class="form-group" id="nota" style="display: none;">
+            <label for="exampleFormControlSelect2">Possui Nota Fiscal?</label>
+            <div class="py-2 input-group">
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="todosEquipamentos" id="exampleRadios1" value="1" onclick="sim()">
+                <label class="form-check-label" for="exampleRadios1">
+                  Sim
+                </label>
               </div>
-
-              <div id='notafiscal' style="display: none;">
-                <hr>
-                <div class="form-group">
-                  <label for="exampleFormControlSelect2">Número Nota:</label>
-                  <div class="col-md-6 py-2">
-                    <input type="text" class="form-control" value="<?= $office['fornecedor'] ?>" name="numero_nota">
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <label for="exampleFormControlSelect2">Data Nota:</label>
-                  <div class="col-md-4 py-2">
-                    <input type="text" class="form-control" value="<?= $office['fornecedor'] ?>" name="data_nota" placeholder="xx/xx/xxxx">
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <label for="exampleFormControlSelect2">Nota Fiscal:</label>
-                  <div class="col-md-4 py-2">
-                    <input type="file" name="anexo">
-                  </div>
-                </div>
+              <div class="form-check" style="margin-left: 10px;">
+                <input class="form-check-input" type="radio" name="todosEquipamentos" id="exampleRadios2" value="2" onclick="nao()" checked="">
+                <label class="form-check-label" for="exampleRadios2">
+                  Não
+                </label>
               </div>
             </div>
 
+            <div id='notafiscal' style="display: none;">
+              <hr>
+              <div class="form-group">
+                <label for="exampleFormControlSelect2">Número Nota:</label>
+                <div class="col-md-6 py-2">
+                  <input type="text" class="form-control" value="<?= $office['fornecedor'] ?>" name="numero_nota">
+                </div>
+              </div>
 
+              <div class="form-group">
+                <label for="exampleFormControlSelect2">Data Nota:</label>
+                <div class="col-md-4 py-2">
+                  <input type="text" class="form-control" value="<?= $office['fornecedor'] ?>" name="data_nota" placeholder="xx/xx/xxxx">
+                </div>
+              </div>
 
-
-
-
+              <div class="form-group">
+                <label for="exampleFormControlSelect2">Nota Fiscal:</label>
+                <div class="col-md-4 py-2">
+                  <input type="file" name="anexo">
+                </div>
+              </div>
+            </div>
           </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
           <hr>
-          <?= empty($_GET['id']) ? '<button type="submit" class="btn btn-success btn-block">Salvar</button>' : '<button type="submit" class="btn btn-info btn-block">Editar</button>' ?>
-
+          <button type="submit" class="btn btn-success btn-block" id="salvarButton">Salvar</button>
           <hr>
         </form>
+
+        <!--CPU / NOTEBOOK-->
+        <div id="cpuNotebook" style="display: none;">
+          <form action="indeeex.php" method="POST" id="cpuNote">
+            <!--* VALOR CELULAR / TABLET-->
+            <div class="form-group">
+              <label for="exampleFormControlSelect2">Patrimônio:</label>
+              <div class="input-group-append">
+                
+                <div class="col-md-6 py-2">
+                  <input type="text" class="form-control iconeAjustarDireita" name="valor">
+                  <button class="btn btn-primary fajusteDireita" type="submit" for="cpuNote">
+                  <i class="fas fa-fw fa-search"></i>
+                </button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+
+
       </div>
 
     </div>

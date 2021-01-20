@@ -219,3 +219,15 @@ margin-bottom: 3%;
     margin-top: -37px;
     margin-left: 50px;
 }
+
+.iconeAjustarDireita{      
+    border-top-right-radius: 1px;
+    border-bottom-right-radius: 1px;
+}
+
+.fajusteDireita{    
+    margin-left: 203px;
+    border-top-left-radius: 1px;
+    border-bottom-left-radius: 1px;
+    margin-top: -64px;
+}

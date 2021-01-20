@@ -243,6 +243,7 @@ if (!empty($permissaoScanner = $resultScanner->fetch_assoc())) {
                 </nav>
                 <!-- End of Topbar -->
                 <script language="JavaScript">
+
                     function moveRelogio() {
                         momentoAtual = new Date()
                         hora = momentoAtual.getHours()
@@ -255,6 +256,7 @@ if (!empty($permissaoScanner = $resultScanner->fetch_assoc())) {
 
                         setTimeout("moveRelogio()", 1000)
                     }
+                    
                 </script>
 
 
@@ -281,8 +283,11 @@ if (!empty($permissaoScanner = $resultScanner->fetch_assoc())) {
 
                 <!-- FUNÇÕES -->
                 <script src="../js/funcoes.js"></script>
+
+                <!--MASCARAS-->
                 <script src="../js/addequipamento.js"></script>
                 <script src="../js/moeda.js"></script>
+                <script src="../js/telefone.js"></script>
 
 
                 <!-- Logout Modal-->

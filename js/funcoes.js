@@ -1,6 +1,3 @@
-
-//FELIPE
-
 /* função usada em -> ../front/funcionariodocumentos.php */
 function documento() {
     var optvalue = document.getElementById("tipo_documento").value;
