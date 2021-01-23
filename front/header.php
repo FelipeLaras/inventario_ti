@@ -110,7 +110,7 @@ if (!empty($permissaoScanner = $resultScanner->fetch_assoc())) {
                         <a class="collapse-item" href="equipamentosdisponiveis.php?pagina=5">Disponíveis</a>
                         <a class="collapse-item" href="equipcondenados.php?pagina=5">Condenados</a>
                         <a class="collapse-item" href="office.php?pagina=5" style="display: <?= $mostrar ?>;">Office Disponíveis</a>
-                        <a class="collapse-item" href="scanner.php?pagina=5" style="display: <?= $mostrarScanner ?>;">Scanner Disponíveis</a>
+                        <a class="collapse-item" href="scanner.php?pagina=5" style="display: <?= $mostrarScanner ?>;">Scanner</a>
                     </div>
                 </div>
 

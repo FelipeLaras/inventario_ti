@@ -58,6 +58,8 @@ MIE.modelo,
 MIE.patrimonio,
 MIE.filial AS id_filial,
 MDL.nome AS empresa,
+MDLC.nome AS locacao,
+MIE.locacao AS id_locacao,
 MIE.operadora AS id_operadora,
 MDO.nome AS operadora,
 MIE.numero,
@@ -65,6 +67,8 @@ MIE.imei_chip,
 MIE.planos_voz,
 MIE.planos_dados,
 MIE.valor,
+MIE.fornecedor_scan,
+MIE.data_fim_contrato,
 MIE.estado AS id_estado,
 MDE.nome AS estado,
 MIE.situacao AS id_situacao,
@@ -79,6 +83,8 @@ FROM
 manager_inventario_equipamento MIE
 LEFT JOIN
 manager_dropempresa MDL ON (MIE.filial = MDL.id_empresa)
+LEFT JOIN
+manager_droplocacao MDLC ON (MIE.locacao = MDLC.id_empresa)
 LEFT JOIN
 manager_dropoperadora MDO ON (MIE.operadora = MDO.id_operadora)
 LEFT JOIN

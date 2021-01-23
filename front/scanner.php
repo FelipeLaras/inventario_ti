@@ -26,7 +26,7 @@ $result = $conn->query($queryEquipamento);
     <div class="card-header py-3">
       <h6 class="m-0 font-weight-bold text-primary">
         <i class="fas fa-print"></i> Scanner
-        <a href="scanneredit.php?pagina=5" class="float-right btn btn-success" title="Novo Scanner"><i class="fas fa-plus"></i></a>
+        <a href="novoequipamento.php?pagina=5" class="float-right btn btn-success" title="Novo Scanner"><i class="fas fa-plus"></i></a>
       </h6>
     </div>
     <div class="card-body">
@@ -40,8 +40,6 @@ $result = $conn->query($queryEquipamento);
               <th>PATRIMÔNIO</th>
               <th>FORNECEDOR</th>
               <th>FIM CONTRATO</th>
-              <th>RESPONSAVEL</th>
-              <th>DEPARTAMENTO</th>
               <th>EMPRESA</th>
               <th>LOCAÇÃO</th>
               <th>STATUS</th>
@@ -56,8 +54,6 @@ $result = $conn->query($queryEquipamento);
               <th>PATRIMÔNIO</th>
               <th>FORNECEDOR</th>
               <th>FIM CONTRATO</th>
-              <th>RESPONSAVEL</th>
-              <th>DEPARTAMENTO</th>
               <th>EMPRESA</th>
               <th>LOCAÇÃO</th>
               <th>STATUS</th>
@@ -66,23 +62,28 @@ $result = $conn->query($queryEquipamento);
           </tfoot>
           <tbody class="colorTable">
             <?php
-            while ($office = $result->fetch_assoc()) {
+            while ($scanner = $result->fetch_assoc()) {
               echo '<tr>';
-              echo empty($office['versao']) ?  '<td>-</td>' :  '<td>' . $office['versao'] . '</td>';
-              echo empty($office['serial']) ?  '<td>-</td>' :  '<td>' . $office['serial'] . '</td>';
-              echo empty($office['fornecedor']) ?  '<td>-</td>' :  '<td>' . $office['fornecedor'] . '</td>';
-              echo empty($office['numero_nota']) ?  '<td>-</td>' :  '<td>' . $office['numero_nota'] . ' <a href="' . $office['caminho'] . '" class="text-info" target="_blank" title="Ver Nota"><i class="fas fa-eye"></i></a></td>';
-              echo empty($office['data_nota']) ?  '<td>-</td>' :  '<td>' . $office['data_nota'] . '</td>';
-              echo empty($office['empresa']) ?  '<td>-</td>' :  '<td>' . $office['empresa'] . '</td>';
-              echo empty($office['versao']) ?  '<td>-</td>' :  '<td>' . $office['versao'] . '</td>';
-              echo empty($office['versao']) ?  '<td>-</td>' :  '<td>' . $office['versao'] . '</td>';
-              echo empty($office['versao']) ?  '<td>-</td>' :  '<td>' . $office['versao'] . '</td>';
-              echo empty($office['versao']) ?  '<td>-</td>' :  '<td>' . $office['versao'] . '</td>';
-              echo empty($office['versao']) ?  '<td>-</td>' :  '<td>' . $office['versao'] . '</td>';
+              echo empty($scanner['situacao']) ?  '<td>-</td>' :  '<td>' . $scanner['situacao'] . '</td>';
+              echo empty($scanner['modelo']) ?  '<td>-</td>' :  '<td>' . $scanner['modelo'] . '</td>';
+              echo empty($scanner['serialnumber']) ?  '<td>-</td>' :  '<td>' . $scanner['serialnumber'] . '</td>';
+              echo empty($scanner['patrimonio']) ?  '<td>-</td>' :  '<td>' . $scanner['patrimonio'] . '</td>';
+              echo empty($scanner['fornecedor_scan']) ?  '<td>-</td>' :  '<td>' . $scanner['fornecedor_scan'] . '</td>';
+              echo empty($scanner['data_fim_contrato']) ?  '<td>-</td>' :  '<td>' . $scanner['data_fim_contrato'] . '</td>';
+              echo empty($scanner['empresa']) ?  '<td>-</td>' :  '<td>' . $scanner['empresa'] . '</td>';
+              echo empty($scanner['locacao']) ?  '<td>-</td>' :  '<td>' . $scanner['locacao'] . '</td>';
+              echo empty($scanner['status']) ?  '<td>-</td>' :  '<td>' . $scanner['status'] . '</td>';
               /*AÇÂO*/
               echo '<td>
-                      <a href="officeedit.php?pagina=5&id=' . $office['id'] . '" class="text-success menu rigtIcones" title="Editar/Visualizar"><i class="fas fa-pen"></i></a>
-                      <a class="text-success menu rigtIcones" title="Vincular a um equipamento" href="vincularoffice.php?pagina=5&id=' . $office['id_equipamento'] . '"><i class="fas fa-laptop-medical"></i></a></td>';
+                      <a href="#" class="text-success menu rigtIcones" title="Editar/Visualizar"><i class="fas fa-pen"></i></a>';
+
+              if(!empty($scanner['nome_funcionario'])){
+                echo '<a class="text-info menu rigtIcones" title="'.$scanner['nome_funcionario'].'" href="../inc/pesquisaFuncionario.php?id='.$scanner['id_funcionario'].'"><i class="fas fa-user"></i></a>';
+              }else{
+                echo '<a class="text-success menu rigtIcones" title="Vincular Funcionario" href="vincular.php?pagina=5&amp;id_equip='.$scanner['id_equipamento'].'"><i class="fas fa-user-plus"></i></a>';
+              }
+              
+              echo '</td>';
               /*FIM AÇÂO*/
               echo '</tr>';
             }

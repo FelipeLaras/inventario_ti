@@ -192,10 +192,10 @@ if (!empty($_GET['id'])) {
             <!--PLANOS CHIP / MODEM-->
             <div class="form-group">
               <label for="voz">Planos:</label><br>
-              <input type="checkbox" name="planosChip[]" value="voz" id="voz">
+              <input type="checkbox" name="planosVoz" value="VOZ" id="voz">
               <label class="form-check-label" for="voz">Voz</label><br>
 
-              <input type="checkbox" name="planosChip[]" value="dados" id="dados">
+              <input type="checkbox" name="planosDados" value="DADOS" id="dados">
               <label class="form-check-label" for="dados">Dados</label><br>
             </div>
             <!--STATUS CHIP / MODEM-->
@@ -232,7 +232,7 @@ if (!empty($_GET['id'])) {
             <!--PATRIMONIO DVR-->
             <div class="form-group">
               <label for="exampleFormControlSelect2">Patrimônio:</label>
-              <input type="text" class="form-control" name="patrimonioDVR" maxlength="15">
+              <input type="text" class="form-control" name="patrimonioDVR">
             </div>
             <!--NUMERO SERIE DVR-->
             <div class="form-group">
@@ -242,7 +242,7 @@ if (!empty($_GET['id'])) {
             <!--IP DVR-->
             <div class="form-group">
               <label for="exampleFormControlSelect2">IP:</label>
-              <input type="text" class="form-control" name="ipDVR" maxlength="11">
+              <input type="text" class="form-control" name="ipDVR">
             </div>
             <!--LOCALIZAÇÂO DVR-->
             <div class="form-group">
@@ -374,33 +374,33 @@ if (!empty($_GET['id'])) {
             <div id="alugado" style="display: none;">
               <!--FORNECEDOR-->
               <div class="form-group">
-                <label for="exampleFormControlSelect2">Fornecedor:</label>
+                <label for="fornecedorScan">Fornecedor:</label>
                 <input type="text" class="form-control" name="fornecedorScan">
               </div>
               <!--DATA FIM CONTRATO-->
               <div class="form-group">
-                <label for="exampleFormControlSelect2">Data fim contrato:</label>
+                <label for="dataFimContrato">Data fim contrato:</label>
                 <input type="text" class="form-control" name="dataFimContrato" placeholder="xx/xx/xxxx">
               </div>
             </div>
             <!--SITUAÇÂO COMPRADO Scan-->
             <div id="comprado" style="display: none;">
               <div class="form-group">
-                <label for="exampleFormControlSelect2">Número Nota:</label>
+                <label for="numero_notaScan">Número Nota:</label>
                 <div class="col-md-6 py-2">
                   <input type="text" class="form-control" name="numero_notaScan">
                 </div>
               </div>
 
               <div class="form-group">
-                <label for="exampleFormControlSelect2">Data Nota:</label>
+                <label for="data_notaScan">Data Nota:</label>
                 <div class="col-md-4 py-2">
                   <input type="text" class="form-control" name="data_notaScan" placeholder="xx/xx/xxxx">
                 </div>
               </div>
 
               <div class="form-group">
-                <label for="exampleFormControlSelect2">Nota Fiscal:</label>
+                <label for="anexoScan">Nota Fiscal:</label>
                 <div class="col-md-4 py-2">
                   <input type="file" name="anexoScan">
                 </div>

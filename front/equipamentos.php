@@ -50,7 +50,6 @@ if ($office['id_equipamento'] != NULL) {
     <div class="card-header py-3">
       <h6 class="m-0 font-weight-bold text-primary">
         <i class="fas fa-laptop"></i> Ativos
-        <a href="#" class="float-right btn btn-success" title="Novo Equipamento"><i class="fas fa-plus"></i></a>
       </h6>
     </div>
     <div class="card-body">
