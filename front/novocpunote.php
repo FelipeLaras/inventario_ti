@@ -131,7 +131,7 @@ switch ($_SESSION['tipo_equipamento']) {
           <div class="form-group">
             <label for="exampleFormControlSelect2">Dominío:</label>
             <div class="form-group col-md-3">
-              <?= $_SESSION['possuidominio'] == 0 ? '<input type="text" class="form-control text-success" name="dominio" value="OK" style="text-align: center;" disabled>' : '<input type="text" class="form-control text-danger" name="dominio" value="OFF" style="text-align: center;" disabled>' ?>
+              <?= $_SESSION['possuidominio'] == 0 ? '<input type="text" class="form-control text-success" name="dominio" value="'.$_SESSION['possuidominio'].'" style="text-align: center; display: none;" > <i class="fas fa-check-circle text-success" style="width: 175%;"> Cadastrado</i>' : '<input type="text" class="form-control text-danger" name="dominio" value="OFF" style="text-align: center; display: none; "><i class="fas fa-times-circle text-danger" style="width: 175%;"> Não cadastrado</i> ' ?>
 
             </div>
           </div>
@@ -183,7 +183,7 @@ switch ($_SESSION['tipo_equipamento']) {
           <!--Situação-->
           <div class="form-group">
             <label for="exampleFormControlSelect2">Situação:</label>
-            <select class="form-control" id="exampleFormControlSelect2" name="departamento">
+            <select class="form-control" id="exampleFormControlSelect2" name="situacao">
               <option>----------</option>
               <?php
 

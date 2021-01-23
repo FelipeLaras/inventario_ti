@@ -5,6 +5,7 @@ veja o form do campo input Patrimonio desses dois equipamentos
 */
 session_start();
 require_once('../bd/conexao.php');
+require_once('../bd/conexao_ocs.php');
 
 //DATA DE HOJE
 $dataHoje = date('d/m/Y');
@@ -77,7 +78,7 @@ switch ($_POST['tipo_equipamento']) {
             if (!empty($_POST['numero_nota'])) {
 
                 //gambiarra pois estou com preguisa....(é eu sei o sistema é novo...... tô nem ai!)
-                $updatenota = "UPDATE manager_inventario_equipamento SET numero_nota = '" . $_POST['numero_nota'] . "', data_nota = '" . $_POST['data_nota'] . "' WHERE id_equipamento = ".$id_equipamento['id_equipamento']."";
+                $updatenota = "UPDATE manager_inventario_equipamento SET numero_nota = '" . $_POST['numero_nota'] . "', data_nota = '" . $_POST['data_nota'] . "' WHERE id_equipamento = " . $id_equipamento['id_equipamento'] . "";
 
                 if (!$resultnota = $conn->query($updatenota)) {
 
@@ -215,7 +216,7 @@ switch ($_POST['tipo_equipamento']) {
             //nota fiscal
             if (!empty($_POST['numero_nota'])) {
                 //gambiarra pois estou com preguisa....(é eu sei o sistema é novo...... tô nem ai!)
-                $updatenota = "UPDATE manager_inventario_equipamento SET numero_nota = '" . $_POST['numero_nota'] . "', data_nota = '" . $_POST['data_nota'] . "' WHERE id_equipamento = ".$id_equipamento['id_equipamento']."";
+                $updatenota = "UPDATE manager_inventario_equipamento SET numero_nota = '" . $_POST['numero_nota'] . "', data_nota = '" . $_POST['data_nota'] . "' WHERE id_equipamento = " . $id_equipamento['id_equipamento'] . "";
 
                 if (!$resultnota = $conn->query($updatenota)) {
 
@@ -338,7 +339,7 @@ switch ($_POST['tipo_equipamento']) {
             if (!empty($_POST['numero_nota'])) {
 
                 //gambiarra pois estou com preguisa....(é eu sei o sistema é novo...... tô nem ai!)
-                $updatenota = "UPDATE manager_inventario_equipamento SET numero_nota = '" . $_POST['numero_nota'] . "', data_nota = '" . $_POST['data_nota'] . "' WHERE id_equipamento = ".$id_equipamento['id_equipamento']."";
+                $updatenota = "UPDATE manager_inventario_equipamento SET numero_nota = '" . $_POST['numero_nota'] . "', data_nota = '" . $_POST['data_nota'] . "' WHERE id_equipamento = " . $id_equipamento['id_equipamento'] . "";
 
                 if (!$resultnota = $conn->query($updatenota)) {
 
@@ -461,7 +462,7 @@ switch ($_POST['tipo_equipamento']) {
             if (!empty($_POST['numero_nota'])) {
 
                 //gambiarra pois estou com preguisa....(é eu sei o sistema é novo...... tô nem ai!)
-                $updatenota = "UPDATE manager_inventario_equipamento SET numero_nota = '" . $_POST['numero_nota'] . "', data_nota = '" . $_POST['data_nota'] . "' WHERE id_equipamento = ".$id_equipamento['id_equipamento']."";
+                $updatenota = "UPDATE manager_inventario_equipamento SET numero_nota = '" . $_POST['numero_nota'] . "', data_nota = '" . $_POST['data_nota'] . "' WHERE id_equipamento = " . $id_equipamento['id_equipamento'] . "";
 
                 if (!$resultnota = $conn->query($updatenota)) {
 
@@ -563,8 +564,7 @@ switch ($_POST['tipo_equipamento']) {
 
             printf("Erro[27]: %s\n", $conn->error);
             exit;
-
-        }else{
+        } else {
 
             //busca id do equipamento para usar na hora de salvar os acessorios e a nota fiscal
             $queryBusca = "SELECT max(id_equipamento) as id_equipamento FROM manager_inventario_equipamento";
@@ -728,9 +728,8 @@ switch ($_POST['tipo_equipamento']) {
 
             printf("Erro[27]: %s\n", $conn->error);
             exit;
+        } else {
 
-        }else{
-            
             //busca id do equipamento para usar na hora de salvar os acessorios e a nota fiscal
             $queryBusca = "SELECT max(id_equipamento) as id_equipamento FROM manager_inventario_equipamento";
             $resultBusca = $conn->query($queryBusca);
@@ -741,48 +740,87 @@ switch ($_POST['tipo_equipamento']) {
 
         break;
 
-        case '8':
-            # CPU...
+    case '8':
+        # CPU...
 
-            //alterando patrimonio no OCS
-            
+        //alterando patrimonio no OCS
+        $updateAcount = "UPDATE accountinfo SET TAG = '" . $_POST['patrimonio'] . "' WHERE HARDWARE_ID = '" . $_SESSION['hardware_id'] . "'";
 
+        if (!$restulAcount = $conn_ocs->query($updateAcount)) {
+            printf("Erro[28]: %s\n", $conn_ocs->error);
+            exit;
+        }
 
-
-            //equipamento
-            $insert = "INSERT INTO manager_inventario_equipamento 
+        //equipamento
+        $insert = "INSERT INTO manager_inventario_equipamento 
             (
                 usuario, 
                 tipo_equipamento, 
                 modelo,
                 patrimonio, 
                 dominio, 
-                empresa,
+                filial,
                 locacao,
                 departamento,
                 situacao,
                 status,
                 hostname,
                 ip,
+                processador,
+                hd,
+                memoria,
+                serialnumber,
+                data_criacao";
 
+        if (!empty($_POST['numero_nota'])) {
+            $insert .= ", numero_nota, data_nota";
+        }
+
+        $insert .= "
             ) 
             VALUES 
             (
                 '" . $_SESSION['id'] . "',
                 '" . $_POST['tipo_equipamento'] . "',
-                '" . $_POST['modeloDVR'] . "',
-                '" . $_POST['patrimonioDVR'] . "',
-                '" . $_POST['serieDVR'] . "',
-                '" . $_POST['ipDVR'] . "',
-                '" . $_POST['localizacaoDVR'] . "',
-                '1'
-            )";
+                '" . $_POST['modelo'] . "',
+                '" . $_POST['patrimonio'] . "',
+                '" . $_POST['dominio'] . "',
+                '" . $_POST['empresa'] . "',
+                '" . $_POST['locacao'] . "',
+                '" . $_POST['departamento'] . "',
+                '" . $_POST['situacao'] . "',
+                '" . $_POST['status'] . "',
+                '" . $_POST['hostname'] . "',
+                '" . $_POST['ip'] . "',  
+                '" . $_POST['processador'] . "',               
+                '" . $_POST['hd'] . "',                
+                '" . $_POST['memoria'] . "',                
+                '" . $_SESSION['serial_number'] . "',
+                '" . $dataHoje . "'";
+
+        if (!empty($_POST['numero_nota'])) {
+            $insert .= ", '" . $_POST['numero_nota'] . "', '" . $_POST['data_nota'] . "'";
+        }
+        $insert .= ")";
+
+        if (!$result = $conn->query($insert)) {
+            printf("Erro[29]: %s\n", $conn->error);
+            exit;
+        } else {
+
+
+            //sistema operacional
+
+            //office
+
+            //file nota
+        }
 
         break;
 
-        case '9':
-            # NOTEBOOK...
+    case '9':
+        # NOTEBOOK...
         break;
-}   
+}
 
 $conn->close();
