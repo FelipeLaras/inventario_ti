@@ -740,6 +740,49 @@ switch ($_POST['tipo_equipamento']) {
         }
 
         break;
-}
+
+        case '8':
+            # CPU...
+
+            //alterando patrimonio no OCS
+            
+
+
+
+            //equipamento
+            $insert = "INSERT INTO manager_inventario_equipamento 
+            (
+                usuario, 
+                tipo_equipamento, 
+                modelo,
+                patrimonio, 
+                dominio, 
+                empresa,
+                locacao,
+                departamento,
+                situacao,
+                status,
+                hostname,
+                ip,
+
+            ) 
+            VALUES 
+            (
+                '" . $_SESSION['id'] . "',
+                '" . $_POST['tipo_equipamento'] . "',
+                '" . $_POST['modeloDVR'] . "',
+                '" . $_POST['patrimonioDVR'] . "',
+                '" . $_POST['serieDVR'] . "',
+                '" . $_POST['ipDVR'] . "',
+                '" . $_POST['localizacaoDVR'] . "',
+                '1'
+            )";
+
+        break;
+
+        case '9':
+            # NOTEBOOK...
+        break;
+}   
 
 $conn->close();

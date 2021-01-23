@@ -15,7 +15,11 @@ function tipoEquipamento() {
 
     document.getElementById("dvr").style.display = "none";
 
-    document.getElementById("scanner").style.display = "none";
+    document.getElementById("scanner").style.display = "none";    
+
+    document.getElementById("cpuNotebook").style.display = "none";    
+
+    document.getElementById("salvarButton").style.display = "block";   
 
   } else if (optvalue == 3 || optvalue == 4) {
 
@@ -29,7 +33,11 @@ function tipoEquipamento() {
 
     document.getElementById("dvr").style.display = "none";
 
-    document.getElementById("scanner").style.display = "none";
+    document.getElementById("scanner").style.display = "none";    
+
+    document.getElementById("cpuNotebook").style.display = "none";    
+
+    document.getElementById("salvarButton").style.display = "block";
 
   } else if (optvalue == 5) {
 
@@ -43,7 +51,11 @@ function tipoEquipamento() {
 
     document.getElementById("dvr").style.display = "none";
 
-    document.getElementById("scanner").style.display = "none";
+    document.getElementById("scanner").style.display = "none";    
+
+    document.getElementById("cpuNotebook").style.display = "none";     
+
+    document.getElementById("salvarButton").style.display = "block";
 
   }else if (optvalue == 8 || optvalue == 9) {
 

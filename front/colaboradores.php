@@ -34,7 +34,7 @@ $resultColaborador = $conn->query($queryColaborador);
   <h1 class="text-xs mb-6 text-gray-800">
     <a href="front.php?pagina=1"><i class="fas fa-home"></i> Home</a> /
     <i class="fas fa-users"></i> Colaboradores
-    <span class="float-rigth"><a href="colaboradores.php?pagina=3" id="atualiz"><i class="fas fa-sync-alt"></i> Mostrar todos!</a></span>
+    <span class="float-rigth"><a href="colaboradores.php?pagina=3" id="atualiz"><i class="fas fa-sync-alt"></i> Atualizar!</a></span>
   </h1>
   <hr />
   <div class="d-sm-flex align-items-center justify-content-between mb-4">

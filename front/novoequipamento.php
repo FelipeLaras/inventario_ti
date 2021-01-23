@@ -462,14 +462,14 @@ if (!empty($_GET['id'])) {
 
         <!--CPU / NOTEBOOK-->
         <div id="cpuNotebook" style="display: none;">
-          <form action="#" method="POST" id="cpuNote">
-            <!--* VALOR CELULAR / TABLET-->
+          <form action="../inc/pesquisaocs.php" method="POST" id="cpuNote" autocomplete="off">
+            <!--* VALOR CELULAR / NOTEBOOK-->
             <div class="form-group">
               <label for="exampleFormControlSelect2">Patrimônio:</label>
               <div class="input-group-append">
 
                 <div class="col-md-6 py-2">
-                  <input type="text" class="form-control iconeAjustarDireita" name="valor">
+                  <input type="text" class="form-control iconeAjustarDireita" name="patimonioEquipamento">
                   <button class="btn btn-primary fajusteDireita" type="submit" for="cpuNote">
                     <i class="fas fa-fw fa-search"></i>
                   </button>
