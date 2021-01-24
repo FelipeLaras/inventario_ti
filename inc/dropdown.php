@@ -36,7 +36,7 @@ $queryAcessorios = "SELECT id_acessorio AS id, nome FROM manager_dropacessorios 
 $queryOperadora = "SELECT id_operadora AS id, nome FROM manager_dropoperadora WHERE deletar = 0";
 
 //Office
-$queryListOffice = "SELECT id, nome FROM manager_dropoffice WHERE deletar = 0 ORDER BY nome ASC";
+$queryListOffice = "SELECT id, nome FROM manager_dropoffice WHERE deletar = 0";
 
 //Windows
 $queryWindows = "SELECT id, nome FROM manager_dropsistemaoperacional WHERE deletar = 0";

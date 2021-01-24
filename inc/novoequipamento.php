@@ -770,13 +770,7 @@ switch ($_POST['tipo_equipamento']) {
                 hd,
                 memoria,
                 serialnumber,
-                data_criacao";
-
-        if (!empty($_POST['numero_nota'])) {
-            $insert .= ", numero_nota, data_nota";
-        }
-
-        $insert .= "
+                data_criacao
             ) 
             VALUES 
             (
@@ -796,30 +790,304 @@ switch ($_POST['tipo_equipamento']) {
                 '" . $_POST['hd'] . "',                
                 '" . $_POST['memoria'] . "',                
                 '" . $_SESSION['serial_number'] . "',
-                '" . $dataHoje . "'";
-
-        if (!empty($_POST['numero_nota'])) {
-            $insert .= ", '" . $_POST['numero_nota'] . "', '" . $_POST['data_nota'] . "'";
-        }
-        $insert .= ")";
+                '" . $dataHoje . "')";
 
         if (!$result = $conn->query($insert)) {
             printf("Erro[29]: %s\n", $conn->error);
             exit;
         } else {
 
+            //busca id do equipamento para usar na hora de salvar os demais abaixos
+            $queryBusca = "SELECT max(id_equipamento) as id_equipamento FROM manager_inventario_equipamento";
+            $resultBusca = $conn->query($queryBusca);
+            $id_equipamento = $resultBusca->fetch_assoc();
 
-            //sistema operacional
+            //SUBINDO O ARQ PARA O SERVIDOR
+            if ($_FILES['anexo'] != NULL) {
+                $tipo_file = $_FILES['anexo']['type']; //Pegando qual é a extensão do arquivo
+                $nome_db = $_FILES['anexo']['name'];
+                $caminho = "../documentos/notas/" . $_FILES['anexo']['name']; //caminho onde será salvo o FILE
+                $caminho_db = "../documentos/notas/" . $_FILES['anexo']['name']; //pasta onde está o FILE para salvar no Bando de dados
 
-            //office
+                /*VALIDAÇÃO DO FILE*/
+                $sql_file = "SELECT type FROM manager_file_type WHERE type LIKE '" . $tipo_file . "'"; //query de validação 
 
-            //file nota
+                $result =  $conn->query($sql_file); //aplicando a query
+
+                if ($tipo_file != NULL) {
+                    /*TRABALHAMDO COM O RESULTADO DA VALIDAÇÃO*/
+                    if (!$row = $result->fetch_assoc()) { //se é arquivo valido       
+                        printf('Erro[30]: %s\n Arquivo Invalido! - POR FAVOR INFORMAR UM ARQUIVO NO FORMATO: <span style="color: red">PDF</span><br />');
+                        exit;
+                    } else {
+                        if (move_uploaded_file($_FILES['anexo']['tmp_name'], $caminho)) { //aplicando o salvamento
+                            echo "<span style='color: green'>SUCESSO: </span>Arquivo enviado para = " . $caminho;
+                        } else {
+                            echo "Erro[31]: Arquivo não foi enviado! - CONTATO O ADMINISTRADOR DO SISTEMA<br />";
+                            exit;
+                        } //se caso não salvar vai mostrar o erro!
+                    }
+                }
+
+                //sistema operacional
+                $insertSO = "INSERT INTO manager_sistema_operacional 
+            (
+                id_equipamento, 
+                locacao, 
+                empresa,
+                versao, 
+                serial, 
+                fornecedor,
+                numero_nota,
+                data_nota,
+                file_nota,
+                file_nota_nome
+            ) 
+            VALUES 
+            (
+                '" . $id_equipamento['id_equipamento'] . "',
+                '" . $_POST['locacao'] . "',
+                '" . $_POST['empresa'] . "',
+                '" . $_POST['versao'] . "',
+                '" . $_POST['chaveProduto'] . "',
+                '" . $_POST['fornecedor'] . "',
+                '" . $_POST['numero_nota'] . "',
+                '" . $_POST['data_nota'] . "',
+                '" . $caminho_db . "',
+                '" . $nome_db . "')";
+
+                if (!$restulSO = $conn->query($insertSO)) {
+                    printf("Erro[32]: %s\n", $conn->error);
+                    exit;
+                }
+            } else {
+
+                //sistema operacional
+                $insertSO = "INSERT INTO manager_sistema_operacional 
+                (
+                    id_equipamento, 
+                    locacao, 
+                    empresa,
+                    versao, 
+                    serial
+                ) 
+                VALUES 
+                (
+                    '" . $id_equipamento['id_equipamento'] . "',
+                    '" . $_POST['locacao'] . "',
+                    '" . $_POST['empresa'] . "',
+                    '" . $_POST['versao'] . "',
+                    '" . $_POST['chaveProduto'] . "')";
+
+                if (!$restulSO = $conn->query($insertSO)) {
+                    printf("Erro[33]: %s\n", $conn->error);
+                    exit;
+                }
+            }
+
+            //OFFICE
+            $insertSO = "INSERT INTO manager_office 
+                (
+                    id_equipamento, 
+                    locacao, 
+                    empresa,
+                    versao, 
+                    serial
+                ) 
+                VALUES 
+                (
+                    '" . $id_equipamento['id_equipamento'] . "',
+                    '" . $_POST['locacao'] . "',
+                    '" . $_POST['empresa'] . "',
+                    '" . $_POST['versao'] . "',
+                    '" . $_POST['chaveProduto'] . "')";
+
+                if (!$restulSO = $conn->query($insertSO)) {
+                    printf("Erro[34]: %s\n", $conn->error);
+                    exit;
+                }
+                
+            //Salvo com sucesso
+            header('location: editequipamento.php?pagina=5&id_equip=' . $id_equipamento['id_equipamento'] . '');
+
+
         }
 
         break;
 
     case '9':
         # NOTEBOOK...
+
+        //alterando patrimonio no OCS
+        $updateAcount = "UPDATE accountinfo SET TAG = '" . $_POST['patrimonio'] . "' WHERE HARDWARE_ID = '" . $_SESSION['hardware_id'] . "'";
+
+        if (!$restulAcount = $conn_ocs->query($updateAcount)) {
+            printf("Erro[28]: %s\n", $conn_ocs->error);
+            exit;
+        }
+
+        //equipamento
+        $insert = "INSERT INTO manager_inventario_equipamento 
+            (
+                usuario, 
+                tipo_equipamento, 
+                modelo,
+                patrimonio, 
+                dominio, 
+                filial,
+                locacao,
+                departamento,
+                situacao,
+                status,
+                hostname,
+                ip,
+                processador,
+                hd,
+                memoria,
+                serialnumber,
+                data_criacao
+            ) 
+            VALUES 
+            (
+                '" . $_SESSION['id'] . "',
+                '" . $_POST['tipo_equipamento'] . "',
+                '" . $_POST['modelo'] . "',
+                '" . $_POST['patrimonio'] . "',
+                '" . $_POST['dominio'] . "',
+                '" . $_POST['empresa'] . "',
+                '" . $_POST['locacao'] . "',
+                '" . $_POST['departamento'] . "',
+                '" . $_POST['situacao'] . "',
+                '" . $_POST['status'] . "',
+                '" . $_POST['hostname'] . "',
+                '" . $_POST['ip'] . "',  
+                '" . $_POST['processador'] . "',               
+                '" . $_POST['hd'] . "',                
+                '" . $_POST['memoria'] . "',                
+                '" . $_SESSION['serial_number'] . "',
+                '" . $dataHoje . "')";
+
+        if (!$result = $conn->query($insert)) {
+            printf("Erro[29]: %s\n", $conn->error);
+            exit;
+        } else {
+
+            //busca id do equipamento para usar na hora de salvar os demais abaixos
+            $queryBusca = "SELECT max(id_equipamento) as id_equipamento FROM manager_inventario_equipamento";
+            $resultBusca = $conn->query($queryBusca);
+            $id_equipamento = $resultBusca->fetch_assoc();
+
+            //SUBINDO O ARQ PARA O SERVIDOR
+            if ($_FILES['anexo'] != NULL) {
+                $tipo_file = $_FILES['anexo']['type']; //Pegando qual é a extensão do arquivo
+                $nome_db = $_FILES['anexo']['name'];
+                $caminho = "../documentos/notas/" . $_FILES['anexo']['name']; //caminho onde será salvo o FILE
+                $caminho_db = "../documentos/notas/" . $_FILES['anexo']['name']; //pasta onde está o FILE para salvar no Bando de dados
+
+                /*VALIDAÇÃO DO FILE*/
+                $sql_file = "SELECT type FROM manager_file_type WHERE type LIKE '" . $tipo_file . "'"; //query de validação 
+
+                $result =  $conn->query($sql_file); //aplicando a query
+
+                if ($tipo_file != NULL) {
+                    /*TRABALHAMDO COM O RESULTADO DA VALIDAÇÃO*/
+                    if (!$row = $result->fetch_assoc()) { //se é arquivo valido       
+                        printf('Erro[30]: %s\n Arquivo Invalido! - POR FAVOR INFORMAR UM ARQUIVO NO FORMATO: <span style="color: red">PDF</span><br />');
+                        exit;
+                    } else {
+                        if (move_uploaded_file($_FILES['anexo']['tmp_name'], $caminho)) { //aplicando o salvamento
+                            echo "<span style='color: green'>SUCESSO: </span>Arquivo enviado para = " . $caminho;
+                        } else {
+                            echo "Erro[31]: Arquivo não foi enviado! - CONTATO O ADMINISTRADOR DO SISTEMA<br />";
+                            exit;
+                        } //se caso não salvar vai mostrar o erro!
+                    }
+                }
+
+                //sistema operacional
+                $insertSO = "INSERT INTO manager_sistema_operacional 
+            (
+                id_equipamento, 
+                locacao, 
+                empresa,
+                versao, 
+                serial, 
+                fornecedor,
+                numero_nota,
+                data_nota,
+                file_nota,
+                file_nota_nome
+            ) 
+            VALUES 
+            (
+                '" . $id_equipamento['id_equipamento'] . "',
+                '" . $_POST['locacao'] . "',
+                '" . $_POST['empresa'] . "',
+                '" . $_POST['versao'] . "',
+                '" . $_POST['chaveProduto'] . "',
+                '" . $_POST['fornecedor'] . "',
+                '" . $_POST['numero_nota'] . "',
+                '" . $_POST['data_nota'] . "',
+                '" . $caminho_db . "',
+                '" . $nome_db . "')";
+
+                if (!$restulSO = $conn->query($insertSO)) {
+                    printf("Erro[32]: %s\n", $conn->error);
+                    exit;
+                }
+            } else {
+
+                //sistema operacional
+                $insertSO = "INSERT INTO manager_sistema_operacional 
+                (
+                    id_equipamento, 
+                    locacao, 
+                    empresa,
+                    versao, 
+                    serial
+                ) 
+                VALUES 
+                (
+                    '" . $id_equipamento['id_equipamento'] . "',
+                    '" . $_POST['locacao'] . "',
+                    '" . $_POST['empresa'] . "',
+                    '" . $_POST['versao'] . "',
+                    '" . $_POST['chaveProduto'] . "')";
+
+                if (!$restulSO = $conn->query($insertSO)) {
+                    printf("Erro[33]: %s\n", $conn->error);
+                    exit;
+                }
+            }
+
+            //OFFICE
+            $insertSO = "INSERT INTO manager_office 
+                (
+                    id_equipamento, 
+                    locacao, 
+                    empresa,
+                    versao, 
+                    serial
+                ) 
+                VALUES 
+                (
+                    '" . $id_equipamento['id_equipamento'] . "',
+                    '" . $_POST['locacao'] . "',
+                    '" . $_POST['empresa'] . "',
+                    '" . $_POST['versao'] . "',
+                    '" . $_POST['chaveProduto'] . "')";
+
+                if (!$restulSO = $conn->query($insertSO)) {
+                    printf("Erro[34]: %s\n", $conn->error);
+                    exit;
+                }
+                
+            //Salvo com sucesso
+            header('location: editequipamento.php?pagina=5&id_equip=' . $id_equipamento['id_equipamento'] . '');
+
+
+        }
+
         break;
 }
 

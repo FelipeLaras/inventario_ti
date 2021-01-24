@@ -131,7 +131,7 @@ switch ($_SESSION['tipo_equipamento']) {
           <div class="form-group">
             <label for="exampleFormControlSelect2">Dominío:</label>
             <div class="form-group col-md-3">
-              <?= $_SESSION['possuidominio'] == 0 ? '<input type="text" class="form-control text-success" name="dominio" value="'.$_SESSION['possuidominio'].'" style="text-align: center; display: none;" > <i class="fas fa-check-circle text-success" style="width: 175%;"> Cadastrado</i>' : '<input type="text" class="form-control text-danger" name="dominio" value="OFF" style="text-align: center; display: none; "><i class="fas fa-times-circle text-danger" style="width: 175%;"> Não cadastrado</i> ' ?>
+              <?= $_SESSION['possuidominio'] == 0 ? '<input type="text" class="form-control text-success" name="dominio" value="' . $_SESSION['possuidominio'] . '" style="text-align: center; display: none;" > <i class="fas fa-check-circle text-success" style="width: 175%;"> Cadastrado</i>' : '<input type="text" class="form-control text-danger" name="dominio" value="OFF" style="text-align: center; display: none; "><i class="fas fa-times-circle text-danger" style="width: 175%;"> Não cadastrado</i> ' ?>
 
             </div>
           </div>
@@ -260,20 +260,26 @@ switch ($_SESSION['tipo_equipamento']) {
 
             <div id='notafiscal' style="display: none;">
               <hr>
+              <!--FORNECEDOR-->
+              <div class="form-group">
+                <label for="exampleFormControlSelect2">Fornecedor:</label>
+                <input type="text" class="form-control" name="fornecedor">
+              </div>
+              <!--NUMERO NOTA-->
               <div class="form-group">
                 <label for="exampleFormControlSelect2">Número Nota:</label>
                 <div class="col-md-6 py-2">
                   <input type="text" class="form-control" name="numero_nota">
                 </div>
               </div>
-
+              <!--DATA NOTA-->
               <div class="form-group">
                 <label for="exampleFormControlSelect2">Data Nota:</label>
                 <div class="col-md-4 py-2">
                   <input type="text" class="form-control" name="data_nota" placeholder="xx/xx/xxxx">
                 </div>
               </div>
-
+              <!--FILE NOTA-->
               <div class="form-group">
                 <label for="exampleFormControlSelect2">Nota Fiscal:</label>
                 <div class="col-md-4 py-2">
@@ -289,12 +295,35 @@ switch ($_SESSION['tipo_equipamento']) {
           <!--VERSÃO-->
           <div class="form-group">
             <label for="exampleFormControlSelect2">Versão:</label>
-            <input type="text" class="form-control" name="serial_number" value="<?= $_SESSION['sistema_operacional'] ?>">
+            <select class="form-control" id="exampleFormControlSelect2" name="versao" required>
+              <?php
+
+              $queryWindows  .= " AND nome = '".$_SESSION['sistema_operacional']."'"; 
+              $resultWindows  = $conn->query($queryWindows);
+              $windows = $resultWindows->fetch_assoc();
+
+              if(!empty($windows['id'])){
+                echo '<option value="' . $windows['id'] . '">' . $windows['nome']. '</option>';
+              }else{
+
+                echo '<option value="">----------</option>';
+
+                $query = "SELECT id, nome FROM manager_dropsistemaoperacional WHERE deletar = 0";
+                
+                $result  = $conn->query($query);
+
+                while($so = $result->fetch_assoc()){
+                  echo '<option value="' . $so['id'] . '">' . $so['nome']. '</option>';
+                }
+
+              }
+              ?>
+            </select>
           </div>
           <!--SERIAL-->
           <div class="form-group">
             <label for="exampleFormControlSelect2">Chave do produto:</label>
-            <input type="text" class="form-control" name="serial_number" value="<?= $_SESSION['chave_windows'] ?>">
+            <input type="text" class="form-control" name="chaveProduto" value="<?= $_SESSION['chave_windows'] ?>">
           </div>
 
           <!--OFFICE-->
@@ -306,7 +335,30 @@ switch ($_SESSION['tipo_equipamento']) {
             <!--VERSÃO-->
             <div class="form-group">
               <label for="exampleFormControlSelect2">Versão:</label>
-              <input type="text" class="form-control" name="serial_number" value="<?= $_SESSION['office'] ?>">
+              <select class="form-control" id="exampleFormControlSelect2" name="versao" required>
+              <?php
+
+              $queryListOffice  .= " AND nome = '".$_SESSION['office']."' ORDER BY nome ASC"; 
+              $resultOffice  = $conn->query($queryListOffice);
+              $office = $resultOffice->fetch_assoc();
+
+              if(!empty($office['id'])){
+                echo '<option value="' . $office['id'] . '">' . $office['nome']. '</option>';
+              }else{
+
+                echo '<option value="">----------</option>';
+
+                $queryOffice = "SELECT id, nome FROM manager_dropoffice WHERE deletar = 0 ORDER BY nome ASC";
+                
+                $resultOf  = $conn->query($queryOffice);
+
+                while($of = $resultOf->fetch_assoc()){
+                  echo '<option value="' . $of['id'] . '">' . $of['nome']. '</option>';
+                }
+
+              }
+              ?>
+              </select>
             </div>
             <!--SERIAL-->
             <div class="form-group">
