@@ -75,7 +75,7 @@ $result = $conn->query($queryEquipamento);
               echo empty($scanner['status']) ?  '<td>-</td>' :  '<td>' . $scanner['status'] . '</td>';
               /*AÇÂO*/
               echo '<td>
-                      <a href="#" class="text-success menu rigtIcones" title="Editar/Visualizar"><i class="fas fa-pen"></i></a>';
+                      <a href="editequipamento.php?pagina=5&id_equip=' . $scanner['id_equipamento'] . '" class="text-success menu rigtIcones" title="Editar/Visualizar"><i class="fas fa-pen"></i></a>';
 
               if(!empty($scanner['nome_funcionario'])){
                 echo '<a class="text-info menu rigtIcones" title="'.$scanner['nome_funcionario'].'" href="../inc/pesquisaFuncionario.php?id='.$scanner['id_funcionario'].'"><i class="fas fa-user"></i></a>';

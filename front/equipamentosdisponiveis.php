@@ -221,7 +221,7 @@ if ($office['id_equipamento'] != NULL) {
                 echo $equipamento['situacao'] != NULL ?  '<td>' . $equipamento['situacao'] . '</td>' :  '<td>-</td>';
                 /*AÇÂO*/
                 echo '<td>
-                        <a href="#" class="text-success menu rigtIcones" title="Editar/Visualizar"><i class="fas fa-pen"></i></a>
+                        <a href="editequipamento.php?pagina=5&id_equip=' . $equipamento['id_equipamento'] . '" class="text-success menu rigtIcones" title="Editar/Visualizar"><i class="fas fa-pen"></i></a>
                         <a class="text-success menu rigtIcones" title="Vincular" href="vincular.php?pagina=5&id_equip=' . $equipamento['id_equipamento'] . '"><i class="fas fa-user-plus"></i></a>
                       </td>';
                 /*FIM AÇÂO*/
@@ -248,7 +248,7 @@ if ($office['id_equipamento'] != NULL) {
 
                 /*AÇÂO*/
                 echo '<td>
-                        <a href="#" class="text-success menu rigtIcones" title="Editar/Visualizar"><i class="fas fa-pen"></i></a>
+                        <a href="editequipamento.php?pagina=5&id_equip=' . $equipamento['id_equipamento'] . '" class="text-success menu rigtIcones" title="Editar/Visualizar"><i class="fas fa-pen"></i></a>
                         <a class="text-success menu rigtIcones" title="Vincular" href="vincular.php?pagina=5&id_equip=' . $equipamento['id_equipamento'] . '"><i class="fas fa-user-plus"></i></a>
                       </td>';
                 /*FIM AÇÂO*/
@@ -279,7 +279,7 @@ if ($office['id_equipamento'] != NULL) {
                 }
                 /*AÇÂO*/
                 echo '<td>
-                        <a href="#" class="text-success menu rigtIcones" title="Editar/Visualizar"><i class="fas fa-pen"></i></a>
+                        <a href="editequipamento.php?pagina=5&id_equip=' . $equipamento['id_equipamento'] . '" class="text-success menu rigtIcones" title="Editar/Visualizar"><i class="fas fa-pen"></i></a>
                         <a class="text-success menu rigtIcones" title="Vincular" href="vincular.php?pagina=5&id_equip=' . $equipamento['id_equipamento'] . '"><i class="fas fa-user-plus"></i></a>
                       </td>';
                 /*FIM AÇÂO*/

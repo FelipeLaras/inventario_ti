@@ -147,7 +147,7 @@ switch ($_POST['tipo_equipamento']) {
                 }
             }
 
-            header('location: editequipamento.php?pagina=5&id_equip=' . $id_equipamento['id_equipamento'] . '');
+            header('location: ../front/editequipamento.php?pagina=5&id_equip=' . $id_equipamento['id_equipamento'] . '');
         }
         break;
 
@@ -284,7 +284,7 @@ switch ($_POST['tipo_equipamento']) {
                 }
             }
 
-            header('location: editequipamento.php?pagina=5&id_equip=' . $id_equipamento['id_equipamento'] . '');
+            header('location: ../front/editequipamento.php?pagina=5&id_equip=' . $id_equipamento['id_equipamento'] . '');
         }
         break;
     case '3':
@@ -407,7 +407,7 @@ switch ($_POST['tipo_equipamento']) {
                 }
             }
 
-            header('location: editequipamento.php?pagina=5&id_equip=' . $id_equipamento['id_equipamento'] . '');
+            header('location: ../front/editequipamento.php?pagina=5&id_equip=' . $id_equipamento['id_equipamento'] . '');
         }
         break;
     case '4':
@@ -530,7 +530,7 @@ switch ($_POST['tipo_equipamento']) {
                 }
             }
 
-            header('location: editequipamento.php?pagina=5&id_equip=' . $id_equipamento['id_equipamento'] . '');
+            header('location: ../front/editequipamento.php?pagina=5&id_equip=' . $id_equipamento['id_equipamento'] . '');
         }
 
 
@@ -571,7 +571,7 @@ switch ($_POST['tipo_equipamento']) {
             $resultBusca = $conn->query($queryBusca);
             $id_equipamento = $resultBusca->fetch_assoc();
 
-            header('location: editequipamento.php?pagina=5&id_equip=' . $id_equipamento['id_equipamento'] . '');
+            header('location: ../front/editequipamento.php?pagina=5&id_equip=' . $id_equipamento['id_equipamento'] . '');
         }
 
         break;
@@ -693,7 +693,7 @@ switch ($_POST['tipo_equipamento']) {
                 }
             }
 
-            header('location: editequipamento.php?pagina=5&id_equip=' . $id_equipamento['id_equipamento'] . '');
+            header('location: ../front/editequipamento.php?pagina=5&id_equip=' . $id_equipamento['id_equipamento'] . '');
         }
 
         break;
@@ -735,7 +735,7 @@ switch ($_POST['tipo_equipamento']) {
             $resultBusca = $conn->query($queryBusca);
             $id_equipamento = $resultBusca->fetch_assoc();
 
-            header('location: editequipamento.php?pagina=5&id_equip=' . $id_equipamento['id_equipamento'] . '');
+            header('location: ../front/editequipamento.php?pagina=5&id_equip=' . $id_equipamento['id_equipamento'] . '');
         }
 
         break;
@@ -902,15 +902,13 @@ switch ($_POST['tipo_equipamento']) {
                     '" . $_POST['versao'] . "',
                     '" . $_POST['chaveProduto'] . "')";
 
-                if (!$restulSO = $conn->query($insertSO)) {
-                    printf("Erro[34]: %s\n", $conn->error);
-                    exit;
-                }
-                
+            if (!$restulSO = $conn->query($insertSO)) {
+                printf("Erro[34]: %s\n", $conn->error);
+                exit;
+            }
+
             //Salvo com sucesso
-            header('location: editequipamento.php?pagina=5&id_equip=' . $id_equipamento['id_equipamento'] . '');
-
-
+            header('location: ../front/editequipamento.php?pagina=5&id_equip=' . $id_equipamento['id_equipamento'] . '');
         }
 
         break;
@@ -1077,15 +1075,13 @@ switch ($_POST['tipo_equipamento']) {
                     '" . $_POST['versao'] . "',
                     '" . $_POST['chaveProduto'] . "')";
 
-                if (!$restulSO = $conn->query($insertSO)) {
-                    printf("Erro[34]: %s\n", $conn->error);
-                    exit;
-                }
-                
+            if (!$restulSO = $conn->query($insertSO)) {
+                printf("Erro[34]: %s\n", $conn->error);
+                exit;
+            }
+
             //Salvo com sucesso
-            header('location: editequipamento.php?pagina=5&id_equip=' . $id_equipamento['id_equipamento'] . '');
-
-
+            header('location: ../front/editequipamento.php?pagina=5&id_equip=' . $id_equipamento['id_equipamento'] . '');
         }
 
         break;

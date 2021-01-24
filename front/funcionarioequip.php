@@ -223,7 +223,7 @@ $result = $conn->query($queryEquipamento);
                 echo $equipamento['termo'] != NULL ?  '<td>' . $termo . '</td>' :  '<td>-</td>';
                 /*AÇÂO*/
                 echo '<td>                  
-                        <a href="#" class="text-success menu rigtIcones" title="Editar/Visualizar"><i class="fas fa-pen"></i></a>
+                        <a href="editequipamento.php?pagina=5&id_equip=' . $equipamento['id_equipamento'] . '" class="text-success menu rigtIcones" title="Editar/Visualizar"><i class="fas fa-pen"></i></a>
                         <a ' . $liberado . ' title="Remover deste usuário"><i class="fas fa-times"></i></a>
                       </td>';
                 /*FIM AÇÂO*/
@@ -248,7 +248,7 @@ $result = $conn->query($queryEquipamento);
                 }
                 /*AÇÂO*/
                 echo '<td>                  
-                        <a href="#" class="text-success menu rigtIcones" title="Editar/Visualizar"><i class="fas fa-pen"></i></a>
+                        <a href="editequipamento.php?pagina=5&id_equip=' . $equipamento['id_equipamento'] . '" class="text-success menu rigtIcones" title="Editar/Visualizar"><i class="fas fa-pen"></i></a>
                         <a ' . $liberado . ' title="Remover deste usuário"><i class="fas fa-times"></i></a>
                       </td>';
                 /*FIM AÇÂO*/
@@ -280,7 +280,7 @@ $result = $conn->query($queryEquipamento);
                 }
                   /*AÇÂO*/
                 echo '<td>                  
-                        <a href="#" class="text-success menu rigtIcones" title="Editar/Visualizar"><i class="fas fa-pen"></i></a>
+                        <a href="editequipamento.php?pagina=5&id_equip=' . $equipamento['id_equipamento'] . '" class="text-success menu rigtIcones" title="Editar/Visualizar"><i class="fas fa-pen"></i></a>
                         <a ' . $liberado . ' title="Remover deste usuário"><i class="fas fa-times"></i></a>
                       </td>';
                 /*FIM AÇÂO*/

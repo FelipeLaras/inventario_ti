@@ -235,7 +235,7 @@ if ($office['id_equipamento'] != NULL) {
                 echo $equipamento['situacao'] != NULL ?  '<td>' . $equipamento['situacao'] . '</td>' :  '<td>-</td>';
                 /*AÇÂO*/
                 echo '<td>                  
-                        <a href="#" class="text-success menu rigtIcones" title="Editar/Visualizar"><i class="fas fa-pen"></i></a>';
+                        <a href="editequipamento.php?pagina=5&id_equip=' . $equipamento['id_equipamento'] . '" class="text-success menu rigtIcones" title="Editar/Visualizar"><i class="fas fa-pen"></i></a>';
 
                 if (isset($equipamento['id_funcionario'])) {
                   echo '<a href="../inc/pesquisaFuncionario.php?id=' . $equipamento['id_funcionario'] . '" class="text-info menu rigtIcones" title="' . $equipamento['nome_funcionario'] . '"><i class="fas fa-user"></i></a>
@@ -269,7 +269,7 @@ if ($office['id_equipamento'] != NULL) {
 
                 /*AÇÂO*/
                 echo '<td>                  
-                        <a href="#" class="text-success menu rigtIcones" title="Editar/Visualizar"><i class="fas fa-pen"></i></a>';
+                        <a href="editequipamento.php?pagina=5&id_equip=' . $equipamento['id_equipamento'] . '" class="text-success menu rigtIcones" title="Editar/Visualizar"><i class="fas fa-pen"></i></a>';
 
                 if (isset($equipamento['id_funcionario'])) {
                   echo '<a href="../inc/pesquisaFuncionario.php?id=' . $equipamento['id_funcionario'] . '" class="text-info menu rigtIcones" title="' . $equipamento['nome_funcionario'] . '"><i class="fas fa-user"></i></a>
@@ -307,7 +307,7 @@ if ($office['id_equipamento'] != NULL) {
                 }
                 /*AÇÂO*/
                 echo '<td>                  
-                        <a href="#" class="text-success menu rigtIcones" title="Editar/Visualizar"><i class="fas fa-pen"></i></a>';
+                        <a href="editequipamento.php?pagina=5&id_equip=' . $equipamento['id_equipamento'] . '" class="text-success menu rigtIcones" title="Editar/Visualizar"><i class="fas fa-pen"></i></a>';
 
                 if (isset($equipamento['id_funcionario'])) {
                   echo '<a href="../inc/pesquisaFuncionario.php?id=' . $equipamento['id_funcionario'] . '" class="text-info menu rigtIcones" title="' . $equipamento['nome_funcionario'] . '"><i class="fas fa-user"></i></a>
