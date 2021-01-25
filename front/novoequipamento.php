@@ -16,6 +16,10 @@ if (!empty($_GET['id'])) {
   $office = $resultOffice->fetch_assoc();
 }
 
+//FUNCIONÁRIO
+$queryColaborador .= " WHERE MIF.deletar = 0";
+$resultFuncionario = $conn->query($queryColaborador);
+
 ?>
 <!-- Begin Page Content -->
 <div class="container-fluid py-4">
@@ -26,17 +30,67 @@ if (!empty($_GET['id'])) {
     <i class="fas fa-plus"></i> Novo Equipamento
   </h1>
   <hr>
-
   <div class="col-lg-6 left">
     <!-- Circle Buttons -->
     <div class="card shadow mb-4">
       <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Só Equipamento</h6>
+        <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-plus"></i> Novo Equipamento</h6>
       </div>
       <div class="card-body">
         <form action="../inc/novoequipamento.php" method="POST" enctype="multipart/form-data" autocomplete="off">
 
           <div class="form-group">
+            <div>
+              <h1 class="h6 mb-2 text-gray-800"> Atribuir um colaborador ?</h1>
+              <div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="todosFuncionarios" id="simFun" value="1" onclick="funOne()">
+                  <label class="form-check-label" for="simFun">
+                    Sim
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input " type="radio" name="todosFuncionarios" id="naoFun" value="2" onclick="funTwo()" checked>
+                  <label class="form-check-label" for="naoFun">
+                    Não
+                  </label>
+                </div>
+                <br>
+                <!--MOSTRAR TABELA DOS EQUIPAMENTOS-->
+                <script>
+                  function funTwo() {
+                    document.getElementById("tabelaFun").style.display = "none";
+                  }
+
+                  function funOne() {
+                    document.getElementById("tabelaFun").style.display = "block";
+                  }
+                </script>
+              </div>
+            </div>
+            <!-- DataTales Example -->
+            <div id="tabelaFun" style="display: none;">
+              <h1 class="h6 mb-2 text-gray-800"> Escolha o colaborador:</h1>
+              <div class="col-md-8 py-4 input-group">
+                <select name="newfun" class="form-control">
+                  <option value="">---</option>
+                  <?php
+
+                  while ($funcionario = $resultFuncionario->fetch_assoc()) {
+                    echo '
+                <option value="' . $funcionario['id_funcionario'] . '">' . $funcionario['nome'] . '</option>';
+                  }
+                  ?>
+                </select>
+                <div class="input-group-append">
+                  <a class="btn btn-success btn-pen-square btn-sm float-rigth" title="Novo Usuário" href="#" data-toggle="modal" data-target="#adicionar">
+                    <i class="fas fa-user-plus fa-sm"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <hr>
+            <!--EQUIPAMENTO-->
             <label for="versao">Tipo Equipamento:</label>
             <select class="form-control" id="tipo_equipamento" name="tipo_equipamento" onchange="tipoEquipamento()">
               <option>----------</option>
@@ -506,6 +560,35 @@ if (!empty($_GET['id'])) {
 <a class="scroll-to-top rounded" href="#page-top">
   <i class="fas fa-angle-up"></i>
 </a>
+
+<!-- Logout Modal-->
+<div class="modal fade" id="adicionar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Localizar Funcionário</h5>
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="../inc/pesquisaFuncionario.php" method="POST" autocomplete="off">
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="Digite o CPF" id="RegraValida" name="cpf" onkeydown="javascript: fMasc( this, mCPF );" maxlength="14" onblur="ValidarCPF(this)">
+
+            <span class="small-lither">Veja se ja está cadastrado!</span><br />
+            <span class="text-danger" style="display: none;" id="cpfInvalido"><i class="fas fa-times-circle"></i> CPF Invalido!</span>
+            <span class="text-success" style="display: none;" id="cpfValido"><i class="fas fa-check-circle"></i> CPF OK!</span>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+            <button class="btn btn-info" id="procurar" type="submit" disabled="false">Procurar</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 
 </body>
 <!--MOSTRAR TABELA DOS EQUIPAMENTOS-->

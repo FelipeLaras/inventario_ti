@@ -105,7 +105,7 @@ if (!empty($permissaoScanner = $resultScanner->fetch_assoc())) {
                 </a>
                 <div id="equip" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="escolhanovo.php?pagina=5"><i class="fas fa-plus"></i> Cadastrar Novo</a>
+                        <a class="collapse-item" href="novoequipamento.php?pagina=5"><i class="fas fa-plus"></i> Cadastrar Novo</a>
                         <hr>
                         <a class="collapse-item" href="equipamentos.php?pagina=5">Ativos</a>
                         <a class="collapse-item" href="equipamentosdisponiveis.php?pagina=5">Disponíveis</a>

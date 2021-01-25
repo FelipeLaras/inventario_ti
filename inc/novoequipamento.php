@@ -17,7 +17,11 @@ switch ($_POST['tipo_equipamento']) {
 
         //Equipamento
         $insert = "INSERT INTO manager_inventario_equipamento 
-        (
+        (";
+        if (!empty($_POST['newfun'])) {
+            $insert .= "id_funcionario,";
+        }
+        $insert .= "
             usuario, 
             tipo_equipamento, 
             modelo, 
@@ -29,7 +33,11 @@ switch ($_POST['tipo_equipamento']) {
             valor
         ) 
         VALUES 
-        (
+        (";
+        if (!empty($_POST['newfun'])) {
+            $insert .= "'" . $_POST['newfun'] . "',";
+        }
+        $insert .= "
             '" . $_SESSION['id'] . "',
             '" . $_POST['tipo_equipamento'] . "',
             '" . $_POST['modelo'] . "',
@@ -51,6 +59,15 @@ switch ($_POST['tipo_equipamento']) {
             $queryBusca = "SELECT max(id_equipamento) as id_equipamento FROM manager_inventario_equipamento";
             $resultBusca = $conn->query($queryBusca);
             $id_equipamento = $resultBusca->fetch_assoc();
+
+            //salvando relatório caso tenha funcionário
+            if (!empty($_POST['newfun'])) {
+                $insertLog = "INSERT INTO manager_log (id_funcionario, id_equipamento,  data_alteracao, usuario, tipo_alteracao) VALUES ('" . $_POST['newfun'] . "','" . $id_equipamento['id_equipamento'] . "', '" . $dataHoje . "', '" . $_SESSION["id"] . "', '4')";
+
+                if (!$log = $conn->query($insertLog)) {
+                    printf('Erro[2]: %s\n', $conn->error);
+                }
+            }
 
             //acessorios
             if (isset($_POST['acessorio'])) {
@@ -156,7 +173,11 @@ switch ($_POST['tipo_equipamento']) {
 
         //Equipamento
         $insert = "INSERT INTO manager_inventario_equipamento 
-        (
+        (";
+        if (!empty($_POST['newfun'])) {
+            $insert .= "id_funcionario,";
+        }
+        $insert .= "
             usuario, 
             tipo_equipamento, 
             modelo, 
@@ -168,7 +189,11 @@ switch ($_POST['tipo_equipamento']) {
             valor
         ) 
         VALUES 
-        (
+        (";
+        if (!empty($_POST['newfun'])) {
+            $insert .= "'" . $_POST['newfun'] . "',";
+        }
+        $insert .= "
             '" . $_SESSION['id'] . "',
             '" . $_POST['tipo_equipamento'] . "',
             '" . $_POST['modelo'] . "',
@@ -182,7 +207,7 @@ switch ($_POST['tipo_equipamento']) {
 
         if (!$result = $conn->query($insert)) {
 
-            printf("Erro[8]: %s\n", $conn->error);
+            printf("Erro[1]: %s\n", $conn->error);
             exit;
         } else {
 
@@ -190,6 +215,15 @@ switch ($_POST['tipo_equipamento']) {
             $queryBusca = "SELECT max(id_equipamento) as id_equipamento FROM manager_inventario_equipamento";
             $resultBusca = $conn->query($queryBusca);
             $id_equipamento = $resultBusca->fetch_assoc();
+
+            //salvando relatório caso tenha funcionário
+            if (!empty($_POST['newfun'])) {
+                $insertLog = "INSERT INTO manager_log (id_funcionario, id_equipamento,  data_alteracao, usuario, tipo_alteracao) VALUES ('" . $_POST['newfun'] . "','" . $id_equipamento['id_equipamento'] . "', '" . $dataHoje . "', '" . $_SESSION["id"] . "', '4')";
+
+                if (!$log = $conn->query($insertLog)) {
+                    printf('Erro[2]: %s\n', $conn->error);
+                }
+            }
 
             //acessorios
             if (isset($_POST['acessorio'])) {
@@ -292,7 +326,11 @@ switch ($_POST['tipo_equipamento']) {
 
         //Equipamento
         $insert = "INSERT INTO manager_inventario_equipamento 
-        (
+        (";
+        if (!empty($_POST['newfun'])) {
+            $insert .= "id_funcionario,";
+        }
+        $insert .= "
             usuario, 
             tipo_equipamento,
             filial,
@@ -304,7 +342,11 @@ switch ($_POST['tipo_equipamento']) {
             status
         ) 
         VALUES 
-        (
+        (";
+        if (!empty($_POST['newfun'])) {
+            $insert .= "'" . $_POST['newfun'] . "',";
+        }
+        $insert .= "
             '" . $_SESSION['id'] . "',
             '" . $_POST['tipo_equipamento'] . "',
             '" . $_POST['empresaChip'] . "',
@@ -334,6 +376,15 @@ switch ($_POST['tipo_equipamento']) {
             $queryBusca = "SELECT max(id_equipamento) as id_equipamento FROM manager_inventario_equipamento";
             $resultBusca = $conn->query($queryBusca);
             $id_equipamento = $resultBusca->fetch_assoc();
+
+            //salvando relatório caso tenha funcionário
+            if (!empty($_POST['newfun'])) {
+                $insertLog = "INSERT INTO manager_log (id_funcionario, id_equipamento,  data_alteracao, usuario, tipo_alteracao) VALUES ('" . $_POST['newfun'] . "','" . $id_equipamento['id_equipamento'] . "', '" . $dataHoje . "', '" . $_SESSION["id"] . "', '4')";
+
+                if (!$log = $conn->query($insertLog)) {
+                    printf('Erro[2]: %s\n', $conn->error);
+                }
+            }
 
             //nota fiscal
             if (!empty($_POST['numero_nota'])) {
@@ -415,7 +466,11 @@ switch ($_POST['tipo_equipamento']) {
 
         //Equipamento
         $insert = "INSERT INTO manager_inventario_equipamento 
-        (
+        (";
+        if (!empty($_POST['newfun'])) {
+            $insert .= "id_funcionario,";
+        }
+        $insert .= "
             usuario, 
             tipo_equipamento,
             filial,
@@ -427,7 +482,11 @@ switch ($_POST['tipo_equipamento']) {
             status
         ) 
         VALUES 
-        (
+        (";
+        if (!empty($_POST['newfun'])) {
+            $insert .= "'" . $_POST['newfun'] . "',";
+        }
+        $insert .= "
             '" . $_SESSION['id'] . "',
             '" . $_POST['tipo_equipamento'] . "',
             '" . $_POST['empresaChip'] . "',
@@ -449,7 +508,7 @@ switch ($_POST['tipo_equipamento']) {
 
         if (!$result = $conn->query($insert)) {
 
-            printf("Erro[21]: %s\n", $conn->error);
+            printf("Erro[15]: %s\n", $conn->error);
             exit;
         } else {
 
@@ -457,6 +516,15 @@ switch ($_POST['tipo_equipamento']) {
             $queryBusca = "SELECT max(id_equipamento) as id_equipamento FROM manager_inventario_equipamento";
             $resultBusca = $conn->query($queryBusca);
             $id_equipamento = $resultBusca->fetch_assoc();
+
+            //salvando relatório caso tenha funcionário
+            if (!empty($_POST['newfun'])) {
+                $insertLog = "INSERT INTO manager_log (id_funcionario, id_equipamento,  data_alteracao, usuario, tipo_alteracao) VALUES ('" . $_POST['newfun'] . "','" . $id_equipamento['id_equipamento'] . "', '" . $dataHoje . "', '" . $_SESSION["id"] . "', '4')";
+
+                if (!$log = $conn->query($insertLog)) {
+                    printf('Erro[2]: %s\n', $conn->error);
+                }
+            }
 
             //nota fiscal
             if (!empty($_POST['numero_nota'])) {
@@ -540,7 +608,11 @@ switch ($_POST['tipo_equipamento']) {
 
         //Equipamento
         $insert = "INSERT INTO manager_inventario_equipamento 
-        (
+           (";
+        if (!empty($_POST['newfun'])) {
+            $insert .= "id_funcionario,";
+        }
+        $insert .= "
             usuario, 
             tipo_equipamento, 
             modelo, 
@@ -550,7 +622,11 @@ switch ($_POST['tipo_equipamento']) {
             status
         ) 
         VALUES 
-        (
+        (";
+        if (!empty($_POST['newfun'])) {
+            $insert .= "'" . $_POST['newfun'] . "',";
+        }
+        $insert .= "
             '" . $_SESSION['id'] . "',
             '" . $_POST['tipo_equipamento'] . "',
             '" . $_POST['modeloRamal'] . "',
@@ -571,6 +647,15 @@ switch ($_POST['tipo_equipamento']) {
             $resultBusca = $conn->query($queryBusca);
             $id_equipamento = $resultBusca->fetch_assoc();
 
+            //salvando relatório caso tenha funcionário
+            if (!empty($_POST['newfun'])) {
+                $insertLog = "INSERT INTO manager_log (id_funcionario, id_equipamento,  data_alteracao, usuario, tipo_alteracao) VALUES ('" . $_POST['newfun'] . "','" . $id_equipamento['id_equipamento'] . "', '" . $dataHoje . "', '" . $_SESSION["id"] . "', '4')";
+
+                if (!$log = $conn->query($insertLog)) {
+                    printf('Erro[2]: %s\n', $conn->error);
+                }
+            }
+
             header('location: ../front/editequipamento.php?pagina=5&id_equip=' . $id_equipamento['id_equipamento'] . '');
         }
 
@@ -580,7 +665,11 @@ switch ($_POST['tipo_equipamento']) {
 
         //Equipamento
         $insert = "INSERT INTO manager_inventario_equipamento 
-        (
+        (";
+        if (!empty($_POST['newfun'])) {
+            $insert .= "id_funcionario,";
+        }
+        $insert .= "
             usuario, 
             tipo_equipamento, 
             modelo, 
@@ -599,7 +688,11 @@ switch ($_POST['tipo_equipamento']) {
 
         $insert .= ") 
         VALUES 
-        (
+        (";
+        if (!empty($_POST['newfun'])) {
+            $insert .= "'" . $_POST['newfun'] . "',";
+        }
+        $insert .= "
             '" . $_SESSION['id'] . "',
             '" . $_POST['tipo_equipamento'] . "',
             '" . $_POST['modeloScan'] . "',
@@ -629,6 +722,15 @@ switch ($_POST['tipo_equipamento']) {
             $queryBusca = "SELECT max(id_equipamento) as id_equipamento FROM manager_inventario_equipamento";
             $resultBusca = $conn->query($queryBusca);
             $id_equipamento = $resultBusca->fetch_assoc();
+
+            //salvando relatório caso tenha funcionário
+            if (!empty($_POST['newfun'])) {
+                $insertLog = "INSERT INTO manager_log (id_funcionario, id_equipamento,  data_alteracao, usuario, tipo_alteracao) VALUES ('" . $_POST['newfun'] . "','" . $id_equipamento['id_equipamento'] . "', '" . $dataHoje . "', '" . $_SESSION["id"] . "', '4')";
+
+                if (!$log = $conn->query($insertLog)) {
+                    printf('Erro[2]: %s\n', $conn->error);
+                }
+            }
 
             //nota fiscal
             if (!empty($_POST['numero_nota'])) {
@@ -702,7 +804,11 @@ switch ($_POST['tipo_equipamento']) {
 
         //Equipamento
         $insert = "INSERT INTO manager_inventario_equipamento 
-        (
+        (";
+        if (!empty($_POST['newfun'])) {
+            $insert .= "id_funcionario,";
+        }
+        $insert .= "
             usuario, 
             tipo_equipamento, 
             modelo,
@@ -713,7 +819,11 @@ switch ($_POST['tipo_equipamento']) {
             status
         ) 
         VALUES 
-        (
+        (";
+        if (!empty($_POST['newfun'])) {
+            $insert .= "'" . $_POST['newfun'] . "',";
+        }
+        $insert .= "
             '" . $_SESSION['id'] . "',
             '" . $_POST['tipo_equipamento'] . "',
             '" . $_POST['modeloDVR'] . "',
@@ -735,6 +845,15 @@ switch ($_POST['tipo_equipamento']) {
             $resultBusca = $conn->query($queryBusca);
             $id_equipamento = $resultBusca->fetch_assoc();
 
+            //salvando relatório caso tenha funcionário
+            if (!empty($_POST['newfun'])) {
+                $insertLog = "INSERT INTO manager_log (id_funcionario, id_equipamento,  data_alteracao, usuario, tipo_alteracao) VALUES ('" . $_POST['newfun'] . "','" . $id_equipamento['id_equipamento'] . "', '" . $dataHoje . "', '" . $_SESSION["id"] . "', '4')";
+
+                if (!$log = $conn->query($insertLog)) {
+                    printf('Erro[2]: %s\n', $conn->error);
+                }
+            }
+
             header('location: ../front/editequipamento.php?pagina=5&id_equip=' . $id_equipamento['id_equipamento'] . '');
         }
 
@@ -751,10 +870,14 @@ switch ($_POST['tipo_equipamento']) {
             exit;
         }
 
-        //equipamento
+        //Equipamento
         $insert = "INSERT INTO manager_inventario_equipamento 
-            (
-                usuario, 
+        (";
+        if (!empty($_POST['newfun'])) {
+            $insert .= "id_funcionario,";
+        }
+        $insert .= "
+                usuario,
                 tipo_equipamento, 
                 modelo,
                 patrimonio, 
@@ -773,7 +896,11 @@ switch ($_POST['tipo_equipamento']) {
                 data_criacao
             ) 
             VALUES 
-            (
+        (";
+        if (!empty($_POST['newfun'])) {
+            $insert .= "'" . $_POST['newfun'] . "',";
+        }
+        $insert .= "
                 '" . $_SESSION['id'] . "',
                 '" . $_POST['tipo_equipamento'] . "',
                 '" . $_POST['modelo'] . "',
@@ -801,6 +928,15 @@ switch ($_POST['tipo_equipamento']) {
             $queryBusca = "SELECT max(id_equipamento) as id_equipamento FROM manager_inventario_equipamento";
             $resultBusca = $conn->query($queryBusca);
             $id_equipamento = $resultBusca->fetch_assoc();
+
+            //salvando relatório caso tenha funcionário
+            if (!empty($_POST['newfun'])) {
+                $insertLog = "INSERT INTO manager_log (id_funcionario, id_equipamento,  data_alteracao, usuario, tipo_alteracao) VALUES ('" . $_POST['newfun'] . "','" . $id_equipamento['id_equipamento']. "', '" . $dataHoje . "', '" . $_SESSION["id"] . "', '4')";
+
+                if (!$log = $conn->query($insertLog)) {
+                    printf('Erro[2]: %s\n', $conn->error);
+                }
+            }
 
             //SUBINDO O ARQ PARA O SERVIDOR
             if ($_FILES['anexo'] != NULL) {
@@ -924,10 +1060,14 @@ switch ($_POST['tipo_equipamento']) {
             exit;
         }
 
-        //equipamento
+        //Equipamento
         $insert = "INSERT INTO manager_inventario_equipamento 
-            (
-                usuario, 
+        (";
+        if (!empty($_POST['newfun'])) {
+            $insert .= "id_funcionario,";
+        }
+        $insert .= "
+                usuario,
                 tipo_equipamento, 
                 modelo,
                 patrimonio, 
@@ -946,7 +1086,11 @@ switch ($_POST['tipo_equipamento']) {
                 data_criacao
             ) 
             VALUES 
-            (
+        (";
+        if (!empty($_POST['newfun'])) {
+            $insert .= "'" . $_POST['newfun'] . "',";
+        }
+        $insert .= "
                 '" . $_SESSION['id'] . "',
                 '" . $_POST['tipo_equipamento'] . "',
                 '" . $_POST['modelo'] . "',
@@ -974,6 +1118,15 @@ switch ($_POST['tipo_equipamento']) {
             $queryBusca = "SELECT max(id_equipamento) as id_equipamento FROM manager_inventario_equipamento";
             $resultBusca = $conn->query($queryBusca);
             $id_equipamento = $resultBusca->fetch_assoc();
+
+            //salvando relatório caso tenha funcionário
+            if (!empty($_POST['newfun'])) {
+                $insertLog = "INSERT INTO manager_log (id_funcionario, id_equipamento,  data_alteracao, usuario, tipo_alteracao) VALUES ('" . $_POST['newfun'] . "','" . $id_equipamento['id_equipamento']. "', '" . $dataHoje . "', '" . $_SESSION["id"] . "', '4')";
+
+                if (!$log = $conn->query($insertLog)) {
+                    printf('Erro[2]: %s\n', $conn->error);
+                }
+            }
 
             //SUBINDO O ARQ PARA O SERVIDOR
             if ($_FILES['anexo'] != NULL) {
