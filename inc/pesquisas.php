@@ -60,6 +60,8 @@ MIE.filial AS id_filial,
 MDL.nome AS empresa,
 MDLC.nome AS locacao,
 MIE.locacao AS id_locacao,
+MIE.departamento AS id_departamento,
+MDD.nome AS departamento,
 MIE.operadora AS id_operadora,
 MDO.nome AS operadora,
 MIE.numero,
@@ -69,6 +71,8 @@ MIE.planos_dados,
 MIE.valor,
 MIE.fornecedor_scan,
 MIE.data_fim_contrato,
+MIE.numero_nota,
+MIE.data_nota,
 MIE.estado AS id_estado,
 MDE.nome AS estado,
 MIE.situacao AS id_situacao,
@@ -78,7 +82,12 @@ MSE.nome AS status,
 MIE.termo,
 MIE.ip,
 MIE.dominio,
-MIE.liberado_rh
+MIE.liberado_rh,
+MIE.hostname,
+MSO.versao AS versao_so,
+MSO.serial AS chave_windows,
+MOFF.versao AS versao_off,
+MOFF.serial AS chave_office
 FROM
 manager_inventario_equipamento MIE
 LEFT JOIN
@@ -96,7 +105,13 @@ manager_dropstatusequipamento MSE ON (MIE.status = MSE.id_status)
 LEFT JOIN
 manager_dropequipamentos MDTE ON (MIE.tipo_equipamento = MDTE.id_equip)
 LEFT JOIN
-manager_inventario_funcionario MIF ON (MIE.id_funcionario = MIF.id_funcionario)";
+manager_dropdepartamento MDD ON (MIE.departamento = MDD.id_depart)
+LEFT JOIN
+manager_inventario_funcionario MIF ON (MIE.id_funcionario = MIF.id_funcionario)
+LEFT JOIN
+manager_sistema_operacional MSO ON (MIE.id_equipamento = MSO.id_equipamento)
+LEFT JOIN
+manager_office MOFF ON (MIE.id_equipamento = MOFF.id_equipamento)";
 
 //STATUS ATIVO COUNT
 $queryAtivosFuncionario = "SELECT 

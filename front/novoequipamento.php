@@ -305,10 +305,10 @@ $resultFuncionario = $conn->query($queryColaborador);
                 <option>----------</option>
                 <?php
 
-                $resultEmpresa = $conn->query($queryEmpresa);
+                $resultLocacao = $conn->query($queryLocacao);
 
-                while ($empresa = $resultEmpresa->fetch_assoc()) {
-                  echo '<option value="' . $empresa['id'] . '">' . $empresa['nome'] . '</option>';
+                while ($locacao = $resultLocacao->fetch_assoc()) {
+                  echo '<option value="' . $locacao['id'] . '">' . $locacao['nome'] . '</option>';
                 }
                 ?>
               </select>
