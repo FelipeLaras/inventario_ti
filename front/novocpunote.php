@@ -17,6 +17,10 @@ if (!empty($_GET['id'])) {
   $office = $resultOffice->fetch_assoc();
 }
 
+//FUNCIONÁRIO
+$queryColaborador .= " WHERE MIF.deletar = 0";
+$resultFuncionario = $conn->query($queryColaborador);
+
 //sabendo o tipo de equipamento
 
 switch ($_SESSION['tipo_equipamento']) {
@@ -84,10 +88,58 @@ switch ($_SESSION['tipo_equipamento']) {
       </div>
       <div class="card-body">
         <form action="../inc/novoequipamento.php" method="POST" enctype="multipart/form-data" autocomplete="off">
+          <!--COLABORADOR-->
+          <div>
+            <h1 class="h6 mb-2 text-gray-800 border-bottom-info"> Atribuir um colaborador ?</h1>
+            <div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="todosFuncionarios" id="simFun" value="1" onclick="funOne()">
+                <label class="form-check-label" for="simFun">
+                  Sim
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input " type="radio" name="todosFuncionarios" id="naoFun" value="2" onclick="funTwo()" checked>
+                <label class="form-check-label" for="naoFun">
+                  Não
+                </label>
+              </div>
+              <br>
+              <!--MOSTRAR TABELA DOS EQUIPAMENTOS-->
+              <script>
+                function funTwo() {
+                  document.getElementById("tabelaFun").style.display = "none";
+                }
 
+                function funOne() {
+                  document.getElementById("tabelaFun").style.display = "block";
+                }
+              </script>
+            </div>
+          </div>
+          <div id="tabelaFun" style="display: none;">
+            <h1 class="h6 mb-2 text-gray-800 "> Escolha o colaborador:</h1>
+            <div class="col-md-8 py-4 input-group">
+              <select name="newfun" class="form-control">
+                <option value="">---</option>
+                <?php
+
+                while ($funcionario = $resultFuncionario->fetch_assoc()) {
+                  echo '
+                <option value="' . $funcionario['id_funcionario'] . '">' . $funcionario['nome'] . '</option>';
+                }
+                ?>
+              </select>
+              <div class="input-group-append">
+                <a class="btn btn-success btn-pen-square btn-sm float-rigth" title="Novo Usuário" href="#" data-toggle="modal" data-target="#adicionar">
+                  <i class="fas fa-user-plus fa-sm"></i>
+                </a>
+              </div>
+            </div>
+          </div>
           <!--TIPO EQUIPAMENTO-->
           <div class="form-group">
-            <label for="versao">Tipo Equipamento:</label>
+            <label for="tipo_equipamento" class="border-bottom-info">Tipo Equipamento:</label>
             <select class="form-control" id="tipo_equipamento" name="tipo_equipamento" required>
               <?php
 
@@ -119,17 +171,17 @@ switch ($_SESSION['tipo_equipamento']) {
           </div>
           <!--MODELO-->
           <div class="form-group">
-            <label for="exampleFormControlSelect2">Modelo:</label>
+            <label for="exampleFormControlSelect2" class="border-bottom-info" class="border-bottom-info">Modelo:</label>
             <input type="text" class="form-control" name="modelo" value="<?= $_SESSION['modelo'] ?>">
           </div>
           <!--PATRIMONIO-->
           <div class="form-group">
-            <label for="exampleFormControlSelect2">Patrimônio:</label>
+            <label for="exampleFormControlSelect2" class="border-bottom-info" class="border-bottom-info">Patrimônio:</label>
             <input type="text" class="form-control" name="patrimonio" value="<?= $_SESSION['patrimonio'] ?>">
           </div>
           <!--DOMINIO-->
-          <div class="form-group">
-            <label for="exampleFormControlSelect2">Dominío:</label>
+          <div class="form-group"> 
+            <label for="exampleFormControlSelect2" class="border-bottom-info" class="border-bottom-info">Dominío:</label>
             <div class="form-group col-md-3">
               <?= $_SESSION['possuidominio'] == 0 ? '<input type="text" class="form-control text-success" name="dominio" value="' . $_SESSION['possuidominio'] . '" style="text-align: center; display: none;" > <i class="fas fa-check-circle text-success" style="width: 175%;"> Cadastrado</i>' : '<input type="text" class="form-control text-danger" name="dominio" value="OFF" style="text-align: center; display: none; "><i class="fas fa-times-circle text-danger" style="width: 175%;"> Não cadastrado</i> ' ?>
 
@@ -137,8 +189,8 @@ switch ($_SESSION['tipo_equipamento']) {
           </div>
           <!--EMPRESA-->
           <div class="form-group">
-            <label for="exampleFormControlSelect2">Empresa Faturado:</label>
-            <select class="form-control" id="exampleFormControlSelect2" name="empresa">
+            <label for="exampleFormControlSelect2" class="border-bottom-info" class="border-bottom-info">Empresa Faturado:</label>
+            <select class="form-control" id="exampleFormControlSelect2" class="border-bottom-info" name="empresa">
               <option>----------</option>
               <?php
 
@@ -152,8 +204,8 @@ switch ($_SESSION['tipo_equipamento']) {
           </div>
           <!--LOCACO-->
           <div class="form-group">
-            <label for="exampleFormControlSelect2">Localização:</label>
-            <select class="form-control" id="exampleFormControlSelect2" name="locacao">
+            <label for="exampleFormControlSelect2" class="border-bottom-info" class="border-bottom-info">Localização:</label>
+            <select class="form-control" id="exampleFormControlSelect2" class="border-bottom-info" name="locacao">
               <option>----------</option>
               <?php
 
@@ -167,8 +219,8 @@ switch ($_SESSION['tipo_equipamento']) {
           </div>
           <!--Departamento-->
           <div class="form-group">
-            <label for="exampleFormControlSelect2">Departamento:</label>
-            <select class="form-control" id="exampleFormControlSelect2" name="departamento">
+            <label for="exampleFormControlSelect2" class="border-bottom-info" class="border-bottom-info">Departamento:</label>
+            <select class="form-control" id="exampleFormControlSelect2" class="border-bottom-info" name="departamento">
               <option>----------</option>
               <?php
 
@@ -182,8 +234,8 @@ switch ($_SESSION['tipo_equipamento']) {
           </div>
           <!--Situação-->
           <div class="form-group">
-            <label for="exampleFormControlSelect2">Situação:</label>
-            <select class="form-control" id="exampleFormControlSelect2" name="situacao">
+            <label for="exampleFormControlSelect2" class="border-bottom-info" class="border-bottom-info">Situação:</label>
+            <select class="form-control" id="exampleFormControlSelect2" class="border-bottom-info" name="situacao">
               <option>----------</option>
               <?php
 
@@ -197,8 +249,8 @@ switch ($_SESSION['tipo_equipamento']) {
           </div>
           <!--status-->
           <div class="form-group">
-            <label for="exampleFormControlSelect2">Status:</label>
-            <select class="form-control" id="exampleFormControlSelect2" name="status">
+            <label for="exampleFormControlSelect2" class="border-bottom-info">Status:</label>
+            <select class="form-control" id="exampleFormControlSelect2" class="border-bottom-info" name="status">
               <option>----------</option>
               <?php
 
@@ -212,37 +264,37 @@ switch ($_SESSION['tipo_equipamento']) {
           </div>
           <!--HOSTNAME-->
           <div class="form-group">
-            <label for="exampleFormControlSelect2">Nome:</label>
+            <label for="exampleFormControlSelect2"  class="border-bottom-info">Nome:</label>
             <input type="text" class="form-control" name="hostname" value="<?= $_SESSION['hostname'] ?>">
           </div>
           <!--HOSTNAME-->
-          <div class="form-group">
-            <label for="exampleFormControlSelect2">IP:</label>
+          <div class="form-group"> 
+            <label for="exampleFormControlSelect2" class="border-bottom-info">IP:</label>
             <input type="text" class="form-control" name="ip" value="<?= $_SESSION['ip'] ?>">
           </div>
           <!--PROCESSADOR-->
           <div class="form-group">
-            <label for="exampleFormControlSelect2">Processador:</label>
+            <label for="exampleFormControlSelect2" class="border-bottom-info">Processador:</label>
             <input type="text" class="form-control" name="processador" value="<?= $_SESSION['processador'] ?>">
           </div>
           <!--HD-->
           <div class="form-group">
-            <label for="exampleFormControlSelect2">HD:</label>
+            <label for="exampleFormControlSelect2" class="border-bottom-info">HD:</label>
             <input type="text" class="form-control" name="hd" value="<?= $_SESSION['hd'] ?>">
           </div>
           <!--MEMORIA-->
           <div class="form-group">
-            <label for="exampleFormControlSelect2">Memória:</label>
+            <label for="exampleFormControlSelect2" class="border-bottom-info">Memória:</label>
             <input type="text" class="form-control" name="memoria" value="<?= $_SESSION['memoria'] ?>">
           </div>
           <!--SERIAL NUMBER-->
           <div class="form-group">
-            <label for="exampleFormControlSelect2">Número de Série:</label>
+            <label for="exampleFormControlSelect2" class="border-bottom-info">Número de Série:</label>
             <input type="text" class="form-control" name="serial_number" value="<?= $_SESSION['serial_number'] ?>">
           </div>
           <!-- NOTA FISCAL-->
           <div class="form-group" id="nota">
-            <label for="exampleFormControlSelect2">Possui Nota Fiscal:</label>
+            <label for="exampleFormControlSelect2" class="border-bottom-info">Possui Nota Fiscal:</label>
             <div class="py-2 input-group">
               <div class="form-check">
                 <input class="form-check-input" type="radio" name="todosEquipamentos" id="exampleRadios1" value="1" onclick="sim()">
@@ -294,35 +346,34 @@ switch ($_SESSION['tipo_equipamento']) {
 
           <!--VERSÃO-->
           <div class="form-group">
-            <label for="exampleFormControlSelect2">Versão:</label>
-            <select class="form-control" id="exampleFormControlSelect2" name="versao" required>
+            <label for="exampleFormControlSelect2" class="border-bottom-info">Versão:</label>
+            <select class="form-control" id="exampleFormControlSelect2" class="border-bottom-info" name="versaoSO" required>
               <?php
 
-              $queryWindows  .= " AND nome = '".$_SESSION['sistema_operacional']."'"; 
+              $queryWindows  .= " AND nome = '" . $_SESSION['sistema_operacional'] . "'";
               $resultWindows  = $conn->query($queryWindows);
               $windows = $resultWindows->fetch_assoc();
 
-              if(!empty($windows['id'])){
-                echo '<option value="' . $windows['id'] . '">' . $windows['nome']. '</option>';
-              }else{
+              if (!empty($windows['id'])) {
+                echo '<option value="' . $windows['id'] . '" selected>' . $windows['nome'] . '</option>';
+              } else {
 
                 echo '<option value="">----------</option>';
 
                 $query = "SELECT id, nome FROM manager_dropsistemaoperacional WHERE deletar = 0";
-                
+
                 $result  = $conn->query($query);
 
-                while($so = $result->fetch_assoc()){
-                  echo '<option value="' . $so['id'] . '">' . $so['nome']. '</option>';
+                while ($so = $result->fetch_assoc()) {
+                  echo '<option value="' . $so['id'] . '">' . $so['nome'] . '</option>';
                 }
-
               }
               ?>
             </select>
           </div>
           <!--SERIAL-->
           <div class="form-group">
-            <label for="exampleFormControlSelect2">Chave do produto:</label>
+            <label for="exampleFormControlSelect2" class="border-bottom-info">Chave do produto:</label>
             <input type="text" class="form-control" name="chaveProduto" value="<?= $_SESSION['chave_windows'] ?>">
           </div>
 
@@ -334,35 +385,34 @@ switch ($_SESSION['tipo_equipamento']) {
 
             <!--VERSÃO-->
             <div class="form-group">
-              <label for="exampleFormControlSelect2">Versão:</label>
-              <select class="form-control" id="exampleFormControlSelect2" name="versao" required>
-              <?php
+              <label for="exampleFormControlSelect2" class="border-bottom-info">Versão:</label>
+              <select class="form-control" id="exampleFormControlSelect2" class="border-bottom-info" name="versao">
+                <?php
 
-              $queryListOffice  .= " AND nome = '".$_SESSION['office']."' ORDER BY nome ASC"; 
-              $resultOffice  = $conn->query($queryListOffice);
-              $office = $resultOffice->fetch_assoc();
+                $queryListOffice  .= " AND nome = '" . $_SESSION['office'] . "' ORDER BY nome ASC";
+                $resultOffice  = $conn->query($queryListOffice);
+                $office = $resultOffice->fetch_assoc();
 
-              if(!empty($office['id'])){
-                echo '<option value="' . $office['id'] . '">' . $office['nome']. '</option>';
-              }else{
+                if (!empty($office['id'])) {
+                  echo '<option value="' . $office['id'] . '">' . $office['nome'] . '</option>';
+                } else {
 
-                echo '<option value="">----------</option>';
+                  echo '<option value="">----------</option>';
 
-                $queryOffice = "SELECT id, nome FROM manager_dropoffice WHERE deletar = 0 ORDER BY nome ASC";
-                
-                $resultOf  = $conn->query($queryOffice);
+                  $queryOffice = "SELECT id, nome FROM manager_dropoffice WHERE deletar = 0 ORDER BY nome ASC";
 
-                while($of = $resultOf->fetch_assoc()){
-                  echo '<option value="' . $of['id'] . '">' . $of['nome']. '</option>';
+                  $resultOf  = $conn->query($queryOffice);
+
+                  while ($of = $resultOf->fetch_assoc()) {
+                    echo '<option value="' . $of['id'] . '">' . $of['nome'] . '</option>';
+                  }
                 }
-
-              }
-              ?>
+                ?>
               </select>
             </div>
             <!--SERIAL-->
             <div class="form-group">
-              <label for="exampleFormControlSelect2">Chave do produto:</label>
+              <label for="exampleFormControlSelect2" class="border-bottom-info">Chave do produto:</label>
               <input type="text" class="form-control" name="serial_number" value="<?= $_SESSION['chave_office'] ?>">
             </div>
           </div>

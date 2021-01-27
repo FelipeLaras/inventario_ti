@@ -40,56 +40,6 @@ $resultFuncionario = $conn->query($queryColaborador);
         <form action="../inc/novoequipamento.php" method="POST" enctype="multipart/form-data" autocomplete="off">
 
           <div class="form-group">
-            <div>
-              <h1 class="h6 mb-2 text-gray-800"> Atribuir um colaborador ?</h1>
-              <div>
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="todosFuncionarios" id="simFun" value="1" onclick="funOne()">
-                  <label class="form-check-label" for="simFun">
-                    Sim
-                  </label>
-                </div>
-                <div class="form-check">
-                  <input class="form-check-input " type="radio" name="todosFuncionarios" id="naoFun" value="2" onclick="funTwo()" checked>
-                  <label class="form-check-label" for="naoFun">
-                    Não
-                  </label>
-                </div>
-                <br>
-                <!--MOSTRAR TABELA DOS EQUIPAMENTOS-->
-                <script>
-                  function funTwo() {
-                    document.getElementById("tabelaFun").style.display = "none";
-                  }
-
-                  function funOne() {
-                    document.getElementById("tabelaFun").style.display = "block";
-                  }
-                </script>
-              </div>
-            </div>
-            <!-- DataTales Example -->
-            <div id="tabelaFun" style="display: none;">
-              <h1 class="h6 mb-2 text-gray-800"> Escolha o colaborador:</h1>
-              <div class="col-md-8 py-4 input-group">
-                <select name="newfun" class="form-control">
-                  <option value="">---</option>
-                  <?php
-
-                  while ($funcionario = $resultFuncionario->fetch_assoc()) {
-                    echo '
-                <option value="' . $funcionario['id_funcionario'] . '">' . $funcionario['nome'] . '</option>';
-                  }
-                  ?>
-                </select>
-                <div class="input-group-append">
-                  <a class="btn btn-success btn-pen-square btn-sm float-rigth" title="Novo Usuário" href="#" data-toggle="modal" data-target="#adicionar">
-                    <i class="fas fa-user-plus fa-sm"></i>
-                  </a>
-                </div>
-              </div>
-            </div>
-            <hr>
             <!--EQUIPAMENTO-->
             <label for="versao">Tipo Equipamento:</label>
             <select class="form-control" id="tipo_equipamento" name="tipo_equipamento" onchange="tipoEquipamento()">
@@ -119,17 +69,17 @@ $resultFuncionario = $conn->query($queryColaborador);
           <div id="celularTablet" style="display: none;">
             <!--MODELO CELULAR / TABLET-->
             <div class="form-group">
-              <label for="exampleFormControlSelect2">Modelo:</label>
+              <label for="exampleFormControlSelect2" class="border-bottom-info"> Modelo:</label>
               <input type="text" class="form-control" name="modelo">
             </div>
             <!--PATRIMONIO CELULAR / TABLET-->
             <div class="form-group">
-              <label for="exampleFormControlSelect2">Patrimônio:</label>
+              <label for="exampleFormControlSelect2" class="border-bottom-info"> Patrimônio:</label>
               <input type="text" class="form-control" name="patrimonio">
             </div>
             <!--EMPRESA CELULAR / TABLET-->
             <div class="form-group">
-              <label for="exampleFormControlSelect2">Empresa:</label>
+              <label for="exampleFormControlSelect2" class="border-bottom-info"> Empresa:</label>
               <select class="form-control" id="exampleFormControlSelect2" name="empresa">
                 <option>----------</option>
                 <?php
@@ -144,7 +94,7 @@ $resultFuncionario = $conn->query($queryColaborador);
             </div>
             <!--ESTADO CELULAR / TABLET-->
             <div class="form-group">
-              <label for="exampleFormControlSelect2">Estado:</label>
+              <label for="exampleFormControlSelect2" class="border-bottom-info"> Estado:</label>
               <select class="form-control" id="exampleFormControlSelect2" name="estado">
                 <option>----------</option>
                 <?php
@@ -159,7 +109,7 @@ $resultFuncionario = $conn->query($queryColaborador);
             </div>
             <!--ACESSORIOS CELULAR / TABLET-->
             <div class="form-group">
-              <label for="exampleFormControlSelect2">Acessorios:</label><br>
+              <label for="exampleFormControlSelect2" class="border-bottom-info"> Acessorios:</label><br>
               <?php
 
               $resultAcessorios = $conn->query($queryAcessorios);
@@ -173,12 +123,12 @@ $resultFuncionario = $conn->query($queryColaborador);
             </div>
             <!--* IMEI CELULAR / TABLET-->
             <div class="form-group">
-              <label for="exampleFormControlSelect2">IMEI:</label>
+              <label for="exampleFormControlSelect2" class="border-bottom-info"> IMEI:</label>
               <input type="text" class="form-control" name="imei">
             </div>
             <!--STATUS CELULAR / TABLET-->
             <div class="form-group">
-              <label for="exampleFormControlSelect2">Status:</label>
+              <label for="exampleFormControlSelect2" class="border-bottom-info"> Status:</label>
               <select class="form-control" id="exampleFormControlSelect2" name="status">
                 <option>----------</option>
                 <?php
@@ -193,7 +143,7 @@ $resultFuncionario = $conn->query($queryColaborador);
             </div>
             <!--* VALOR CELULAR / TABLET-->
             <div class="form-group">
-              <label for="exampleFormControlSelect2">Valor:</label>
+              <label for="exampleFormControlSelect2" class="border-bottom-info"> Valor:</label>
               <div class="form-group col-md-4">
                 <div class="input-group-append">
                   <span class="btn btn-primary">
@@ -210,7 +160,7 @@ $resultFuncionario = $conn->query($queryColaborador);
           <div id="chipModem" style="display: none;">
             <!--EMPRESA CHIP / MODEM-->
             <div class="form-group">
-              <label for="exampleFormControlSelect2">Empresa:</label>
+              <label for="exampleFormControlSelect2" class="border-bottom-info">Empresa:</label>
               <select class="form-control" id="exampleFormControlSelect2" name="empresaChip">
                 <option>----------</option>
                 <?php
@@ -225,7 +175,7 @@ $resultFuncionario = $conn->query($queryColaborador);
             </div>
             <!--OPERADOR CHIP / MODEM-->
             <div class="form-group">
-              <label for="exampleFormControlSelect2">Operadora:</label>
+              <label for="exampleFormControlSelect2" class="border-bottom-info">Operadora:</label>
               <select class="form-control" id="exampleFormControlSelect2" name="operadoraChip">
                 <option>----------</option>
                 <?php
@@ -240,12 +190,12 @@ $resultFuncionario = $conn->query($queryColaborador);
             </div>
             <!--NUMERO CHIP / MODEM-->
             <div class="form-group">
-              <label for="exampleFormControlSelect2">Número:</label>
+              <label for="exampleFormControlSelect2" class="border-bottom-info">Número:</label>
               <input type="text" class="form-control" name="numeroChip" id="telefone" maxlength="15" placeholder="(xx) xxxx-xxx">
             </div>
             <!--PLANOS CHIP / MODEM-->
             <div class="form-group">
-              <label for="voz">Planos:</label><br>
+              <label for="voz" class="border-bottom-info">Planos:</label><br>
               <input type="checkbox" name="planosVoz" value="VOZ" id="voz">
               <label class="form-check-label" for="voz">Voz</label><br>
 
@@ -254,7 +204,7 @@ $resultFuncionario = $conn->query($queryColaborador);
             </div>
             <!--STATUS CHIP / MODEM-->
             <div class="form-group">
-              <label for="exampleFormControlSelect2">Status:</label>
+              <label for="exampleFormControlSelect2" class="border-bottom-info">Status:</label>
               <select class="form-control" id="exampleFormControlSelect2" name="statusChip">
                 <option>----------</option>
                 <?php
@@ -269,7 +219,7 @@ $resultFuncionario = $conn->query($queryColaborador);
             </div>
             <!--IMEI CHIP / MODEM-->
             <div class="form-group">
-              <label for="exampleFormControlSelect2">IMEI:</label>
+              <label for="exampleFormControlSelect2" class="border-bottom-info">IMEI:</label>
               <input type="text" class="form-control" name="imeiChip">
             </div>
           </div>
@@ -280,27 +230,27 @@ $resultFuncionario = $conn->query($queryColaborador);
 
             <!--MODELO DVR-->
             <div class="form-group">
-              <label for="exampleFormControlSelect2">Modelo:</label>
+              <label for="exampleFormControlSelect2" class="border-bottom-info">Modelo:</label>
               <input type="text" class="form-control" name="modeloDVR">
             </div>
             <!--PATRIMONIO DVR-->
             <div class="form-group">
-              <label for="exampleFormControlSelect2">Patrimônio:</label>
+              <label for="exampleFormControlSelect2" class="border-bottom-info">Patrimônio:</label>
               <input type="text" class="form-control" name="patrimonioDVR">
             </div>
             <!--NUMERO SERIE DVR-->
             <div class="form-group">
-              <label for="exampleFormControlSelect2">N. de série:</label>
+              <label for="exampleFormControlSelect2" class="border-bottom-info">N. de série:</label>
               <input type="text" class="form-control" name="serieDVR">
             </div>
             <!--IP DVR-->
             <div class="form-group">
-              <label for="exampleFormControlSelect2">IP:</label>
+              <label for="exampleFormControlSelect2" class="border-bottom-info">IP:</label>
               <input type="text" class="form-control" name="ipDVR">
             </div>
             <!--LOCALIZAÇÂO DVR-->
             <div class="form-group">
-              <label for="exampleFormControlSelect2">Localização:</label>
+              <label for="exampleFormControlSelect2" class="border-bottom-info">Localização:</label>
               <select class="form-control" id="exampleFormControlSelect2" name="localizacaoDVR">
                 <option>----------</option>
                 <?php
@@ -320,17 +270,17 @@ $resultFuncionario = $conn->query($queryColaborador);
           <div id="ramalIP" style="display: none;">
             <!--MODELO RAMAL-->
             <div class="form-group">
-              <label for="exampleFormControlSelect2">Modelo:</label>
+              <label for="exampleFormControlSelect2" class="border-bottom-info">Modelo:</label>
               <input type="text" class="form-control" name="modeloRamal">
             </div>
             <!--NUMERO RAMAL-->
             <div class="form-group">
-              <label for="exampleFormControlSelect2">Número:</label>
+              <label for="exampleFormControlSelect2" class="border-bottom-info">Número:</label>
               <input type="text" class="form-control" name="numeroRamal" maxlength="15">
             </div>
             <!--EMPRESA RAMAL-->
             <div class="form-group">
-              <label for="exampleFormControlSelect2">Empresa:</label>
+              <label for="exampleFormControlSelect2" class="border-bottom-info">Empresa:</label>
               <select class="form-control" id="exampleFormControlSelect2" name="empresaRamal">
                 <option>----------</option>
                 <?php
@@ -345,7 +295,7 @@ $resultFuncionario = $conn->query($queryColaborador);
             </div>
             <!--LOCACAO RAMAL-->
             <div class="form-group">
-              <label for="exampleFormControlSelect2">Locação:</label>
+              <label for="exampleFormControlSelect2" class="border-bottom-info">Locação:</label>
               <select class="form-control" id="exampleFormControlSelect2" name="locacaoRamal">
                 <option>----------</option>
                 <?php
@@ -365,22 +315,22 @@ $resultFuncionario = $conn->query($queryColaborador);
           <div id="scanner" style="display: none;">
             <!--MODELO Scan-->
             <div class="form-group">
-              <label for="exampleFormControlSelect2">Modelo:</label>
+              <label for="exampleFormControlSelect2" class="border-bottom-info">Modelo:</label>
               <input type="text" class="form-control" name="modeloScan">
             </div>
             <!--SERIE Scan-->
             <div class="form-group">
-              <label for="exampleFormControlSelect2">N. série:</label>
+              <label for="exampleFormControlSelect2" class="border-bottom-info">N. série:</label>
               <input type="text" class="form-control" name="serieScan">
             </div>
             <!--PATRIMONIO Scan-->
             <div class="form-group">
-              <label for="exampleFormControlSelect2">Patrimônio:</label>
+              <label for="exampleFormControlSelect2" class="border-bottom-info">Patrimônio:</label>
               <input type="text" class="form-control" name="patrimonioScan">
             </div>
             <!--EMPRESA Scan-->
             <div class="form-group">
-              <label for="exampleFormControlSelect2">Empresa:</label>
+              <label for="exampleFormControlSelect2" class="border-bottom-info">Empresa:</label>
               <select class="form-control" id="exampleFormControlSelect2" name="empresaScan">
                 <option>----------</option>
                 <?php
@@ -395,7 +345,7 @@ $resultFuncionario = $conn->query($queryColaborador);
             </div>
             <!--LOCACAO Scan-->
             <div class="form-group">
-              <label for="exampleFormControlSelect2">Locação:</label>
+              <label for="exampleFormControlSelect2" class="border-bottom-info">Locação:</label>
               <select class="form-control" id="exampleFormControlSelect2" name="locacaoScan">
                 <option>----------</option>
                 <?php
@@ -428,33 +378,33 @@ $resultFuncionario = $conn->query($queryColaborador);
             <div id="alugado" style="display: none;">
               <!--FORNECEDOR-->
               <div class="form-group">
-                <label for="fornecedorScan">Fornecedor:</label>
+                <label for="fornecedorScan" class="border-bottom-info">Fornecedor:</label>
                 <input type="text" class="form-control" name="fornecedorScan">
               </div>
               <!--DATA FIM CONTRATO-->
               <div class="form-group">
-                <label for="dataFimContrato">Data fim contrato:</label>
+                <label for="dataFimContrato" class="border-bottom-info">Data fim contrato:</label>
                 <input type="text" class="form-control" name="dataFimContrato" placeholder="xx/xx/xxxx">
               </div>
             </div>
             <!--SITUAÇÂO COMPRADO Scan-->
             <div id="comprado" style="display: none;">
               <div class="form-group">
-                <label for="numero_notaScan">Número Nota:</label>
+                <label for="numero_notaScan" class="border-bottom-info">Número Nota:</label>
                 <div class="col-md-6 py-2">
                   <input type="text" class="form-control" name="numero_notaScan">
                 </div>
               </div>
 
               <div class="form-group">
-                <label for="data_notaScan">Data Nota:</label>
+                <label for="data_notaScan" class="border-bottom-info">Data Nota:</label>
                 <div class="col-md-4 py-2">
                   <input type="text" class="form-control" name="data_notaScan" placeholder="xx/xx/xxxx">
                 </div>
               </div>
 
               <div class="form-group">
-                <label for="anexoScan">Nota Fiscal:</label>
+                <label for="anexoScan" class="border-bottom-info">Nota Fiscal:</label>
                 <div class="col-md-4 py-2">
                   <input type="file" name="anexoScan">
                 </div>
@@ -465,7 +415,7 @@ $resultFuncionario = $conn->query($queryColaborador);
 
           <!-- NOTA FISCAL-->
           <div class="form-group" id="nota" style="display: none;">
-            <label for="exampleFormControlSelect2">Possui Nota Fiscal?</label>
+            <label for="exampleFormControlSelect2" class="border-bottom-info">Possui Nota Fiscal?</label>
             <div class="py-2 input-group">
               <div class="form-check">
                 <input class="form-check-input" type="radio" name="todosEquipamentos" id="exampleRadios1" value="1" onclick="sim()">
@@ -484,24 +434,74 @@ $resultFuncionario = $conn->query($queryColaborador);
             <div id='notafiscal' style="display: none;">
               <hr>
               <div class="form-group">
-                <label for="exampleFormControlSelect2">Número Nota:</label>
+                <label for="exampleFormControlSelect2" class="border-bottom-info">Número Nota:</label>
                 <div class="col-md-6 py-2">
                   <input type="text" class="form-control" name="numero_nota">
                 </div>
               </div>
 
               <div class="form-group">
-                <label for="exampleFormControlSelect2">Data Nota:</label>
+                <label for="exampleFormControlSelect2" class="border-bottom-info">Data Nota:</label>
                 <div class="col-md-4 py-2">
                   <input type="text" class="form-control" name="data_nota" placeholder="xx/xx/xxxx">
                 </div>
               </div>
 
               <div class="form-group">
-                <label for="exampleFormControlSelect2">Nota Fiscal:</label>
+                <label for="exampleFormControlSelect2" class="border-bottom-info">Nota Fiscal:</label>
                 <div class="col-md-4 py-2">
                   <input type="file" name="anexo">
                 </div>
+              </div>
+            </div>
+          </div>
+
+          <!--COLABORADOR-->
+          <div style="display: none;" id="colaborador">
+            <h1 class="h6 mb-2 text-gray-800 border-bottom-info"> Atribuir um colaborador ?</h1>
+            <div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="todosFuncionarios" id="simFun" value="1" onclick="funOne()">
+                <label class="form-check-label" for="simFun">
+                  Sim
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input " type="radio" name="todosFuncionarios" id="naoFun" value="2" onclick="funTwo()" checked>
+                <label class="form-check-label" for="naoFun">
+                  Não
+                </label>
+              </div>
+              <br>
+              <!--MOSTRAR TABELA DOS EQUIPAMENTOS-->
+              <script>
+                function funTwo() {
+                  document.getElementById("tabelaFun").style.display = "none";
+                }
+
+                function funOne() {
+                  document.getElementById("tabelaFun").style.display = "block";
+                }
+              </script>
+            </div>
+          </div>
+          <div id="tabelaFun" style="display: none;">
+            <h1 class="h6 mb-2 text-gray-800 "> Escolha o colaborador:</h1>
+            <div class="col-md-8 py-4 input-group">
+              <select name="newfun" class="form-control">
+                <option value="">---</option>
+                <?php
+
+                while ($funcionario = $resultFuncionario->fetch_assoc()) {
+                  echo '
+                <option value="' . $funcionario['id_funcionario'] . '">' . $funcionario['nome'] . '</option>';
+                }
+                ?>
+              </select>
+              <div class="input-group-append">
+                <a class="btn btn-success btn-pen-square btn-sm float-rigth" title="Novo Usuário" href="#" data-toggle="modal" data-target="#adicionar">
+                  <i class="fas fa-user-plus fa-sm"></i>
+                </a>
               </div>
             </div>
           </div>
@@ -517,9 +517,9 @@ $resultFuncionario = $conn->query($queryColaborador);
         <!--CPU / NOTEBOOK-->
         <div id="cpuNotebook" style="display: none;">
           <form action="../inc/pesquisaocs.php" method="POST" id="cpuNote" autocomplete="off">
-            <!--* VALOR CELULAR / NOTEBOOK-->
+            <!--* PATRIMONIO CPU / NOTEBOOK-->
             <div class="form-group">
-              <label for="exampleFormControlSelect2">Patrimônio:</label>
+              <label for="exampleFormControlSelect2" class="border-bottom-info">Patrimônio:</label>
               <div class="input-group-append">
 
                 <div class="col-md-6 py-2">

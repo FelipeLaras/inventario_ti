@@ -116,7 +116,7 @@ $resultLog = $conn->query($queryLog);
               echo $log['data_alteracao'] != NULL ?  '<td>' . $log['data_alteracao'] . '</td>' :  '<td>----------</td>';
               echo $log['profile_name'] != NULL ?  '<td>' . $log['profile_name'] . '</td>' :  '<td>----------</td>';
               echo $idLog != NULL ?  '<td>' . $idLog . '</td>' :  '<td>----------</td>';
-              echo $log['id_equipamento'] != NULL ?  '<td><a href="#" class="btn btn-secondary btn-icon-split left text-xs">
+              echo $log['id_equipamento'] != NULL ?  '<td><a href="editequipamento.php?pagina=5&id_equip='.$log['id_equipamento'].'" class="btn btn-secondary btn-icon-split left text-xs">
               <span class="text">' . $log['id_equipamento'] . '</span>
             </a></td>' :  '<td>----------</td>';
               echo '</tr>';

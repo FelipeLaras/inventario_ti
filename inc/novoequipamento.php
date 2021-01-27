@@ -931,7 +931,7 @@ switch ($_POST['tipo_equipamento']) {
 
             //salvando relatório caso tenha funcionário
             if (!empty($_POST['newfun'])) {
-                $insertLog = "INSERT INTO manager_log (id_funcionario, id_equipamento,  data_alteracao, usuario, tipo_alteracao) VALUES ('" . $_POST['newfun'] . "','" . $id_equipamento['id_equipamento']. "', '" . $dataHoje . "', '" . $_SESSION["id"] . "', '4')";
+                $insertLog = "INSERT INTO manager_log (id_funcionario, id_equipamento,  data_alteracao, usuario, tipo_alteracao) VALUES ('" . $_POST['newfun'] . "','" . $id_equipamento['id_equipamento'] . "', '" . $dataHoje . "', '" . $_SESSION["id"] . "', '4')";
 
                 if (!$log = $conn->query($insertLog)) {
                     printf('Erro[2]: %s\n', $conn->error);
@@ -984,7 +984,7 @@ switch ($_POST['tipo_equipamento']) {
                 '" . $id_equipamento['id_equipamento'] . "',
                 '" . $_POST['locacao'] . "',
                 '" . $_POST['empresa'] . "',
-                '" . $_POST['versao'] . "',
+                '" . $_POST['versaoSO'] . "',
                 '" . $_POST['chaveProduto'] . "',
                 '" . $_POST['fornecedor'] . "',
                 '" . $_POST['numero_nota'] . "',
@@ -1022,25 +1022,29 @@ switch ($_POST['tipo_equipamento']) {
             }
 
             //OFFICE
-            $insertSO = "INSERT INTO manager_office 
-                (
-                    id_equipamento, 
-                    locacao, 
-                    empresa,
-                    versao, 
-                    serial
-                ) 
-                VALUES 
-                (
-                    '" . $id_equipamento['id_equipamento'] . "',
-                    '" . $_POST['locacao'] . "',
-                    '" . $_POST['empresa'] . "',
-                    '" . $_POST['versao'] . "',
-                    '" . $_POST['chaveProduto'] . "')";
 
-            if (!$restulSO = $conn->query($insertSO)) {
-                printf("Erro[34]: %s\n", $conn->error);
-                exit;
+            if (!empty($_POST['versao'])) {
+
+                $insertSO = "INSERT INTO manager_office 
+            (
+                id_equipamento, 
+                locacao, 
+                empresa,
+                versao, 
+                serial
+            ) 
+            VALUES 
+            (
+                '" . $id_equipamento['id_equipamento'] . "',
+                '" . $_POST['locacao'] . "',
+                '" . $_POST['empresa'] . "',
+                '" . $_POST['versao'] . "',
+                '" . $_POST['chaveProduto'] . "')";
+
+                if (!$restulSO = $conn->query($insertSO)) {
+                    printf("Erro[34]: %s\n", $conn->error);
+                    exit;
+                }
             }
 
             //Salvo com sucesso
@@ -1121,7 +1125,7 @@ switch ($_POST['tipo_equipamento']) {
 
             //salvando relatório caso tenha funcionário
             if (!empty($_POST['newfun'])) {
-                $insertLog = "INSERT INTO manager_log (id_funcionario, id_equipamento,  data_alteracao, usuario, tipo_alteracao) VALUES ('" . $_POST['newfun'] . "','" . $id_equipamento['id_equipamento']. "', '" . $dataHoje . "', '" . $_SESSION["id"] . "', '4')";
+                $insertLog = "INSERT INTO manager_log (id_funcionario, id_equipamento,  data_alteracao, usuario, tipo_alteracao) VALUES ('" . $_POST['newfun'] . "','" . $id_equipamento['id_equipamento'] . "', '" . $dataHoje . "', '" . $_SESSION["id"] . "', '4')";
 
                 if (!$log = $conn->query($insertLog)) {
                     printf('Erro[2]: %s\n', $conn->error);
@@ -1212,25 +1216,29 @@ switch ($_POST['tipo_equipamento']) {
             }
 
             //OFFICE
-            $insertSO = "INSERT INTO manager_office 
-                (
-                    id_equipamento, 
-                    locacao, 
-                    empresa,
-                    versao, 
-                    serial
-                ) 
-                VALUES 
-                (
-                    '" . $id_equipamento['id_equipamento'] . "',
-                    '" . $_POST['locacao'] . "',
-                    '" . $_POST['empresa'] . "',
-                    '" . $_POST['versao'] . "',
-                    '" . $_POST['chaveProduto'] . "')";
 
-            if (!$restulSO = $conn->query($insertSO)) {
-                printf("Erro[34]: %s\n", $conn->error);
-                exit;
+            if (!empty($_POST['versao'])) {
+
+                $insertSO = "INSERT INTO manager_office 
+            (
+                id_equipamento, 
+                locacao, 
+                empresa,
+                versao, 
+                serial
+            ) 
+            VALUES 
+            (
+                '" . $id_equipamento['id_equipamento'] . "',
+                '" . $_POST['locacao'] . "',
+                '" . $_POST['empresa'] . "',
+                '" . $_POST['versao'] . "',
+                '" . $_POST['chaveProduto'] . "')";
+
+                if (!$restulSO = $conn->query($insertSO)) {
+                    printf("Erro[34]: %s\n", $conn->error);
+                    exit;
+                }
             }
 
             //Salvo com sucesso
