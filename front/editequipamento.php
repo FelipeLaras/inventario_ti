@@ -49,7 +49,7 @@ $equip = $resultEquipamento->fetch_assoc();
       </div>
       <!--HISTÓRICO-->
       <div class="col-xl-4 col-md-6 mb-4">
-        <a href="#" class="text-decoration">
+        <a href="equipamentohistorico.php?pagina=5&id_equip=<?= $_GET['id_equip'] ?>" class="text-decoration">
           <div class="card border-left-warning shadow h-100 py-2" style="background-color: white">
             <div class="card-body">
               <div class="row no-gutters align-items-center">
