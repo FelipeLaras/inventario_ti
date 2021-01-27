@@ -164,7 +164,16 @@ switch ($_POST['tipo_equipamento']) {
                 }
             }
 
-            header('location: ../front/editequipamento.php?pagina=5&id_equip=' . $id_equipamento['id_equipamento'] . '');
+            //criar log de criação do equipamento
+            $insertLog = "INSERT INTO manager_log (id_equipamento,  data_alteracao, usuario, tipo_alteracao) VALUES ('" . $id_equipamento['id_equipamento'] . "', '" . $dataHoje . "', '" . $_SESSION["id"] . "', '13')";
+
+            if (!$log = $conn->query($insertLog)) {
+                printf('Erro[2]: %s\n', $conn->error);
+            }else{
+                header('location: ../front/editequipamento.php?pagina=5&id_equip=' . $id_equipamento['id_equipamento'] . '');
+            }
+
+            
         }
         break;
 
@@ -318,7 +327,14 @@ switch ($_POST['tipo_equipamento']) {
                 }
             }
 
-            header('location: ../front/editequipamento.php?pagina=5&id_equip=' . $id_equipamento['id_equipamento'] . '');
+            //criar log de criação do equipamento
+            $insertLog = "INSERT INTO manager_log (id_equipamento,  data_alteracao, usuario, tipo_alteracao) VALUES ('" . $id_equipamento['id_equipamento'] . "', '" . $dataHoje . "', '" . $_SESSION["id"] . "', '13')";
+
+            if (!$log = $conn->query($insertLog)) {
+                printf('Erro[2]: %s\n', $conn->error);
+            }else{
+                header('location: ../front/editequipamento.php?pagina=5&id_equip=' . $id_equipamento['id_equipamento'] . '');
+            }
         }
         break;
     case '3':
@@ -458,7 +474,14 @@ switch ($_POST['tipo_equipamento']) {
                 }
             }
 
-            header('location: ../front/editequipamento.php?pagina=5&id_equip=' . $id_equipamento['id_equipamento'] . '');
+            //criar log de criação do equipamento
+            $insertLog = "INSERT INTO manager_log (id_equipamento,  data_alteracao, usuario, tipo_alteracao) VALUES ('" . $id_equipamento['id_equipamento'] . "', '" . $dataHoje . "', '" . $_SESSION["id"] . "', '13')";
+
+            if (!$log = $conn->query($insertLog)) {
+                printf('Erro[2]: %s\n', $conn->error);
+            }else{
+                header('location: ../front/editequipamento.php?pagina=5&id_equip=' . $id_equipamento['id_equipamento'] . '');
+            }
         }
         break;
     case '4':
@@ -598,7 +621,14 @@ switch ($_POST['tipo_equipamento']) {
                 }
             }
 
-            header('location: ../front/editequipamento.php?pagina=5&id_equip=' . $id_equipamento['id_equipamento'] . '');
+            //criar log de criação do equipamento
+            $insertLog = "INSERT INTO manager_log (id_equipamento,  data_alteracao, usuario, tipo_alteracao) VALUES ('" . $id_equipamento['id_equipamento'] . "', '" . $dataHoje . "', '" . $_SESSION["id"] . "', '13')";
+
+            if (!$log = $conn->query($insertLog)) {
+                printf('Erro[2]: %s\n', $conn->error);
+            }else{
+                header('location: ../front/editequipamento.php?pagina=5&id_equip=' . $id_equipamento['id_equipamento'] . '');
+            }
         }
 
 
@@ -656,7 +686,14 @@ switch ($_POST['tipo_equipamento']) {
                 }
             }
 
-            header('location: ../front/editequipamento.php?pagina=5&id_equip=' . $id_equipamento['id_equipamento'] . '');
+            //criar log de criação do equipamento
+            $insertLog = "INSERT INTO manager_log (id_equipamento,  data_alteracao, usuario, tipo_alteracao) VALUES ('" . $id_equipamento['id_equipamento'] . "', '" . $dataHoje . "', '" . $_SESSION["id"] . "', '13')";
+
+            if (!$log = $conn->query($insertLog)) {
+                printf('Erro[2]: %s\n', $conn->error);
+            }else{
+                header('location: ../front/editequipamento.php?pagina=5&id_equip=' . $id_equipamento['id_equipamento'] . '');
+            }
         }
 
         break;
@@ -795,7 +832,14 @@ switch ($_POST['tipo_equipamento']) {
                 }
             }
 
-            header('location: ../front/editequipamento.php?pagina=5&id_equip=' . $id_equipamento['id_equipamento'] . '');
+            //criar log de criação do equipamento
+            $insertLog = "INSERT INTO manager_log (id_equipamento,  data_alteracao, usuario, tipo_alteracao) VALUES ('" . $id_equipamento['id_equipamento'] . "', '" . $dataHoje . "', '" . $_SESSION["id"] . "', '13')";
+
+            if (!$log = $conn->query($insertLog)) {
+                printf('Erro[2]: %s\n', $conn->error);
+            }else{
+                header('location: ../front/editequipamento.php?pagina=5&id_equip=' . $id_equipamento['id_equipamento'] . '');
+            }
         }
 
         break;
@@ -854,7 +898,14 @@ switch ($_POST['tipo_equipamento']) {
                 }
             }
 
-            header('location: ../front/editequipamento.php?pagina=5&id_equip=' . $id_equipamento['id_equipamento'] . '');
+            //criar log de criação do equipamento
+            $insertLog = "INSERT INTO manager_log (id_equipamento,  data_alteracao, usuario, tipo_alteracao) VALUES ('" . $id_equipamento['id_equipamento'] . "', '" . $dataHoje . "', '" . $_SESSION["id"] . "', '13')";
+
+            if (!$log = $conn->query($insertLog)) {
+                printf('Erro[2]: %s\n', $conn->error);
+            }else{
+                header('location: ../front/editequipamento.php?pagina=5&id_equip=' . $id_equipamento['id_equipamento'] . '');
+            }
         }
 
         break;
@@ -1047,8 +1098,14 @@ switch ($_POST['tipo_equipamento']) {
                 }
             }
 
-            //Salvo com sucesso
-            header('location: ../front/editequipamento.php?pagina=5&id_equip=' . $id_equipamento['id_equipamento'] . '');
+            //criar log de criação do equipamento
+            $insertLog = "INSERT INTO manager_log (id_equipamento,  data_alteracao, usuario, tipo_alteracao) VALUES ('" . $id_equipamento['id_equipamento'] . "', '" . $dataHoje . "', '" . $_SESSION["id"] . "', '13')";
+
+            if (!$log = $conn->query($insertLog)) {
+                printf('Erro[2]: %s\n', $conn->error);
+            }else{
+                header('location: ../front/editequipamento.php?pagina=5&id_equip=' . $id_equipamento['id_equipamento'] . '');
+            }
         }
 
         break;
@@ -1241,8 +1298,14 @@ switch ($_POST['tipo_equipamento']) {
                 }
             }
 
-            //Salvo com sucesso
-            header('location: ../front/editequipamento.php?pagina=5&id_equip=' . $id_equipamento['id_equipamento'] . '');
+            //criar log de criação do equipamento
+            $insertLog = "INSERT INTO manager_log (id_equipamento,  data_alteracao, usuario, tipo_alteracao) VALUES ('" . $id_equipamento['id_equipamento'] . "', '" . $dataHoje . "', '" . $_SESSION["id"] . "', '13')";
+
+            if (!$log = $conn->query($insertLog)) {
+                printf('Erro[2]: %s\n', $conn->error);
+            }else{
+                header('location: ../front/editequipamento.php?pagina=5&id_equip=' . $id_equipamento['id_equipamento'] . '');
+            }
         }
 
         break;

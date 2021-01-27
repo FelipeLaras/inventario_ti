@@ -5,14 +5,23 @@ require_once('../bd/conexao.php');
 require_once('../inc/dropdown.php');
 
 //DOCUMENTOS DIVERSOS
-$queryDocumento .= "WHERE MIA.id_funcionario = " . $_SESSION['id_funcionario'] . " AND MIA.deletar = 0 ORDER BY MIA.id_anexo DESC";
+$queryDocumento .= "WHERE MIA.id_equipamento = " . $_GET['id_equip'] . " AND MIA.deletar = 0 ORDER BY MIA.id_anexo DESC";
 $result = $conn->query($queryDocumento);
 
+//OFFICE
+$queryoffice .= " WHERE MO.id_equipamento = " . $_GET['id_equip'] . " AND MO.numero_nota NOT IN (0)";
+$resultOffice = $conn->query($queryoffice);
+
+//WINDOWS
+$queryso .= " WHERE MSO.id_equipamento = " . $_GET['id_equip'] . " AND MSO.numero_nota NOT IN (0)";
+$resultSO = $conn->query($queryso);
+
 //TIPO DE DOCUMENTOS NO SISTEMA
+$queryDocumentos .= " AND id IN (1, 4)";
 $resultDoc = $conn->query($queryDocumentos);
 
 //EQUIPAMENTOS
-$queryEquipamento .= " WHERE MIE.id_funcionario = " . $_SESSION['id_funcionario'] . " AND MIE.deletar = 0";
+$queryEquipamento .= " WHERE MIE.id_equipamento = " . $_GET['id_equip'] . " AND MIE.deletar = 0";
 $resultEquip = $conn->query($queryEquipamento);
 
 ?>
@@ -22,8 +31,9 @@ $resultEquip = $conn->query($queryEquipamento);
   <!-- Page Heading -->
   <h1 class="text-xs mb-6 text-gray-800">
     <a href="front.php?pagina=1"><i class="fas fa-home"></i> Home</a> /
-    <a href="colaboradores.php?pagina=3"><i class="fas fa-users"></i> Colaboradores</a> /
-    <a href="funcionario.php?pagina=3"><i class="fas fa-user"></i> <?= $_SESSION['nomeFuncionario'] ?></a> /
+    <a href="listequipamentos.php?pagina=5"><i class="fas fa-laptop"></i> Equipamentos</a> /
+    <a href="editequipamento.php?pagina=5&id_equip=<?= $_GET['id_equip']  ?>"><i class="fas fa-pen"></i> Editando <?= $_GET['id_equip']  ?></a> /
+    
     <i class="fas fa-file"></i> Documentos
   </h1>
   <hr />
@@ -54,7 +64,7 @@ $resultEquip = $conn->query($queryEquipamento);
           </tfoot>
           <tbody class="colorTable">
             <?php
-            while ($documento = $result->fetch_assoc()) {
+            while ($documento = $result->fetch_assoc()) {//documentos diversos
               echo '<tr>';
               echo $documento['nome'] != NULL ?  '<td> <a href="' . $documento['caminho'] . '"  target="_blank">' . $documento['nome'] . '</a></td>' :  '<td>----------</td>';
               echo $documento['data_criacao'] != NULL ?  '<td>' . $documento['data_criacao'] . '</td>' :  '<td>----------</td>';
@@ -76,7 +86,83 @@ $resultEquip = $conn->query($queryEquipamento);
                         </button>
                       </div>
                       <div class="modal-body">
-                        <form action="../inc/excluirdocumento.php?id=' . $documento['id_anexo'] . '" method="POST" autocomplete="off">
+                        <form action="../inc/excluirdocumento.php?pagina=5&id=' . $documento['id_anexo'] . '&tipo=1&id_equip='.$_GET['id_equip'].'" method="POST" autocomplete="off">
+                          <div class="form-group">
+                            <h1 class="h4">Deseja realmente excluir esse documento ?</h1>
+                          </div>
+                          <div class="modal-footer">
+                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Não</button>
+                            <button class="btn btn-danger" type="submit">Sim</a>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>';
+              echo '</tr>';
+            }
+
+            while ($documento = $resultOffice->fetch_assoc()) {//OFFICE
+              echo '<tr>';
+              echo $documento['nome'] != NULL ?  '<td> <a href="' . $documento['caminho'] . '"  target="_blank">' . $documento['nome'] . '</a></td>' :  '<td>----------</td>';
+              echo $documento['data_criacao'] != NULL ?  '<td>' . $documento['data_criacao'] . '</td>' :  '<td>----------</td>';
+              echo '<td>Nota Fiscal</td>';
+              echo '
+              <td>
+                <a href="#" data-toggle="modal" data-target="#excluir' . $documento['id_anexo'] . '" class="left text-xs colorRed" title="Excluir">
+                  <i class="fas fa-trash"></i>
+                </a>
+                <!-- Excluir Modal-->
+                <div class="modal fade" id="excluir' . $documento['id_anexo'] . '" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">                      
+                        <img src="../img/atencao.png" style="width: 9%;"/>
+                        <h5 class="modal-title text-xs" id="exampleModalLabel">Documento: ' . $documento['nome'] . '</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">×</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <form action="../inc/excluirdocumento.php?pagina=5&id=' . $documento['id_anexo'] . '&tipo=2&id_equip='.$_GET['id_equip'].'" method="POST" autocomplete="off">
+                          <div class="form-group">
+                            <h1 class="h4">Deseja realmente excluir esse documento ?</h1>
+                          </div>
+                          <div class="modal-footer">
+                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Não</button>
+                            <button class="btn btn-danger" type="submit">Sim</a>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>';
+              echo '</tr>';
+            }
+
+            while ($documento = $resultSO->fetch_assoc()) {//WINDOWS
+              echo '<tr>';
+              echo $documento['nome'] != NULL ?  '<td> <a href="' . $documento['caminho'] . '"  target="_blank">' . $documento['nome'] . '</a></td>' :  '<td>----------</td>';
+              echo $documento['data_criacao'] != NULL ?  '<td>' . $documento['data_criacao'] . '</td>' :  '<td>----------</td>';
+              echo '<td>Nota Fiscal</td>';
+              echo '
+              <td>
+                <a href="#" data-toggle="modal" data-target="#excluir' . $documento['id_anexo'] . '" class="left text-xs colorRed" title="Excluir">
+                  <i class="fas fa-trash"></i>
+                </a>
+                <!-- Excluir Modal-->
+                <div class="modal fade" id="excluir' . $documento['id_anexo'] . '" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">                      
+                        <img src="../img/atencao.png" style="width: 9%;"/>
+                        <h5 class="modal-title text-xs" id="exampleModalLabel">Documento: ' . $documento['nome'] . '</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">×</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <form action="../inc/excluirdocumento.php?pagina=5&id=' . $documento['id_anexo'] . '&tipo=3&id_equip='.$_GET['id_equip'].'" method="POST" autocomplete="off">
                           <div class="form-group">
                             <h1 class="h4">Deseja realmente excluir esse documento ?</h1>
                           </div>
@@ -138,7 +224,7 @@ $resultEquip = $conn->query($queryEquipamento);
         </button>
       </div>
       <div class="modal-body">
-        <form action="../inc/criardocumento.php" method="POST" enctype="multipart/form-data" autocomplete="off">
+        <form action="../inc/criardocumento.php?id_equip=<?= $_GET['id_equip'] ?>" method="POST" enctype="multipart/form-data" autocomplete="off">
           <div class="col-md-5 input-group">
             <div class="form-group">
               <label for="nome">Tipo de Documento: </label>
@@ -156,7 +242,7 @@ $resultEquip = $conn->query($queryEquipamento);
           </div>
           <!--NOTA FISCAL DATA-->
           <div id="datanota" style="display: none;" id="datanota">
-            <div class="input-group">
+          <div class="input-group">
               <div class="col-md-10 form-group" class="display: block">
                 <label for="nome">Fornecedor: </label>
                 <input type="text" class="form-control" name="fornecedor">
@@ -228,5 +314,4 @@ $resultEquip = $conn->query($queryEquipamento);
     </div>
   </div>
 </div>
-
 </html>

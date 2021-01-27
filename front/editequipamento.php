@@ -23,14 +23,14 @@ $equip = $resultEquipamento->fetch_assoc();
     <h1 class="text-xs mb-6 text-gray-800">
       <a href="front.php?pagina=1"><i class="fas fa-home"></i> Home</a> /
       <a href="listequipamentos.php?pagina=5"><i class="fas fa-laptop"></i> Equipamentos</a> /
-      <i class="fas fa-pen"></i> Editando
+      <i class="fas fa-pen"></i>  Editando <?= $_GET['id_equip']  ?>
     </h1>
     <hr>
 
     <div class="row">
       <!--NOTAS / DOCUMENTOS-->
       <div class="col-xl-4 col-md-6 mb-4">
-        <a href="#" class="text-decoration">
+        <a href="equipamentodocumentos.php?pagina=5&id_equip=<?= $_GET['id_equip'] ?>" class="text-decoration">
           <div class="card border-left-success shadow h-100 py-2" style="background-color: white">
             <div class="card-body">
               <div class="row no-gutters align-items-center">
@@ -55,7 +55,7 @@ $equip = $resultEquipamento->fetch_assoc();
               <div class="row no-gutters align-items-center">
                 <div class="col mr-2">
                   <div class="menu font-weight-bold text-warning text-uppercase mb-1">Histórico</div>
-                  <div class="menu font-weight-bold text-dark text-uppercase mb-1">Deste Equipamento</div>
+                  <div class="menu font-weight-bold text-dark text-uppercase mb-1">Equipamento</div>
                   <div class="h5 mb-0 font-weight-bold text-gray-800"></div>
                 </div>
                 <div class="col-auto">
