@@ -86,8 +86,10 @@ MIE.liberado_rh,
 MIE.hostname,
 MSO.versao AS versao_so,
 MSO.serial AS chave_windows,
+MSO.id AS id_windows,
 MOFF.versao AS versao_off,
-MOFF.serial AS chave_office
+MOFF.serial AS chave_office,
+MOFF.id AS id_office
 FROM
 manager_inventario_equipamento MIE
 LEFT JOIN
@@ -173,11 +175,19 @@ MDSO.nome AS versao,
 MSO.file_nota AS caminho,
 MSO.file_nota_nome AS nome,
 MSO.data_nota AS data_criacao,
-MSO.id AS id_anexo
+MSO.id AS id_anexo,
+MDE.nome AS empresa,
+MDL.nome AS locacao,
+MSO.numero_nota,
+MSO.fornecedor
 FROM
 manager_sistema_operacional MSO
 LEFT JOIN
-manager_dropsistemaoperacional MDSO ON (MSO.versao = MDSO.id)";
+manager_dropsistemaoperacional MDSO ON (MSO.versao = MDSO.id)
+LEFT JOIN
+manager_dropempresa MDE ON (MSO.empresa = MDE.id_empresa)
+LEFT JOIN
+manager_droplocacao MDL ON (MSO.empresa = MDE.id_empresa)";
 
 //OFFICE
 $queryoffice = "SELECT 

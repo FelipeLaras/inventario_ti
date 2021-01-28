@@ -23,7 +23,7 @@ $equip = $resultEquipamento->fetch_assoc();
     <h1 class="text-xs mb-6 text-gray-800">
       <a href="front.php?pagina=1"><i class="fas fa-home"></i> Home</a> /
       <a href="listequipamentos.php?pagina=5"><i class="fas fa-laptop"></i> Equipamentos</a> /
-      <i class="fas fa-pen"></i>  Editando <?= $_GET['id_equip']  ?>
+      <i class="fas fa-pen"></i> Editando <?= $_GET['id_equip']  ?>
     </h1>
     <hr>
 
@@ -74,7 +74,7 @@ $equip = $resultEquipamento->fetch_assoc();
               <div class="row no-gutters align-items-center">
                 <div class="col mr-2">
                   <div class="menu font-weight-bold text-info text-uppercase mb-1">Respónsavel</div>
-                  <div class="menu font-weight-bold text-dark text-uppercase mb-1"><?=  !empty($equip['nome_funcionario']) ? $equip['nome_funcionario'] : "Equipamento Disponivel"  ?></div>
+                  <div class="menu font-weight-bold text-dark text-uppercase mb-1"><?= !empty($equip['nome_funcionario']) ? $equip['nome_funcionario'] : "Equipamento Disponivel"  ?></div>
                   <div class="h5 mb-0 font-weight-bold text-gray-800"></div>
                 </div>
               </div>
@@ -84,6 +84,16 @@ $equip = $resultEquipamento->fetch_assoc();
       </div>
     </div>
 
+
+    <div class="float-right" style="display: <?= $equip['id_tipoEquipamento'] == 8 || $equip['id_tipoEquipamento'] == 9  ? 'block' : 'none' ?>;">
+      <a href="../inc/equip_modelo.php?id_equip=<?= $_GET['id_equip'] ?>" class="btn btn-success" title="Modelo" target="_blank">
+        <i class="fas fa-file"></i>
+      </a>
+      <a href="../inc/equip_modelo.php?id_equip=<?= $_GET['id_equip'] ?>" class="btn btn-warning" title="Termo de responsabilidade">
+        <i class="fas fa-file-signature"></i>
+      </a>
+    </div>
+
     <div class="col-lg-6 left">
       <!-- Circle Buttons -->
       <div class="card shadow mb-4">
@@ -91,7 +101,7 @@ $equip = $resultEquipamento->fetch_assoc();
           <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-pen"></i> Editando Equipamento</h6>
         </div>
         <div class="card-body">
-          <form action="../inc/editarequipamento.php?id_equipamento=<?= $_GET['id_equipamento'] ?>" method="POST" enctype="multipart/form-data">
+          <form action="../inc/editequipamento.php?id_equipamento=<?= $_GET['id_equip'] ?>&id_so=<?= $equip['id_windows'] ?>&id_of=<?= $_GET['id_office'] ?>" method="POST" enctype="multipart/form-data">
 
             <div class="form-group">
               <!--EQUIPAMENTO-->
@@ -125,7 +135,7 @@ $equip = $resultEquipamento->fetch_assoc();
               </div>
               <!--EMPRESA CELULAR / TABLET-->
               <div class="form-group">
-                <label for="exampleFormControlSelect2">Empresa:</label>
+                <label for="exampleFormControlSelect2">Empresa Faturada:</label>
                 <select class="form-control" id="exampleFormControlSelect2" name="empresa">
                   <?php
 
@@ -259,8 +269,8 @@ $equip = $resultEquipamento->fetch_assoc();
             <div id="chipModem" style="display: <?= $equip['id_tipoEquipamento'] == 3 || $equip['id_tipoEquipamento'] ==  4 ? 'block' : 'none' ?>;">
               <!--EMPRESA CHIP / MODEM-->
               <div class="form-group">
-                <label for="exampleFormControlSelect2">Empresa:</label>
-                <select class="form-control" id="exampleFormControlSelect2" name="empresa">
+                <label for="exampleFormControlSelect2">Empresa Faturada:</label>
+                <select class="form-control" id="exampleFormControlSelect2" name="empresaChip">
                   <?php
 
                   if (!empty($equip['id_filial'])) {
@@ -403,20 +413,20 @@ $equip = $resultEquipamento->fetch_assoc();
 
                     echo '<option value="' . $equip['id_locacao'] . '">' . $equip['locacao'] . '</option>';
 
-                    $resultEmpresa = $conn->query($queryEmpresa);
+                    $resultLocacao = $conn->query($queryLocacao);
 
                     echo '<option>----------</option>';
 
-                    while ($empresa = $resultEmpresa->fetch_assoc()) {
-                      echo '<option value="' . $empresa['id'] . '">' . $empresa['nome'] . '</option>';
+                    while ($locacao = $resultLocacao->fetch_assoc()) {
+                      echo '<option value="' . $locacao['id'] . '">' . $locacao['nome'] . '</option>';
                     }
                   } else {
-                    $resultEmpresa = $conn->query($queryEmpresa);
+                    $resultLocacao = $conn->query($queryLocacao);
 
                     echo '<option>----------</option>';
 
-                    while ($empresa = $resultEmpresa->fetch_assoc()) {
-                      echo '<option value="' . $empresa['id'] . '">' . $empresa['nome'] . '</option>';
+                    while ($locacao = $resultLocacao->fetch_assoc()) {
+                      echo '<option value="' . $locacao['id'] . '">' . $locacao['nome'] . '</option>';
                     }
                   }
 
@@ -441,7 +451,7 @@ $equip = $resultEquipamento->fetch_assoc();
               </div>
               <!--EMPRESA RAMAL-->
               <div class="form-group">
-                <label for="exampleFormControlSelect2">Empresa:</label>
+                <label for="exampleFormControlSelect2">Empresa Faturada:</label>
                 <select class="form-control" id="exampleFormControlSelect2" name="empresaRamal">
                   <?php
 
@@ -471,7 +481,7 @@ $equip = $resultEquipamento->fetch_assoc();
               </div>
               <!--LOCACAO RAMAL-->
               <div class="form-group">
-                <label for="exampleFormControlSelect2">Locação:</label>
+                <label for="exampleFormControlSelect2">Localização:</label>
                 <select class="form-control" id="exampleFormControlSelect2" name="locacaoRamal">
                   <?php
 
@@ -479,20 +489,20 @@ $equip = $resultEquipamento->fetch_assoc();
 
                     echo '<option value="' . $equip['id_locacao'] . '">' . $equip['locacao'] . '</option>';
 
-                    $resultEmpresa = $conn->query($queryEmpresa);
+                    $resultLocacao = $conn->query($queryLocacao);
 
                     echo '<option>----------</option>';
 
-                    while ($empresa = $resultEmpresa->fetch_assoc()) {
-                      echo '<option value="' . $empresa['id'] . '">' . $empresa['nome'] . '</option>';
+                    while ($locacao = $resultLocacao->fetch_assoc()) {
+                      echo '<option value="' . $locacao['id'] . '">' . $locacao['nome'] . '</option>';
                     }
                   } else {
-                    $resultEmpresa = $conn->query($queryEmpresa);
+                    $resultLocacao = $conn->query($queryLocacao);
 
                     echo '<option>----------</option>';
 
-                    while ($empresa = $resultEmpresa->fetch_assoc()) {
-                      echo '<option value="' . $empresa['id'] . '">' . $empresa['nome'] . '</option>';
+                    while ($locacao = $resultLocacao->fetch_assoc()) {
+                      echo '<option value="' . $locacao['id'] . '">' . $locacao['nome'] . '</option>';
                     }
                   }
 
@@ -522,7 +532,7 @@ $equip = $resultEquipamento->fetch_assoc();
               </div>
               <!--EMPRESA Scan-->
               <div class="form-group">
-                <label for="exampleFormControlSelect2">Empresa:</label>
+                <label for="exampleFormControlSelect2">Empresa Faturada:</label>
                 <select class="form-control" id="exampleFormControlSelect2" name="empresaScan" value="<?= $equip['emp']  ?>">
                   <?php
 
@@ -552,7 +562,7 @@ $equip = $resultEquipamento->fetch_assoc();
               </div>
               <!--LOCACAO Scan-->
               <div class="form-group">
-                <label for="exampleFormControlSelect2">Locação:</label>
+                <label for="exampleFormControlSelect2">Localização</label>
                 <select class="form-control" id="exampleFormControlSelect2" name="locacaoScan">
                   <?php
 
@@ -560,20 +570,20 @@ $equip = $resultEquipamento->fetch_assoc();
 
                     echo '<option value="' . $equip['id_locacao'] . '">' . $equip['locacao'] . '</option>';
 
-                    $resultEmpresa = $conn->query($queryEmpresa);
+                    $resultLocacao = $conn->query($queryLocacao);
 
                     echo '<option>----------</option>';
 
-                    while ($empresa = $resultEmpresa->fetch_assoc()) {
-                      echo '<option value="' . $empresa['id'] . '">' . $empresa['nome'] . '</option>';
+                    while ($locacao = $resultLocacao->fetch_assoc()) {
+                      echo '<option value="' . $locacao['id'] . '">' . $locacao['nome'] . '</option>';
                     }
                   } else {
-                    $resultEmpresa = $conn->query($queryEmpresa);
+                    $resultLocacao = $conn->query($queryLocacao);
 
                     echo '<option>----------</option>';
 
-                    while ($empresa = $resultEmpresa->fetch_assoc()) {
-                      echo '<option value="' . $empresa['id'] . '">' . $empresa['nome'] . '</option>';
+                    while ($locacao = $resultLocacao->fetch_assoc()) {
+                      echo '<option value="' . $locacao['id'] . '">' . $locacao['nome'] . '</option>';
                     }
                   }
 
@@ -650,12 +660,12 @@ $equip = $resultEquipamento->fetch_assoc();
               <!--MODELO-->
               <div class="form-group">
                 <label for="exampleFormControlSelect2">Modelo:</label>
-                <input type="text" class="form-control" name="modelo" value="<?= $equip['modelo'] ?>">
+                <input type="text" class="form-control" name="modeloCPU" value="<?= $equip['modelo'] ?>">
               </div>
               <!--PATRIMONIO-->
               <div class="form-group">
                 <label for="exampleFormControlSelect2">Patrimônio:</label>
-                <input type="text" class="form-control" name="patrimonio" value="<?= $equip['patrimonio'] ?>">
+                <input type="text" class="form-control" name="patrimonioCPU" value="<?= $equip['patrimonio'] ?>">
               </div>
               <!--DOMINIO-->
               <div class="form-group">
@@ -668,7 +678,7 @@ $equip = $resultEquipamento->fetch_assoc();
               <!--EMPRESA-->
               <div class="form-group">
                 <label for="exampleFormControlSelect2">Empresa Faturado:</label>
-                <select class="form-control" id="exampleFormControlSelect2" name="empresa">
+                <select class="form-control" id="exampleFormControlSelect2" name="empresaCPU">
                   <?php
 
                   if (!empty($equip['id_filial'])) {
@@ -698,27 +708,27 @@ $equip = $resultEquipamento->fetch_assoc();
               <!--LOCACAO-->
               <div class="form-group">
                 <label for="exampleFormControlSelect2">Localização:</label>
-                <select class="form-control" id="exampleFormControlSelect2" name="locacao">
+                <select class="form-control" id="exampleFormControlSelect2" name="locacaoCPU">
                   <?php
 
                   if (!empty($equip['id_locacao'])) {
 
                     echo '<option value="' . $equip['id_locacao'] . '">' . $equip['locacao'] . '</option>';
 
-                    $resultEmpresa = $conn->query($queryEmpresa);
+                    $resultLocacao = $conn->query($queryLocacao);
 
                     echo '<option>----------</option>';
 
-                    while ($empresa = $resultEmpresa->fetch_assoc()) {
-                      echo '<option value="' . $empresa['id'] . '">' . $empresa['nome'] . '</option>';
+                    while ($locacao = $resultLocacao->fetch_assoc()) {
+                      echo '<option value="' . $locacao['id'] . '">' . $locacao['nome'] . '</option>';
                     }
                   } else {
-                    $resultEmpresa = $conn->query($queryEmpresa);
+                    $resultLocacao = $conn->query($queryLocacao);
 
                     echo '<option>----------</option>';
 
-                    while ($empresa = $resultEmpresa->fetch_assoc()) {
-                      echo '<option value="' . $empresa['id'] . '">' . $empresa['nome'] . '</option>';
+                    while ($locacao = $resultLocacao->fetch_assoc()) {
+                      echo '<option value="' . $locacao['id'] . '">' . $locacao['nome'] . '</option>';
                     }
                   }
 
@@ -729,7 +739,7 @@ $equip = $resultEquipamento->fetch_assoc();
               <!--Departamento-->
               <div class="form-group">
                 <label for="exampleFormControlSelect2">Departamento:</label>
-                <select class="form-control" id="exampleFormControlSelect2" name="departamento">
+                <select class="form-control" id="exampleFormControlSelect2" name="departamentoCPU">
 
                   <?php
 
@@ -761,7 +771,7 @@ $equip = $resultEquipamento->fetch_assoc();
               <!--Situação-->
               <div class="form-group">
                 <label for="exampleFormControlSelect2">Situação:</label>
-                <select class="form-control" id="exampleFormControlSelect2" name="situacao">
+                <select class="form-control" id="exampleFormControlSelect2" name="situacaoCPU">
                   <?php
 
                   if (!empty($equip['id_situacao'])) {
@@ -791,7 +801,7 @@ $equip = $resultEquipamento->fetch_assoc();
               <!--status-->
               <div class="form-group">
                 <label for="exampleFormControlSelect2">Status:</label>
-                <select class="form-control" id="exampleFormControlSelect2" name="status">
+                <select class="form-control" id="exampleFormControlSelect2" name="statusCPU">
                   <?php
 
                   if (!empty($equip['id_status'])) {
@@ -821,32 +831,32 @@ $equip = $resultEquipamento->fetch_assoc();
               <!--HOSTNAME-->
               <div class="form-group">
                 <label for="exampleFormControlSelect2">Nome:</label>
-                <input type="text" class="form-control" name="hostname" value="<?= $equip['hostname'] ?>">
+                <input type="text" class="form-control" name="hostnameCPU" value="<?= $equip['hostname'] ?>">
               </div>
               <!--HOSTNAME-->
               <div class="form-group">
                 <label for="exampleFormControlSelect2">IP:</label>
-                <input type="text" class="form-control" name="ip" value="<?= $equip['ip'] ?>">
+                <input type="text" class="form-control" name="ipCPU" value="<?= $equip['ip'] ?>">
               </div>
               <!--PROCESSADOR-->
               <div class="form-group">
                 <label for="exampleFormControlSelect2">Processador:</label>
-                <input type="text" class="form-control" name="processador" value="<?= $equip['processador'] ?>">
+                <input type="text" class="form-control" name="processadorCPU" value="<?= $equip['processador'] ?>">
               </div>
               <!--HD-->
               <div class="form-group">
                 <label for="exampleFormControlSelect2">HD:</label>
-                <input type="text" class="form-control" name="hd" value="<?= $equip['hd'] ?>">
+                <input type="text" class="form-control" name="hdCPU" value="<?= $equip['hd'] ?>">
               </div>
               <!--MEMORIA-->
               <div class="form-group">
                 <label for="exampleFormControlSelect2">Memória:</label>
-                <input type="text" class="form-control" name="memoria" value="<?= $equip['memoria'] ?>">
+                <input type="text" class="form-control" name="memoriaCPU" value="<?= $equip['memoria'] ?>">
               </div>
               <!--SERIAL NUMBER-->
               <div class="form-group">
                 <label for="exampleFormControlSelect2">Número de Série:</label>
-                <input type="text" class="form-control" name="serial_number" value="<?= $equip['serialnumber'] ?>">
+                <input type="text" class="form-control" name="serial_numberCPU" value="<?= $equip['serialnumber'] ?>">
               </div>
               <!--SISTEMA OPERACIONAL-->
               <hr>
@@ -855,7 +865,7 @@ $equip = $resultEquipamento->fetch_assoc();
               <!--VERSÃO-->
               <div class="form-group">
                 <label for="exampleFormControlSelect2">Versão:</label>
-                <select class="form-control" id="exampleFormControlSelect2" name="versao" required>
+                <select class="form-control" id="exampleFormControlSelect2" name="versaoSO">
                   <?php
 
                   $queryWindows  .= " AND id = '" . $equip['versao_so'] . "'";
@@ -863,29 +873,7 @@ $equip = $resultEquipamento->fetch_assoc();
                   $windows = $resultWindows->fetch_assoc();
 
                   if (!empty($windows['id'])) {
-
                     echo '<option value="' . $windows['id'] . '">' . $windows['nome'] . '</option>';
-
-                    echo '<option value="">----------</option>';
-
-                    $query = "SELECT id, nome FROM manager_dropsistemaoperacional WHERE deletar = 0";
-
-                    $result  = $conn->query($query);
-
-                    while ($so = $result->fetch_assoc()) {
-                      echo '<option value="' . $so['id'] . '">' . $so['nome'] . '</option>';
-                    }
-                  } else {
-
-                    echo '<option value="">----------</option>';
-
-                    $query = "SELECT id, nome FROM manager_dropsistemaoperacional WHERE deletar = 0";
-
-                    $result  = $conn->query($query);
-
-                    while ($so = $result->fetch_assoc()) {
-                      echo '<option value="' . $so['id'] . '">' . $so['nome'] . '</option>';
-                    }
                   }
                   ?>
                 </select>
@@ -893,19 +881,27 @@ $equip = $resultEquipamento->fetch_assoc();
               <!--SERIAL-->
               <div class="form-group">
                 <label for="exampleFormControlSelect2">Chave do produto:</label>
-                <input type="text" class="form-control" name="chaveProduto" value="<?= $equip['chave_windows'] ?>">
+                <input type="text" class="form-control" name="chaveProdutoSO" value="<?= $equip['chave_windows'] ?>">
+              </div>
+
+              <!--REMOVER OFFICE-->
+              <div class="float-rigth">
+                <a href="../inc/remover.php?id_equip=<?= $_GET['id_equip'] ?>" class="btn btn-danger btn-icon-split" title="Remover Sistema Operacional">
+                  <span class="icon text-white-50">
+                    <i class="fas fa-times"></i>
+                  </span>
+                  <span class="text">S.O</span>
+                </a>
               </div>
 
               <!--OFFICE-->
-              <div style="display: <?= !empty($equip['versao_off']) ? "block" : "none" ?>;">
-                <br>
+              <div style="display: <?= !empty($equip['versao_off']) ? "block" : "none" ?>;margin-top: 69px;">
                 <hr>
                 <h6 class="m-0 font-weight-bold text-primary"><i class="fab fa-windows"></i> OFFICE</h6><br>
-
                 <!--VERSÃO-->
                 <div class="form-group">
                   <label for="exampleFormControlSelect2">Versão:</label>
-                  <select class="form-control" id="exampleFormControlSelect2" name="versao" required>
+                  <select class="form-control" id="exampleFormControlSelect2" name="versaoOF">
                     <?php
 
                     $queryListOffice  .= " AND id = '" . $equip['versao_off'] . "' ORDER BY nome ASC";
@@ -914,27 +910,6 @@ $equip = $resultEquipamento->fetch_assoc();
 
                     if (!empty($office['id'])) {
                       echo '<option value="' . $office['id'] . '">' . $office['nome'] . '</option>';
-
-                      echo '<option value="">----------</option>';
-
-                      $queryOffice = "SELECT id, nome FROM manager_dropoffice WHERE deletar = 0 ORDER BY nome ASC";
-
-                      $resultOf  = $conn->query($queryOffice);
-
-                      while ($of = $resultOf->fetch_assoc()) {
-                        echo '<option value="' . $of['id'] . '">' . $of['nome'] . '</option>';
-                      }
-                    } else {
-
-                      echo '<option value="">----------</option>';
-
-                      $queryOffice = "SELECT id, nome FROM manager_dropoffice WHERE deletar = 0 ORDER BY nome ASC";
-
-                      $resultOf  = $conn->query($queryOffice);
-
-                      while ($of = $resultOf->fetch_assoc()) {
-                        echo '<option value="' . $of['id'] . '">' . $of['nome'] . '</option>';
-                      }
                     }
                     ?>
                   </select>
@@ -942,14 +917,23 @@ $equip = $resultEquipamento->fetch_assoc();
                 <!--SERIAL-->
                 <div class="form-group">
                   <label for="exampleFormControlSelect2">Chave do produto:</label>
-                  <input type="text" class="form-control" name="serial_number" value="<?= $equip['chave_office'] ?>">
+                  <input type="text" class="form-control" name="chaveProdutoOF" value="<?= $equip['chave_office'] ?>">
+                </div>
+                <!--REMOVER OFFICE-->
+                <div class="float-rigth">
+                  <a href="../inc/remover.php?id_equip=<?= $_GET['id_equip'] ?>" class="btn btn-danger btn-icon-split" title="Remover Office">
+                    <span class="icon text-white-50">
+                      <i class="fas fa-times"></i>
+                    </span>
+                    <span class="text">OFFICE</span>
+                  </a>
                 </div>
               </div>
             </div>
 
             <!--FIM-->
             <!-- BOTAO SALVAR-->
-            <div id="salvarButton">
+            <div id="salvarButton" style="margin-top: 69px;">
               <hr>
               <button type="submit" class="btn btn-success btn-block">Salvar</button>
               <hr>
