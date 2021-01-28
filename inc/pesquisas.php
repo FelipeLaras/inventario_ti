@@ -192,6 +192,7 @@ manager_droplocacao MDL ON (MSO.empresa = MDE.id_empresa)";
 //OFFICE
 $queryoffice = "SELECT 
 MO.id,
+MO.id_equipamento,
 MO.versao AS id_versao, 
 MDO.nome AS versao,
 MO.serial,

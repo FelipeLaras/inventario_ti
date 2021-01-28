@@ -67,7 +67,7 @@ $result = $conn->query($queryoffice);
               /*AÇÂO*/
               echo '<td>
                       <a href="officeedit.php?pagina=5&id=' . $office['id'] . '" class="text-success menu rigtIcones" title="Editar/Visualizar"><i class="fas fa-pen"></i></a>
-                      <a class="text-success menu rigtIcones" title="Vincular a um equipamento" href="vincularoffice.php?pagina=5&id=' . $office['id_equipamento'] . '"><i class="fas fa-laptop-medical"></i></a></td>';
+                      <a class="text-success menu rigtIcones" title="Vincular a um equipamento" href="vincularoffice.php?pagina=5&id=' . $office['id'] . '"><i class="fas fa-laptop-medical"></i></a></td>';
               /*FIM AÇÂO*/
               echo '</tr>';
             }
