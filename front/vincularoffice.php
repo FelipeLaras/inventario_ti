@@ -24,7 +24,7 @@ $resultFuncionario = $conn->query($queryColaborador);
   <h1 class="text-xs mb-6 text-gray-800">
     <a href="front.php?pagina=1"><i class="fas fa-home"></i> Home</a> /
     <a href="listequipamentos.php?pagina=5"><i class="fas fa-laptop"></i> Equipamentos</a> /
-    <a href="office.php?pagina=5"><i class="fas fa-laptop"></i> Office</a> /
+    <a href="office.php?pagina=5"><i class="fab fa-windows"></i> Office Disponíveis</a> /
     <i class="fas fa-laptop-medical"></i> Vincular ao Equipamento
   </h1>
   <hr />
@@ -37,7 +37,7 @@ $resultFuncionario = $conn->query($queryColaborador);
         <select name="equip" class="form-control" required>
           <option value="">---</option>
           <?php
-
+          
           while ($equipamentos = $resultEquipamento->fetch_assoc()) {
             echo '
                 <option value="' . $equipamentos['id_equipamento'] . '">' . $equipamentos['patrimonio'] . '</option>';

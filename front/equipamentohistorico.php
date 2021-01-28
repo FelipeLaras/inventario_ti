@@ -104,13 +104,21 @@ $resultLog = $conn->query($queryLog);
                 case '13':
                   $idLog = 'Novo Funcionário';
                   break;
+
+                case '14':
+                  $idLog = 'Removido Office';
+                  break;
+
+                case '13':
+                  $idLog = 'Adicionado Office';
+                  break;
               }
 
               echo '<tr>';
               echo $log['id'] != NULL ?  '<td>' . $log['id'] . '</td>' :  '<td>----------</td>';
               echo $log['data_alteracao'] != NULL ?  '<td>' . $log['data_alteracao'] . '</td>' :  '<td>----------</td>';
               echo $log['profile_name'] != NULL ?  '<td>' . $log['profile_name'] . '</td>' :  '<td>----------</td>';
-              echo $idLog != NULL ?  '<td>' . $idLog . '</td>' :  '<td>----------</td>';              
+              echo $idLog != NULL ?  '<td>' . $idLog . '</td>' :  '<td>----------</td>';
               echo '</tr>';
             }
             ?>

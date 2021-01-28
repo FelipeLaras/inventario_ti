@@ -9,10 +9,14 @@ require_once('../inc/pesquisas.php');
 require_once('../inc/permissoes.php');
 
 
+//QUERY PARA O TERMO DE RESPONSABILIDADE
+$query = " WHERE MIE.id_equipamento = '" . $_GET['id_equip'] . "'";
+
 //EQUIPAMENTO
-$queryEquipamento .= " WHERE MIE.id_equipamento = '" . $_GET['id_equip'] . "'";
+$queryEquipamento .= $query;
 $resultEquipamento = $conn->query($queryEquipamento);
 $equip = $resultEquipamento->fetch_assoc();
+
 
 ?>
 <!-- Begin Page Content -->
@@ -82,16 +86,20 @@ $equip = $resultEquipamento->fetch_assoc();
           </div>
         </a>
       </div>
-    </div>
-
-
-    <div class="float-right" style="display: <?= $equip['id_tipoEquipamento'] == 8 || $equip['id_tipoEquipamento'] == 9  ? 'block' : 'none' ?>;">
-      <a href="../inc/equip_modelo.php?id_equip=<?= $_GET['id_equip'] ?>" class="btn btn-success" title="Modelo" target="_blank">
-        <i class="fas fa-file"></i>
-      </a>
-      <a href="../inc/equip_modelo.php?id_equip=<?= $_GET['id_equip'] ?>" class="btn btn-warning" title="Termo de responsabilidade">
-        <i class="fas fa-file-signature"></i>
-      </a>
+      <div class="termo" style="<?= $equip['id_tipoEquipamento'] == 8 || $equip['id_tipoEquipamento'] == 9  ?: 'margin-left: 71%;' ?>;">
+        <a href="../inc/termopdftecnicos.php?query=<?= $query ?>" class="btn btn-info btn-icon-split">
+          <span class="icon text-white-50">
+            <i class="fas fa-file-signature"></i>
+          </span>
+          <span class="text">Emitir Termo Responsabilidade</span>
+        </a>
+        <a href="../inc/equip_modelo.php?id_equip=<?= $_GET['id_equip'] ?>" class="btn btn-info btn-icon-split" style="display: <?= $equip['id_tipoEquipamento'] == 8 || $equip['id_tipoEquipamento'] == 9  ? 'inline-block' : 'none' ?>;">
+          <span class="icon text-white-50">
+            <i class="fas fa-file"></i>
+          </span>
+          <span class="text">Emitir Modelo</span>
+        </a>
+      </div>
     </div>
 
     <div class="col-lg-6 left">
@@ -101,7 +109,7 @@ $equip = $resultEquipamento->fetch_assoc();
           <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-pen"></i> Editando Equipamento</h6>
         </div>
         <div class="card-body">
-          <form action="../inc/editequipamento.php?id_equipamento=<?= $_GET['id_equip'] ?>&id_so=<?= $equip['id_windows'] ?>&id_of=<?= $_GET['id_office'] ?>" method="POST" enctype="multipart/form-data">
+          <form action="../inc/editequipamento.php?id_equipamento=<?= $_GET['id_equip'] ?>&id_so=<?= $equip['id_windows'] ?>&id_of=<?= $equip['id_office'] ?>" method="POST" enctype="multipart/form-data">
 
             <div class="form-group">
               <!--EQUIPAMENTO-->
@@ -884,16 +892,6 @@ $equip = $resultEquipamento->fetch_assoc();
                 <input type="text" class="form-control" name="chaveProdutoSO" value="<?= $equip['chave_windows'] ?>">
               </div>
 
-              <!--REMOVER OFFICE-->
-              <div class="float-rigth">
-                <a href="../inc/remover.php?id_equip=<?= $_GET['id_equip'] ?>" class="btn btn-danger btn-icon-split" title="Remover Sistema Operacional">
-                  <span class="icon text-white-50">
-                    <i class="fas fa-times"></i>
-                  </span>
-                  <span class="text">S.O</span>
-                </a>
-              </div>
-
               <!--OFFICE-->
               <div style="display: <?= !empty($equip['versao_off']) ? "block" : "none" ?>;margin-top: 69px;">
                 <hr>
@@ -921,11 +919,11 @@ $equip = $resultEquipamento->fetch_assoc();
                 </div>
                 <!--REMOVER OFFICE-->
                 <div class="float-rigth">
-                  <a href="../inc/remover.php?id_equip=<?= $_GET['id_equip'] ?>" class="btn btn-danger btn-icon-split" title="Remover Office">
+                  <a href="../inc/remover.php?id_equip=<?= $_GET['id_equip'] ?>&id_of=<?= $equip['id_office'] ?>" class="btn btn-danger btn-icon-split" title="Remover Office">
                     <span class="icon text-white-50">
                       <i class="fas fa-times"></i>
                     </span>
-                    <span class="text">OFFICE</span>
+                    <span class="text">Remover</span>
                   </a>
                 </div>
               </div>
