@@ -53,7 +53,7 @@ $resultFuncionario = $conn->query($queryColaborador);
                 $queryEquipamentos .= $permissaoEquipamento['id_equipamento'] . ',';
               }
 
-              $queryEquipamentos .= "'')";
+              $queryEquipamentos .= "'')  ORDER BY nome ASC";
 
               $rest = $conn->query($queryEquipamentos);
 

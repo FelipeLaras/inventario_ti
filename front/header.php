@@ -137,16 +137,16 @@ if (!empty($permissaoScanner = $resultScanner->fetch_assoc())) {
             </li>
 
             <!-- Nav Item - Utilities Collapse menu -->
-            <li class="nav-item" style="display: <?= $relatorio ?>;">
+            <li class="nav-item <?= $_GET['pagina'] == 6 ? 'active' : '' ?>" style="display: <?= $relatorio ?>;">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
-                    <i class="fas fa-fw fa-clipboard"></i>
+                    <i class="fas fa-fw fa-file-contract"></i>
                     <span>Relatórios</span>
                 </a>
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="utilities-color.html">Colaborador</a>
-                        <a class="collapse-item" href="utilities-border.html">Equipamento</a>
-                        <a class="collapse-item" href="utilities-animation.html">Nota Fiscal</a>
+                        <a class="collapse-item" href="relatoriocolaborador.php?pagina=6">Colaborador</a>
+                        <a class="collapse-item" href="relatorioequipamento.php?pagina=6">Equipamento</a>
+                        <a class="collapse-item" href="relatorionotafiscal.php?pagina=6">Nota Fiscal</a>
                     </div>
                 </div>
             </li>

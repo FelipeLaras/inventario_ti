@@ -282,3 +282,73 @@ LEFT JOIN
 officepack Ofi ON H.ID = Ofi.HARDWARE_ID
 LEFT JOIN
 storages S ON H.ID = S.HARDWARE_ID";
+
+//TIPOS DE QUERY PARA RELATÓRIO
+
+$querytipoOne = "WHERE MIF.deletar = 0 AND 
+MIE.tipo_equipamento in (1, 3, 4, 2) AND (";
+
+if (empty($_GET['funcao_funcionario'])) {
+    if (empty($_GET['depart_funcionario'])) {
+        if (empty($_GET['empresa_funcionario'])) {
+            if (empty($_GET['status_funcionario'])) {
+                header('location: http://rede.paranapart.com.br/ti/relatorio_auditoria.php?erro=1');
+            } else {
+                $querytipoOne .= $statusFuncionario;
+            }
+        } else {
+            $querytipoOne .= "MIF.empresa = '" . $_GET['empresa_funcionario'] . "'";
+
+            if (empty($_GET['status_funcionario'])) {
+            } else {
+
+                $querytipoOne .= " AND " . $statusFuncionario . "";
+            }
+        }
+    } else {
+        $querytipoOne .= "MIF.departamento = '" . $_GET['depart_funcionario'] . "'";
+
+        if (empty($_GET['empresa_funcionario'])) {
+            if (empty($_GET['status_funcionario'])) {
+            }
+        } else {
+            $querytipoOne .= " AND MIF.empresa = '" . $_GET['empresa_funcionario'] . "'";
+            if (empty($_GET['status_funcionario'])) {
+            } else {
+                $querytipoOne .= " AND " . $statusFuncionario . "";
+            }
+        }
+    }
+} else {
+    $querytipoOne .= "MIF.funcao = '" . $_GET['funcao_funcionario'] . "'";
+
+    if (empty($_GET['depart_funcionario'])) {
+        if (empty($_GET['empresa_funcionario'])) {
+            if (empty($_GET['status_funcionario'])) {
+            } else {
+                $querytipoOne .= " AND " . $statusFuncionario . "";
+            }
+        } else {
+            $querytipoOne .= " AND MIF.empresa = '" . $_GET['empresa_funcionario'] . "'";
+
+            if (empty($_GET['status_funcionario'])) {
+            } else {
+                $querytipoOne .= " AND " . $statusFuncionario . "";
+            }
+        }
+    } else {
+        $querytipoOne .= " AND MIF.departamento = '" . $_GET['depart_funcionario'] . "'";
+
+        if (empty($_GET['empresa_funcionario'])) {
+            if (empty($_GET['status_funcionario'])) {
+            }
+        } else {
+            $querytipoOne .= " AND MIF.empresa = '" . $_GET['empresa_funcionario'] . "'";
+
+            if (empty($_GET['status_funcionario'])) {
+            } else {
+                $querytipoOne .= " AND " . $statusFuncionario . "";
+            }
+        }
+    }
+}
