@@ -109,7 +109,7 @@ $resultLog = $conn->query($queryLog);
                   $idLog = 'Removido Office';
                   break;
 
-                case '13':
+                case '15':
                   $idLog = 'Adicionado Office';
                   break;
               }
