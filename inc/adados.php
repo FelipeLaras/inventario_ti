@@ -28,26 +28,27 @@ if (!empty($_GET['id'])) {
                     echo "<span style='color: green'>SUCESSO: </span>Arquivo enviado para = " . $caminho;
                 } else {
                     echo "Erro[5]: Arquivo não foi enviado! - CONTATO O ADMINISTRADOR DO SISTEMA<br />";
-                    exit;
                 } //se caso não salvar vai mostrar o erro!
             }
         }
     }
 
     //EDITANDO NO BANCO AGORA
-
     $update = "UPDATE google SET 
-                    titulo = '".$_POST['titulo']."', 
-                    body = '".$_POST['body']."', 
-                    caminho = '".$caminho_db."' 
-                WHERE cod_tabela = ".$_GET['id']."";
+                    titulo = '" . $_POST['titulo'] . "', 
+                    body = '" . $_POST['body'] . "'";
 
-    if(!$result = $conn_db->query($update)){
-        printf('Erro[1]: %s\n',$conn_db->error);
+    $update .=  empty($caminho_db) ?: ",caminho_arquivo = '" . $caminho_db . "'";
+
+    $update .= " WHERE cod_tabela = '" . $_GET['id'] . "'";
+
+    if (!$result = $conn_db->query($update)) {
+        printf('Erro[1]: %s\n', $conn_db->error);
+    } else {
+        header('location: ../front/adados.php?pagina=4&id=' . $_GET['id'] . '');
+        exit;
     }
-
 } else {
 
     /* CRIANDO UMA PESQUISA */
-
 }

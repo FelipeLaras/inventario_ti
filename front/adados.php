@@ -19,7 +19,7 @@ $row = $result->fetch_assoc();
       <a href="pdados.php?pagina=4"><i class="fab fa-google"></i> Pesquisa </a> /
       <?= empty($_GET['id']) ? "<i class='fas fa-plus'></i> Adicionar" : "<i class='fas fa-pen'></i> Editar" ?>
     </h1>
-    <hr />
+    <hr/>
   </div>
 
   <div class="col-lg-12">
