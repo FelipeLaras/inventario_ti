@@ -1,7 +1,5 @@
 <?php
 require_once('header.php');
-
-require_once('../inc/permissoes.php');
 ?>
 
 <!-- Begin Page Content -->
@@ -16,57 +14,38 @@ require_once('../inc/permissoes.php');
 
   <!-- Conteudo -->
 
-
   <!-- Topbar Search -->
   <div class="centro">
     <img src="../img/google.png">
     <hr>
     <div class="dentro">
-
-      <form class="container d-none d-sm-inline-block form-inline mr-auto ml-md-0 my-2 my-md-0 mw-100 navbar-search">
+      <form class="container d-none d-sm-inline-block form-inline mr-auto ml-md-0 my-2 my-md-0 mw-100 navbar-search" method="POST" action="ldados.php?pagina=4">
         <div class="input-group">
-          <input type="text" class="borderradius form-control bg-blue border-0 small" placeholder="Pesquisar" aria-label="Pesquisar" aria-describedby="basic-addon2">
-          <div class="input-group-append">
-           
-            </button>
-          </div>
+          <input type="text" class="borderradius form-control bg-blue border-0 small" placeholder="Pesquisar" aria-label="Pesquisar" aria-describedby="basic-addon2" name="pesquisa">
         </div>
-      </form>
-      <hr>
+        <hr>
+        <button type="submit" class="btn btn-primary btn-icon-split menu rigth">
+          <span class="icon text-white-50">
+            <i class="fas fa-search"></i>
+          </span>
+          <span class="text">Pesquisar</span>
+        </button>
+        <a href="adados.php?pagina=4" class="btn btn-primary btn-icon-split menu">
+          <span class="icon text-white-50">
+            <i class="fas fa-plus"></i>
+          </span>
+          <span class="text">Adicionar Conteúdo</span>
+        </a>
     </div>
-
-    <div>
-    <a href="ldados.php?pagina=4" class="btn btn-primary btn-icon-split menu rigth">
-        <span class="icon text-white-50">
-          <i class="fas fa-search"></i>
-        </span>
-        <span class="text">Pesquisar</span>
-      </a>
-      <a href="adados.php?pagina=4" class="btn btn-primary btn-icon-split menu">
-        <span class="icon text-white-50">
-          <i class="fas fa-plus"></i>
-        </span>
-        <span class="text">Adicionar Conteúdo</span>
-      </a>
-    </div>
-
+    </form>
   </div>
 
-    <!-- Conteudo  /.container-fluid -->
-
-  
-
-
-
-
+  <!-- Conteudo  /.container-fluid -->
   <!-- AMADOR QUE FALA NEH -->
   <div>
     <hr>
   </div>
-
-
   <!-- End of Main Content -->
-
   <!-- Footer -->
   <footer class="sticky-footer bg-white">
     <div class="container my-auto">
@@ -76,7 +55,6 @@ require_once('../inc/permissoes.php');
     </div>
   </footer>
   <!-- End of Footer -->
-
 </div>
 <!-- End of Content Wrapper -->
 
