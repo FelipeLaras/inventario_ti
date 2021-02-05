@@ -20,15 +20,17 @@ require_once('../inc/dropdown.php');
   </h1>
   <hr />
   <!-- /.container-fluid -->
-  <form action="relatorioresultado.php?tipo=1" method="GET" autocomplete="off">
+  <form action="relatorioresultado.php" method="GET" autocomplete="off">
 
+    <!--TIPO 1-->
+    <input type="text" style="display: none;" name="tipo" value="1">
     <!--FUNÇÂO-->
     <h1 class="h6 mb-2 text-gray-800">
       <i class="fas fa-angle-double-right"></i> Função:
     </h1>
 
     <div class="col-md-4 py-4 input-group">
-      <select name="equip" class="form-control" required>
+      <select name="funcao" class="form-control">
         <option value="">----------</option>
         <?php
 
@@ -48,7 +50,7 @@ require_once('../inc/dropdown.php');
     </h1>
 
     <div class="col-md-4 py-4 input-group">
-      <select name="equip" class="form-control" required>
+      <select name="departamento" class="form-control">
         <option value="">----------</option>
         <?php
         $queryDepartamento .= " ORDER BY nome ASC";
@@ -67,7 +69,7 @@ require_once('../inc/dropdown.php');
     </h1>
 
     <div class="col-md-4 py-4 input-group">
-      <select name="equip" class="form-control" required>
+      <select name="empresa" class="form-control">
         <option value="">----------</option>
         <?php
         $queryEmpresa .= " ORDER BY nome ASC";
@@ -86,7 +88,7 @@ require_once('../inc/dropdown.php');
     </h1>
 
     <div class="col-md-4 py-4 input-group">
-      <select name="equip" class="form-control" required>
+      <select name="status" class="form-control">
         <option value="">----------</option>
         <?php
         $queryStatusFuncionario .= " ORDER BY nome ASC";

@@ -20,7 +20,10 @@ require_once('../inc/dropdown.php');
   </h1>
   <hr />
   <!-- /.container-fluid -->
-  <form action="#" method="POST" autocomplete="off">
+  <form action="relatorioresultadoequip.php" method="GET" autocomplete="off">
+
+    <!--TIPO 1-->
+    <input type="text" style="display: none;" name="tipo" value="2">
 
     <!--TIPO EQUIPAMENTO-->
     <h1 class="h6 mb-2 text-gray-800">
@@ -28,8 +31,8 @@ require_once('../inc/dropdown.php');
     </h1>
 
     <div class="col-md-4 py-4 input-group">
-      <select name="equip" class="form-control" required>
-        <option>----------</option>
+      <select name="tipoEquip" class="form-control">
+        <option value="">----------</option>
         <?php
 
         $queryEquipamentos .= " AND id_equip IN (";
@@ -57,7 +60,7 @@ require_once('../inc/dropdown.php');
     </h1>
 
     <div class="col-md-4 py-4 input-group">
-      <select name="equip" class="form-control" required>
+      <select name="status" class="form-control">
         <option value="">----------</option>
         <?php
         $queryStatusEquipamento .= " ORDER BY nome ASC";

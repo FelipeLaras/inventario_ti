@@ -20,6 +20,14 @@ manager_profile_type MPT ON (MP.profile_type = MPT.type_profile)";
 
 //COLABORADORES
 $queryColaborador = "SELECT 
+MIE.id_equipamento,
+MIE.tipo_equipamento AS idTipo_equipamento,
+MDEQ.nome AS tipo_equipamento,
+MIE.modelo,
+MIE.imei_chip,
+MIE.patrimonio,
+MIE.numero,
+MIE.valor,
 MIF.id_funcionario, 
 MIF.nome, 
 MIF.cpf,
@@ -41,7 +49,11 @@ manager_dropdepartamento MDD ON (MIF.departamento = MDD.id_depart)
 LEFT JOIN
 manager_dropempresa MDE ON (MIF.empresa = MDE.id_empresa)
 LEFT JOIN
-manager_dropstatus MDS ON (MIF.status = MDS.id_status)";
+manager_dropstatus MDS ON (MIF.status = MDS.id_status)
+LEFT JOIN
+manager_inventario_equipamento MIE ON (MIF.id_funcionario = MIE.id_funcionario)
+LEFT JOIN
+manager_dropequipamentos MDEQ ON (MIE.tipo_equipamento = MDEQ.id_equip)";
 
 //EQUIPAMENTOS
 $queryEquipamento = "SELECT 
@@ -285,70 +297,85 @@ storages S ON H.ID = S.HARDWARE_ID";
 
 //TIPOS DE QUERY PARA RELATÓRIO
 
-$querytipoOne = "WHERE MIF.deletar = 0 AND 
-MIE.tipo_equipamento in (1, 3, 4, 2) AND (";
+//colaborador
+$whereColaborador = " WHERE ";
 
-if (empty($_GET['funcao_funcionario'])) {
-    if (empty($_GET['depart_funcionario'])) {
-        if (empty($_GET['empresa_funcionario'])) {
-            if (empty($_GET['status_funcionario'])) {
-                header('location: http://rede.paranapart.com.br/ti/relatorio_auditoria.php?erro=1');
-            } else {
-                $querytipoOne .= $statusFuncionario;
+if (empty($_GET['funcao'])) {
+    if (empty($_GET['departamento'])) {
+        if (empty($_GET['empresa'])) {
+            if (!empty($_GET['status'])) {
+                $whereColaborador .= $_GET['status'];
             }
         } else {
-            $querytipoOne .= "MIF.empresa = '" . $_GET['empresa_funcionario'] . "'";
+            $whereColaborador .= "MIF.empresa = '" . $_GET['empresa'] . "'";
 
-            if (empty($_GET['status_funcionario'])) {
+            if (empty($_GET['status'])) {
             } else {
 
-                $querytipoOne .= " AND " . $statusFuncionario . "";
+                $whereColaborador .= " AND " . $_GET['status'] . "";
             }
         }
     } else {
-        $querytipoOne .= "MIF.departamento = '" . $_GET['depart_funcionario'] . "'";
+        $whereColaborador .= "MIF.departamento = '" . $_GET['departamento'] . "'";
 
-        if (empty($_GET['empresa_funcionario'])) {
-            if (empty($_GET['status_funcionario'])) {
+        if (empty($_GET['empresa'])) {
+            if (empty($_GET['status'])) {
             }
         } else {
-            $querytipoOne .= " AND MIF.empresa = '" . $_GET['empresa_funcionario'] . "'";
-            if (empty($_GET['status_funcionario'])) {
+            $whereColaborador .= " AND MIF.empresa = '" . $_GET['empresa'] . "'";
+            if (empty($_GET['status'])) {
             } else {
-                $querytipoOne .= " AND " . $statusFuncionario . "";
+                $whereColaborador .= " AND " . $_GET['status'] . "";
             }
         }
     }
 } else {
-    $querytipoOne .= "MIF.funcao = '" . $_GET['funcao_funcionario'] . "'";
+    $whereColaborador .= "MIF.funcao = '" . $_GET['funcao'] . "'";
 
-    if (empty($_GET['depart_funcionario'])) {
-        if (empty($_GET['empresa_funcionario'])) {
-            if (empty($_GET['status_funcionario'])) {
+    if (empty($_GET['departamento'])) {
+        if (empty($_GET['empresa'])) {
+            if (empty($_GET['status'])) {
             } else {
-                $querytipoOne .= " AND " . $statusFuncionario . "";
+                $whereColaborador .= " AND " . $_GET['status'] . "";
             }
         } else {
-            $querytipoOne .= " AND MIF.empresa = '" . $_GET['empresa_funcionario'] . "'";
+            $whereColaborador .= " AND MIF.empresa = '" . $_GET['empresa'] . "'";
 
-            if (empty($_GET['status_funcionario'])) {
+            if (empty($_GET['status'])) {
             } else {
-                $querytipoOne .= " AND " . $statusFuncionario . "";
+                $whereColaborador .= " AND " . $_GET['status'] . "";
             }
         }
     } else {
-        $querytipoOne .= " AND MIF.departamento = '" . $_GET['depart_funcionario'] . "'";
+        $whereColaborador .= " AND MIF.departamento = '" . $_GET['departamento'] . "'";
 
-        if (empty($_GET['empresa_funcionario'])) {
-            if (empty($_GET['status_funcionario'])) {
+        if (empty($_GET['empresa'])) {
+            if (empty($_GET['status'])) {
             }
         } else {
-            $querytipoOne .= " AND MIF.empresa = '" . $_GET['empresa_funcionario'] . "'";
+            $whereColaborador .= " AND MIF.empresa = '" . $_GET['empresa'] . "'";
 
-            if (empty($_GET['status_funcionario'])) {
+            if (empty($_GET['status'])) {
             } else {
-                $querytipoOne .= " AND " . $statusFuncionario . "";
+                $whereColaborador .= " AND " . $_GET['status'] . "";
             }
         }
+    }
+}
+
+//equipamento
+$whereEquipamento = " WHERE ";
+
+if (empty($_GET['tipoEquip'])) {
+
+    if (!empty($_GET['status'])) {        
+        $whereEquipamento .= "MIE.status =" . $_GET['status'];
+    }
+     
+} else {
+    $whereEquipamento .= "MIE.tipo_equipamento =" . $_GET['tipoEquip'];
+
+    if (!empty($_GET['status'])) {
+        $whereEquipamento .= " AND MIE.status =" . $_GET['status'];
     }
 }

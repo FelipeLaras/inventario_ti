@@ -146,7 +146,7 @@ if (!empty($permissaoScanner = $resultScanner->fetch_assoc())) {
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="relatoriocolaborador.php?pagina=6">Colaborador</a>
                         <a class="collapse-item" href="relatorioequipamento.php?pagina=6">Equipamento</a>
-                        <a class="collapse-item" href="relatorionotafiscal.php?pagina=6">Nota Fiscal</a>
+                        <a class="collapse-item" href="relatorionotafiscal.php?pagina=6" style="display: none;">Nota Fiscal</a>
                     </div>
                 </div>
             </li>

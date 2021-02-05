@@ -50,7 +50,7 @@ require_once('../bd/conexao.php');
     </div>
 
     <!-- Earnings (Monthly) Card Example -->
-    <div class="col-xl-3 col-md-6 mb-4">
+    <div class="col-xl-3 col-md-6 mb-4" style="display: none;">
       <a href='relatorionotafiscal.php?pagina=6' class="text-decoration">
         <div class="card border-left-danger shadow h-100 py-2">
           <div class="card-body">
