@@ -30,7 +30,7 @@ $row = $result->fetch_assoc();
       </div>
 
       <div class="card-body">
-        <form action="#" method="POST">
+        <form action="../inc/adados.php?id=<?= $_GET['id'] ?>" method="POST" enctype="multipart/form-data">
           <div class="form-group">
             <label for="nome"><a class="negritoad">Titulo</a></label>
             <input type="text" class="form-control" id="titulo" value="<?= empty($row['titulo']) ?: $row['titulo'] ?>" name="titulo">
@@ -66,16 +66,9 @@ $row = $result->fetch_assoc();
           </div>
 
           <div id="notafiscal" style="display: <?= empty($row['caminho_arquivo']) ? "block" : "none" ?>;">
-            <div class="btn btn-primary btn-icon-split menu roscovo mb-3 ">
-              <label for="formFile" class="labelinfo form-label">
-                <span class="botaoanexo icon text-white-50">
-                  <i class="fas fa-file-upload "></i>
-                </span>
-                <span class="textoanexar">
-                  Anexar Arquivo
-                </span>
-              </label>
-              <input class="" type="file" id="formFile">
+            <div class="form-group">
+              <label for="nome"><a class="negritoad">Anexo: </a></label>
+              <input type="file" class="form-control" name="anexo">
             </div>
           </div>
           <!-- Botão Salvar -->
