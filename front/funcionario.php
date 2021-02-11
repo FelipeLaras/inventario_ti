@@ -10,11 +10,11 @@ require_once('../inc/pesquisas.php');
 //quantidade equipamentos
 if (!empty($_SESSION['id_funcionario'])) {
   $queryEquipamentosCount .= " WHERE id_funcionario = " . $_SESSION['id_funcionario'] . " AND tipo_equipamento IN (";
-  
-  while ($permissaoEquipamento = $resultPermissaoEquipamento->fetch_assoc()){
-    $queryEquipamentosCount .= $permissaoEquipamento['id_equipamento']. ',';
+
+  while ($permissaoEquipamento = $resultPermissaoEquipamento->fetch_assoc()) {
+    $queryEquipamentosCount .= $permissaoEquipamento['id_equipamento'] . ',';
   }
-  
+
   $queryEquipamentosCount .= "'') Group by id_funcionario";
   $resultCountEquip = $conn->query($queryEquipamentosCount);
   $countEquip = $resultCountEquip->fetch_assoc();
@@ -89,11 +89,11 @@ if (!empty($_SESSION['id_funcionario'])) {
     <div class="card shadow mb-4">
       <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary"><?= empty($_SESSION['nomeFuncionario']) ? "Novo Funcionário" : "Editando Colaborador" ?>
-        <a  href="#" data-toggle="modal" data-target="#desativar" class="float-right btn-danger" title="Excluir Colaborador" style="padding: 8px; border-radius: 5px; display: <?= $_SESSION['desativar_cpf'] == 1 ? "block" : "none" ?>;">
+          <a href="#" data-toggle="modal" data-target="#desativar" class="float-right btn-danger" title="Excluir Colaborador" style="padding: 8px; border-radius: 5px; display: <?= $_SESSION['desativar_cpf'] == 1 ? "block" : "none" ?>;">
             <i class="fas fa-user-times"></i>
           </a>
         </h6>
-        </div>
+      </div>
       <div class="card-body">
         <form action="<?= empty($_SESSION['nomeFuncionario']) ? "../inc/novofuncionario.php" : "../inc/editefuncionario.php?id=" . $_SESSION['id_funcionario'] . "" ?>" method="POST">
           <div class="form-group">
@@ -102,7 +102,7 @@ if (!empty($_SESSION['id_funcionario'])) {
           </div>
           <div class="form-group">
             <label for="email">CPF</label>
-            <input type="text" class="form-control" id="cpf" value="<?= empty($_SESSION['cpf']) ? "" : $_SESSION['cpf'] ?>" name="cpf" onkeydown="javascript: fMasc( this, mCPF );" maxlength="14" onblur="ValidarCPF(this)" autofocus>            
+            <input type="text" class="form-control" id="cpf" value="<?= empty($_SESSION['cpf']) ? "" : $_SESSION['cpf'] ?>" name="cpf" onkeydown="javascript: fMasc( this, mCPF );" maxlength="14" onblur="ValidarCPF(this)" autofocus>
             <span class="text-danger" style="display: none;" id="cpfInvalido"><i class="fas fa-times-circle"></i> CPF Invalido!</span>
             <span class="text-success" style="display: none;" id="cpfValido"><i class="fas fa-check-circle"></i> CPF OK!</span>
           </div>
@@ -242,11 +242,12 @@ if (!empty($_SESSION['id_funcionario'])) {
         </button>
       </div>
       <div class="modal-body">
-      <span class="textCenterModal"><?=$_SESSION['nomeFuncionario']?></span>
+        <span class="textCenterModal"><?= $_SESSION['nomeFuncionario'] ?></span><hr>
+        <p class="colorRed textoCentro" style="display: <?= empty($countEquip['quantidade']) ? 'none' : 'block' ?>;"> Não é permitido excluir esse colaborador pois o mesmo possui equipamentos vinculados a sua responsabilidade</p>
       </div>
       <div class="modal-footer">
         <button class="btn btn-secondary" type="button" data-dismiss="modal">Não</button>
-        <a class="btn btn-primary" href="../inc/desativarfuncionario.php?id=<?= $_SESSION['id_funcionario'] ?>">Sim</a>
+        <a class="btn btn-primary" href="<?= empty($countEquip['quantidade']) ? '../inc/desativarfuncionario.php?id='.$_SESSION['id_funcionario'].'' : 'javascript:' ?>">Sim</a>
       </div>
     </div>
   </div>
