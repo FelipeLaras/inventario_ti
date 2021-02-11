@@ -13,6 +13,7 @@
 
 .colorRed {
     color: red;
+    text-transform: uppercase;
 }
 
 .colorTable {

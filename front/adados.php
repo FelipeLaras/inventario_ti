@@ -1,12 +1,15 @@
 <?php
 /* ini_set('display_errors', 1);
 error_reporting(E_ALL); */
+session_start();
 require_once('header.php');
 require_once('../bd/google.php');
 
-$query = "SELECT * FROM google WHERE cod_tabela = " . $_GET['id'] . "";
-$result = $conn_db->query($query);
-$row = $result->fetch_assoc();
+if(!empty($_GET['id'])){
+  $query = "SELECT * FROM google WHERE cod_tabela = " . $_GET['id'] . "";
+  $result = $conn_db->query($query);
+  $row = $result->fetch_assoc();
+}
 ?>
 
 <!-- Begin Page Content -->
@@ -33,7 +36,7 @@ $row = $result->fetch_assoc();
         <form action="../inc/adados.php?id=<?= $_GET['id'] ?>" method="POST" enctype="multipart/form-data">
           <div class="form-group">
             <label for="nome"><a class="negritoad">Titulo</a></label>
-            <input type="text" class="form-control" id="titulo" value="<?= empty($row['titulo']) ?: $row['titulo'] ?>" name="titulo">
+            <input type="text" class="form-control" id="titulo" value="<?= empty($row['titulo']) ? '' : $row['titulo'] ?>" name="titulo">
           </div>
           <!-- Label de Informações -->
           <label for="email"><a class="negritoad">
@@ -41,7 +44,7 @@ $row = $result->fetch_assoc();
               <hr class="tamanhohr">
             </a></label>
           <div class="form-group mb1">
-            <textarea name='body' id='txtArtigo'><?= empty($row['body']) ?: $row['body'] ?></textarea>
+            <textarea name='body' id='txtArtigo'><?= empty($row['body']) ? '' : $row['body'] ?></textarea>
             <script>
               CKEDITOR.replace('txtArtigo');
             </script>

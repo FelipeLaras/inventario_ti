@@ -47,11 +47,11 @@ require_once('../bd/google.php');
 
 <?php
 
-$query = "SELECT * FROM google WHERE deleted = 0 AND titulo like '%" . $_POST['pesquisa'] . "%' || body like '%" . $_POST['pesquisa'] . "%'";
+$query = "SELECT * FROM google WHERE deleted = 0 AND (titulo like '%" . $_POST['pesquisa'] . "%' || body like '%" . $_POST['pesquisa'] . "%')";
 $result = $conn_db->query($query);
 
 while ($row = $result->fetch_assoc()) {
-  echo '<div class="firstcard card shadow mb-4">
+  echo '<div class="card shadow mb-4">
           <!-- Card Header - Accordion -->
           <a href="#collapseCardExample' . $row['cod_tabela'] . '" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
             <h6 class="m-0 font-weight-bold text-primary">' . $row['titulo'] . '</h6>
@@ -60,11 +60,13 @@ while ($row = $result->fetch_assoc()) {
           <div class="collapse " id="collapseCardExample' . $row['cod_tabela'] . '">  
             <div class="float-rigth editar">        
               <a href="adados.php?pagina=4&id=' . $row['cod_tabela'] . '" class="text-success" title="Editar"><i class="fas fa-pen"></i></a>
-              <a href="#" class="text-danger lixeira" title="Excluir"><i class="fas fa-trash"></i></a>
+              <a href="drdados.php?id=' . $row['cod_tabela'] . '" class="text-danger lixeira" title="Excluir"><i class="fas fa-trash"></i></a>
             </div>
             <div class="card-body">
             ' . $row['body'] . '
-            <iframe src="' . $row['caminho_arquivo'] . '" width="740" height="780" style="border: none;"></iframe>
+            <div style="display: '; echo empty($row['caminho_arquivo'] ) ? 'none' : 'block'; echo '">
+              <iframe src="' . $row['caminho_arquivo'] . '" width="990" height="780" style="border: none;></iframe>
+            </div>
             </div>
           </div>
         </div>';
