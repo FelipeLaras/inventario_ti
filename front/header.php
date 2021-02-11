@@ -195,7 +195,7 @@ if (!empty($permissaoScanner = $resultScanner->fetch_assoc())) {
                     <ul class="navbar-nav ml-auto">
                         <!-- Nav Item - Alerts -->
                         <li class="nav-item dropdown no-arrow mx-1">
-                            <a class="nav-link dropdown-toggle text-success" href="#" id="alertsDropdown" title="Ajuda">
+                            <a class="nav-link dropdown-toggle text-success" href="#" id="alertsDropdown" title="Central de Ajuda">
                                 <i class="far fa-question-circle"></i>
                             </a>
 
