@@ -107,6 +107,9 @@ $equip = $resultEquipamento->fetch_assoc();
       <div class="card shadow mb-4">
         <div class="card-header py-3">
           <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-pen"></i> Editando Equipamento</h6>
+          <a href="#" data-toggle="modal" data-target="#desativar" class="float-right btn-danger btn" title="Excluir Equipamento">
+            <i class="fas fa-trash"></i>
+          </a>
         </div>
         <div class="card-body">
           <form action="../inc/editequipamento.php?id_equipamento=<?= $_GET['id_equip'] ?>&id_so=<?= $equip['id_windows'] ?>&id_of=<?= $equip['id_office'] ?>" method="POST" enctype="multipart/form-data">
@@ -965,6 +968,27 @@ $equip = $resultEquipamento->fetch_assoc();
   <a class="scroll-to-top rounded" href="#page-top">
     <i class="fas fa-angle-up"></i>
   </a>
+
+  <!-- Logout Modal-->
+  <div class="modal fade" id="desativar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Realmente quer <span class='colorRed'>EXCLUIR</span> o Equipamento?</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p class="colorRed textoCentro" style="display: <?= empty($equip['nome_funcionario']) ? 'none' : 'block' ?>;"> Não é permitido excluir este equipamento pois possui um colaborador vinculado.</p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-success" type="button" data-dismiss="modal">Não</button>
+          <a class="btn btn-danger" href="<?= empty($equip['nome_funcionario']) ? '../inc/desativarequipamento.php?id=' . $equip['id_equipamento'] . '' : 'javascript:' ?>">Sim</a>
+        </div>
+      </div>
+    </div>
+  </div>
 
 </body>
 <!--MOSTRAR TABELA DOS EQUIPAMENTOS-->

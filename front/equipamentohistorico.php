@@ -58,11 +58,11 @@ $resultLog = $conn->query($queryLog);
                   break;
 
                 case '2':
-                  $idLog = 'Emitiu Check-List';
+                  $idLog = 'Emitido Check-List';
                   break;
 
                 case '3':
-                  $idLog = 'Emitiu Termo para Funcioário';
+                  $idLog = 'Emitido Termo';
                   break;
 
                 case '4':
@@ -94,15 +94,15 @@ $resultLog = $conn->query($queryLog);
                   break;
 
                 case '11':
-                  $idLog = 'Desativou Funcionário';
+                  $idLog = 'Desativado';
                   break;
 
                 case '12':
-                  $idLog = 'Ativou Funcionário';
+                  $idLog = 'Ativado';
                   break;
 
                 case '13':
-                  $idLog = 'Novo Funcionário';
+                  $idLog = 'Novo';
                   break;
 
                 case '14':
