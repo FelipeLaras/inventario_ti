@@ -64,6 +64,7 @@ while ($row = $result->fetch_assoc()) {
             </div>
             <div class="card-body">
             ' . $row['body'] . '
+            <iframe src="' . $row['caminho_arquivo'] . '" width="740" height="780" style="border: none;"></iframe>
             </div>
           </div>
         </div>';
