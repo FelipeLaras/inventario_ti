@@ -71,6 +71,16 @@ $row = $result->fetch_assoc();
               <input type="file" class="form-control" name="anexo">
             </div>
           </div>
+
+          
+          <div class="form-group mb1">
+            <textarea name='body' id='txtArtigo'><?= empty($row['body']) ?: $row['body'] ?></textarea>
+            <script>
+              CKEDITOR.replace('txtArtigo');
+            </script>
+          </div>
+
+          
           <!-- Botão Salvar -->
 
           <div>
