@@ -19,7 +19,7 @@ $row = $result->fetch_assoc();
       <a href="pdados.php?pagina=4"><i class="fab fa-google"></i> Pesquisa </a> /
       <?= empty($_GET['id']) ? "<i class='fas fa-plus'></i> Adicionar" : "<i class='fas fa-pen'></i> Editar" ?>
     </h1>
-    <hr/>
+    <hr />
   </div>
 
   <div class="col-lg-12">
@@ -47,42 +47,24 @@ $row = $result->fetch_assoc();
             </script>
           </div>
 
-          <div class="form-group" id="nota" style="display: <?= empty($row['caminho_arquivo']) ? "none" : "block" ?>;">
-            <label for="exampleFormControlSelect2" class="border-bottom-info">Deseja Alterar o PDF?</label>
-            <div class="py-2 input-group">
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="todosEquipamentos" id="exampleRadios1" value="1" onclick="sim()">
-                <label class="form-check-label" for="exampleRadios1">
-                  Sim
-                </label>
-              </div>
-              <div class="form-check" style="margin-left: 10px;">
-                <input class="form-check-input" type="radio" name="todosEquipamentos" id="exampleRadios2" value="2" onclick="nao()" checked="">
-                <label class="form-check-label" for="exampleRadios2">
-                  Não
-                </label>
-              </div>
-            </div>
+          <div class="form-group mb1" style="display: <?= empty($row['caminho_arquivo']) ? 'none' : 'block' ?>;">
+            <label for="email">
+              <a href="<?= $row['caminho_arquivo'] ?>" class="btn btn-primary btn-icon-split menu rigth" target="_blank">
+                <span class="icon text-white-50">
+                  <i class="fas fa-eye"></i>
+                </span>
+                <span class="text">Exibir documento anexado!</span>
+              </a>
+            </label>
           </div>
 
-          <div id="notafiscal" style="display: <?= empty($row['caminho_arquivo']) ? "block" : "none" ?>;">
+          <div id="notafiscal">
             <div class="form-group">
-              <label for="nome"><a class="negritoad">Anexo: </a></label>
+              <label for="nome"><a class="negritoad">Anexar novo Documento: </a></label>
               <input type="file" class="form-control" name="anexo">
             </div>
           </div>
-
-          
-          <div class="form-group mb1">
-            <textarea name='body' id='txtArtigo'><?= empty($row['body']) ?: $row['body'] ?></textarea>
-            <script>
-              CKEDITOR.replace('txtArtigo');
-            </script>
-          </div>
-
-          
           <!-- Botão Salvar -->
-
           <div>
             <a href="pdados.php?pagina=4" class="btn btn-primary btn-block22">Voltar</a>
             <button type="submit" class="btn btn-primary btn-block22">Salvar</button>
