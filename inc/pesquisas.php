@@ -12,7 +12,8 @@ MP.ativar_cpf,
 MP.desativar_cpf,
 MP.emitir_check_list,
 MP.editar_historico,
-MP.editar_cadastro_funcionario
+MP.editar_cadastro_funcionario,
+MP.color_header
 FROM
 manager_profile MP
 LEFT JOIN

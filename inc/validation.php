@@ -1,16 +1,24 @@
 <?php
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
+/* ini_set('display_errors', 1);
+error_reporting(E_ALL); */
 //aplicando para usar varialve em outro arquivo
 session_start();
 //chamando conexão com o banco
 require_once('../bd/conexao.php');
 require_once('pesquisas.php');
 
-$senha = md5($_POST['password']);
+
+if(!empty($_POST['username'])){
+	$usuario = $_POST['username'];
+	$senha = md5($_POST['password']);
+
+}else{	
+	$usuario = $_SESSION["mail"];
+	$senha = $_SESSION["senha"];
+}
 
 //criando a query de pesquisa
-$queryUsuarios .= "	WHERE profile_mail = '".$_POST['username']."' AND profile_password = '".$senha."'";
+$queryUsuarios .= "	WHERE profile_mail = '".$usuario ."' AND profile_password = '".$senha."'";
 
 //Aplicando a query
 $result = $conn->query($queryUsuarios);
@@ -37,6 +45,7 @@ if(empty($row_user['profile_name'])){
 		$_SESSION["nome"] = $row_user["profile_name"];
 		$_SESSION["mail"] = $row_user["profile_mail"];
 		$_SESSION["senha"] = $row_user["profile_password"];
+		$_SESSION["colorHeader"] = $row_user["color_header"];
 
 		//PERMISSÕES
 		$_SESSION["emitir_check_list"] = $row_user["emitir_check_list"];

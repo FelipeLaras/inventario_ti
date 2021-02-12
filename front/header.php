@@ -67,7 +67,7 @@ if (!empty($permissaoScanner = $resultScanner->fetch_assoc())) {
     <div id="wrapper">
 
         <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+        <ul class="navbar-nav bg-gradient-<?= $_SESSION["colorHeader"] ?> sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <a class="sidebar-brand d-flex align-items-center justify-content-center backgroundWhite" href="front.php?pagina=1">
                 <div class="sidebar-brand-icon">
@@ -194,6 +194,41 @@ if (!empty($permissaoScanner = $resultScanner->fetch_assoc())) {
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <!-- Nav Item - Alerts -->
+
+                        <li class="nav-item dropdown no-arrow mx-1">
+                            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" title="Paleta de cores">
+                                <i class="fas fa-palette colorGrenn"></i>
+                                <!-- Counter - Alerts -->
+                            </a>
+                            <!-- Dropdown - Alerts -->
+                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
+                                <h6 class="dropdown-header">
+                                    Escolhar uma cor!
+                                </h6>
+                                <a class="dropdown-item" href="../inc/color.php?color=primary">
+                                    <div class="px-3 py-2 bg-gradient-primary text-white"></div>
+                                </a>
+                                <a class="dropdown-item" href="../inc/color.php?color=success">
+                                    <div class="px-3 py-2 bg-gradient-success text-white"></div>
+                                </a>
+                                <a class="dropdown-item" href="../inc/color.php?color=info">
+                                    <div class="px-3 py-2 bg-gradient-info text-white"></div>
+                                </a>
+                                <a class="dropdown-item" href="../inc/color.php?color=warning">
+                                    <div class="px-3 py-2 bg-gradient-warning text-white"></div>
+                                </a>
+                                <a class="dropdown-item" href="../inc/color.php?color=danger">
+                                    <div class="px-3 py-2 bg-gradient-danger text-white"></div>
+                                </a>
+                                <a class="dropdown-item" href="../inc/color.php?color=light">
+                                    <div class="px-3 py-2 bg-gradient-light text-white"></div>
+                                </a>
+                                <a class="dropdown-item" href="../inc/color.php?color=dark">
+                                    <div class="px-3 py-2 bg-gradient-dark text-white"></div>
+                                </a>
+                            </div>
+                        </li>
+
                         <li class="nav-item dropdown no-arrow mx-1">
                             <a class="nav-link dropdown-toggle text-success" href="#" id="alertsDropdown" title="Central de Ajuda">
                                 <i class="far fa-question-circle"></i>
