@@ -161,6 +161,22 @@ if (!empty($permissaoScanner = $resultScanner->fetch_assoc())) {
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 
+            <!-- Nav Item - Charts -->
+            <li class="nav-item <?= $_GET['pagina'] == 7 ? 'active' : '' ?>">
+                <a class="nav-link" href="ajuda.php?pagina=7">
+                    <i class="far fa-question-circle"></i>
+                    <span>Central de Ajuda</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://rede.paranapart.com.br/glpi" target="_blank">
+                    <i class="fas fa-link"></i>
+                    <span>GLPI</span>
+                </a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider d-none d-md-block">
             <!-- Sidebar Toggler (Sidebar) -->
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
@@ -197,7 +213,7 @@ if (!empty($permissaoScanner = $resultScanner->fetch_assoc())) {
 
                         <li class="nav-item dropdown no-arrow mx-1">
                             <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" title="Paleta de cores">
-                                <i class="fas fa-palette colorGrenn"></i>
+                                <i class="fas fa-brush colorRed"></i>
                                 <!-- Counter - Alerts -->
                             </a>
                             <!-- Dropdown - Alerts -->
@@ -220,9 +236,6 @@ if (!empty($permissaoScanner = $resultScanner->fetch_assoc())) {
                                 <a class="dropdown-item" href="../inc/color.php?color=danger">
                                     <div class="px-3 py-2 bg-gradient-danger text-white"></div>
                                 </a>
-                                <a class="dropdown-item" href="../inc/color.php?color=light">
-                                    <div class="px-3 py-2 bg-gradient-light text-white"></div>
-                                </a>
                                 <a class="dropdown-item" href="../inc/color.php?color=dark">
                                     <div class="px-3 py-2 bg-gradient-dark text-white"></div>
                                 </a>
@@ -230,7 +243,7 @@ if (!empty($permissaoScanner = $resultScanner->fetch_assoc())) {
                         </li>
 
                         <li class="nav-item dropdown no-arrow mx-1">
-                            <a class="nav-link dropdown-toggle text-success" href="#" id="alertsDropdown" title="Central de Ajuda">
+                            <a class="nav-link dropdown-toggle text-success" href="ajuda.php?pagina=7" id="alertsDropdown" title="Central de Ajuda">
                                 <i class="far fa-question-circle"></i>
                             </a>
 
