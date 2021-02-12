@@ -143,7 +143,7 @@ switch ($_GET['tipo']) {
   <!-- DataTales Example -->
   <div class="card shadow mb-4">
     <div class="card-header py-3">
-      <h6 class="m-0 font-weight-bold text-primary">Lista de <?= $nome ?> cadastradas no sistema
+      <h6 class="m-0 font-weight-bold text-<?= $_SESSION["colorHeader"] ?>">Lista de <?= $nome ?> cadastradas no sistema
         <a class="btn btn-success btn-pen-square btn-sm float-rigth" title="Adicionar" href="#" data-toggle="modal" data-target="#adicionar"><i class="fas fa-plus"></i></a>
       </h6>
     </div>

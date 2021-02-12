@@ -31,7 +31,7 @@ $result = $conn->query($queryEquipamento);
   <!-- Page Heading -->
   <div class="card shadow mb-4">
     <div class="card-header py-3">
-      <h6 class="m-0 font-weight-bold text-primary">
+      <h6 class="m-0 font-weight-bold text-<?= $_SESSION["colorHeader"] ?>">
         Lista dos equipamentos
         <a href="checklist.php?pagina=3" class="float-right btn btn-warning" style="display: <?= empty($_SESSION["emitir_check_list"]) ? "none" : "inline-block" ?>;" title="Check-list"><i class="fas fa-list"></i></a>
         <a href="termo.php?pagina=3" class="float-right btn btn-info" style="margin-right: 10px;" title="Termo"><i class="fas fa-file"></i></a>

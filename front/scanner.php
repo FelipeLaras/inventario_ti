@@ -24,7 +24,7 @@ $result = $conn->query($queryEquipamento);
   <!-- Page Heading -->
   <div class="card shadow mb-4">
     <div class="card-header py-3">
-      <h6 class="m-0 font-weight-bold text-primary">
+      <h6 class="m-0 font-weight-bold text-<?= $_SESSION["colorHeader"] ?>">
         <i class="fas fa-print"></i> Scanner
         <a href="novoequipamento.php?pagina=5" class="float-right btn btn-success" title="Novo Scanner"><i class="fas fa-plus"></i></a>
       </h6>

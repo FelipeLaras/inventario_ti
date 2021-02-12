@@ -24,7 +24,7 @@ if ($_SESSION['perfil'] != '0') {
   <!-- DataTales Example -->
   <div class="card shadow mb-4">
     <div class="card-header py-3">
-      <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-users"></i> Usuários
+      <h6 class="m-0 font-weight-bold text-<?= $_SESSION["colorHeader"] ?>"><i class="fas fa-users"></i> Usuários
         <a class="btn btn-success btn-pen-square btn-sm float-right" title="Adicionar" href="novoUsuario.php?pagina=2"><i class="fas fa-plus"></i></a>
       </h6>
     </div>

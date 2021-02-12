@@ -88,7 +88,7 @@ if (!empty($_SESSION['id_funcionario'])) {
     <!-- Circle Buttons -->
     <div class="card shadow mb-4">
       <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary"><?= empty($_SESSION['nomeFuncionario']) ? "Novo Funcionário" : "Editando Colaborador" ?>
+        <h6 class="m-0 font-weight-bold text-<?= $_SESSION["colorHeader"] ?>"><?= empty($_SESSION['nomeFuncionario']) ? "Novo Funcionário" : "Editando Colaborador" ?>
           <a href="#" data-toggle="modal" data-target="#desativar" class="float-right btn-danger" title="Excluir Colaborador" style="padding: 8px; border-radius: 5px; display: <?= $_SESSION['desativar_cpf'] == 1 ? "block" : "none" ?>;">
             <i class="fas fa-user-times"></i>
           </a>

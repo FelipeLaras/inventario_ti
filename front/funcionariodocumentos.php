@@ -30,7 +30,7 @@ $resultEquip = $conn->query($queryEquipamento);
 
   <div class="card shadow mb-4">
     <div class="card-header py-3">
-      <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-file"></i> Lista dos Documentos</h6>
+      <h6 class="m-0 font-weight-bold text-<?= $_SESSION["colorHeader"] ?>"><i class="fas fa-file"></i> Lista dos Documentos</h6>
       <a href="#" data-toggle="modal" data-target="#novo" class="float-right btn btn-success" style="margin-right: 10px;" title="Novo Documento"><i class="fas fa-plus"></i></a>
     </div>
     <div class="card-body">

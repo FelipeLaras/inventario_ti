@@ -34,7 +34,7 @@ $resultFuncionario = $conn->query($queryColaborador);
     <!-- Circle Buttons -->
     <div class="card shadow mb-4">
       <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-plus"></i> Novo Equipamento</h6>
+        <h6 class="m-0 font-weight-bold text-<?= $_SESSION["colorHeader"] ?>"><i class="fas fa-plus"></i> Novo Equipamento</h6>
       </div>
       <div class="card-body">
         <form action="../inc/novoequipamento.php" method="POST" enctype="multipart/form-data" autocomplete="off">

@@ -31,7 +31,7 @@ if (!empty($_GET['id'])) {
     <!-- Circle Buttons -->
     <div class="card shadow mb-4">
       <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary"> <?= empty($_GET['id']) ? "<i class='fas fa-plus'></i> Novo Office" : '<i class="fas fa-pen"></i> Editar Office' ?> </h6>
+        <h6 class="m-0 font-weight-bold text-<?= $_SESSION["colorHeader"] ?>"> <?= empty($_GET['id']) ? "<i class='fas fa-plus'></i> Novo Office" : '<i class="fas fa-pen"></i> Editar Office' ?> </h6>
       </div>
       <div class="card-body">
         <form action="../inc/officeedit.php?id=<?= $_GET['id'] ?>" method="POST" enctype="multipart/form-data">

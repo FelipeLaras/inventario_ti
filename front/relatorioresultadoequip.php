@@ -32,7 +32,7 @@ $_SESSION['query_relatorios'] = $queryRelatorio;
   <!-- Page Heading -->
   <div class="card shadow mb-4">
     <div class="card-header py-3">
-      <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-tag"></i> Resultado
+      <h6 class="m-0 font-weight-bold text-<?= $_SESSION["colorHeader"] ?>"><i class="fas fa-tag"></i> Resultado
       </h6>
     </div>
     <div class="card-body">

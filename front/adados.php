@@ -29,7 +29,7 @@ if(!empty($_GET['id'])){
     <!-- Circle Buttons -->
     <div class="card shadow mb-4">
       <div class="card-header py-3">
-        <h6 class="m-0 h6 font-weight-bold text-primary"><?= empty($_GET['id']) ? "Adicionar Conteúdo" : "Editando Conteúdo" ?></h6>
+        <h6 class="m-0 h6 font-weight-bold text-<?= $_SESSION["colorHeader"] ?>"><?= empty($_GET['id']) ? "Adicionar Conteúdo" : "Editando Conteúdo" ?></h6>
       </div>
 
       <div class="card-body">

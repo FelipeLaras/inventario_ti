@@ -24,7 +24,7 @@ $result = $conn->query($queryoffice);
   <!-- Page Heading -->
   <div class="card shadow mb-4">
     <div class="card-header py-3">
-      <h6 class="m-0 font-weight-bold text-primary">
+      <h6 class="m-0 font-weight-bold text-<?= $_SESSION["colorHeader"] ?>">
         <i class="fab fa-windows"></i> Office's
         <a href="officeedit.php?pagina=5" class="float-right btn btn-success" title="Novo Office"><i class="fas fa-plus"></i></a>
       </h6>

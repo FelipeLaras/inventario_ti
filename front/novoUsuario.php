@@ -16,7 +16,7 @@ require_once('../inc/dropdown.php')
     <!-- Circle Buttons -->
     <div class="card shadow mb-4">
       <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Criando um novo Usuário</h6>
+        <h6 class="m-0 font-weight-bold text-<?= $_SESSION["colorHeader"] ?>">Criando um novo Usuário</h6>
       </div>
       <div class="card-body">
         <form action="../inc/novoUsuario.php" method="POST">

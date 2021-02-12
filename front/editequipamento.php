@@ -106,7 +106,7 @@ $equip = $resultEquipamento->fetch_assoc();
       <!-- Circle Buttons -->
       <div class="card shadow mb-4">
         <div class="card-header py-3">
-          <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-pen"></i> Editando Equipamento</h6>
+          <h6 class="m-0 font-weight-bold text-<?= $_SESSION["colorHeader"] ?>"><i class="fas fa-pen"></i> Editando Equipamento</h6>
           <a href="#" data-toggle="modal" data-target="#desativar" class="float-right btn-danger btn" title="Excluir Equipamento">
             <i class="fas fa-trash"></i>
           </a>
