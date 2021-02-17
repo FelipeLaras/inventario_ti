@@ -24,8 +24,8 @@ require_once('header.php');
     <div class="collapse " id="collapseCardExample1">
       <div class="card-body centro">
         <video width="600" height="300" controls>
-          <source src="../documentos/vd/01.mkv" type="video/mkv">
-          <source src="../documentos/vd/01.mkv" type="video/ogg">
+          <source src="../documentos/vd/01.mp4" type="video/mp4">
+          <source src="../documentos/vd/01.mp4" type="video/ogg">
           Seu navegador não é suportado. Por favor atualize ou use navegadores mais utilizados pela a maioria!
         </video>
       </div>
@@ -42,8 +42,8 @@ require_once('header.php');
     <div class="collapse " id="collapseCardExample2">
       <div class="card-body centro">
         <video width="600" height="300" controls>
-          <source src="../documentos/vd/01.mkv" type="video/mkv">
-          <source src="../documentos/vd/01.mkv" type="video/ogg">
+          <source src="../documentos/vd/02.mp4" type="video/mp4">
+          <source src="../documentos/vd/02.mp4" type="video/ogg">
           Seu navegador não é suportado. Por favor atualize ou use navegadores mais utilizados pela a maioria!
         </video>
       </div>
@@ -60,8 +60,8 @@ require_once('header.php');
     <div class="collapse " id="collapseCardExample3">
       <div class="card-body centro">
         <video width="600" height="300" controls>
-          <source src="../documentos/vd/01.mkv" type="video/mkv">
-          <source src="../documentos/vd/01.mkv" type="video/ogg">
+          <source src="../documentos/vd/03.mp4" type="video/mp4">
+          <source src="../documentos/vd/03.mp4" type="video/ogg">
           Seu navegador não é suportado. Por favor atualize ou use navegadores mais utilizados pela a maioria!
         </video>
       </div>
@@ -77,8 +77,8 @@ require_once('header.php');
     <div class="collapse " id="collapseCardExample4">
       <div class="card-body centro">
         <video width="600" height="300" controls>
-          <source src="../documentos/vd/01.mkv" type="video/mkv">
-          <source src="../documentos/vd/01.mkv" type="video/ogg">
+          <source src="../documentos/vd/04.mp4" type="video/mp4">
+          <source src="../documentos/vd/04.mp4" type="video/ogg">
           Seu navegador não é suportado. Por favor atualize ou use navegadores mais utilizados pela a maioria!
         </video>
       </div>

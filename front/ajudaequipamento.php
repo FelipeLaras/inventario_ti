@@ -24,8 +24,8 @@ require_once('header.php');
     <div class="collapse " id="collapseCardExample1">
       <div class="card-body centro">
         <video width="600" height="300" controls>
-          <source src="../documentos/vd/01.mkv" type="video/mkv">
-          <source src="../documentos/vd/01.mkv" type="video/ogg">
+          <source src="../documentos/vd/08.mp4" type="video/mkv">
+          <source src="../documentos/vd/08.mp4" type="video/ogg">
           Seu navegador não é suportado. Por favor atualize ou use navegadores mais utilizados pela a maioria!
         </video>
       </div>
@@ -42,8 +42,8 @@ require_once('header.php');
     <div class="collapse " id="collapseCardExample2">
       <div class="card-body centro">
         <video width="600" height="300" controls>
-          <source src="../documentos/vd/01.mkv" type="video/mkv">
-          <source src="../documentos/vd/01.mkv" type="video/ogg">
+          <source src="../documentos/vd/09.mp4" type="video/mkv">
+          <source src="../documentos/vd/09.mp4" type="video/ogg">
           Seu navegador não é suportado. Por favor atualize ou use navegadores mais utilizados pela a maioria!
         </video>
       </div>
@@ -60,13 +60,31 @@ require_once('header.php');
     <div class="collapse " id="collapseCardExample3">
       <div class="card-body centro">
         <video width="600" height="300" controls>
-          <source src="../documentos/vd/01.mkv" type="video/mkv">
-          <source src="../documentos/vd/01.mkv" type="video/ogg">
+          <source src="../documentos/vd/10.mp4" type="video/mkv">
+          <source src="../documentos/vd/10.mp4" type="video/ogg">
           Seu navegador não é suportado. Por favor atualize ou use navegadores mais utilizados pela a maioria!
         </video>
       </div>
     </div>
   </div>
+
+<!-- Duvida 9º -->
+<div class="card shadow mb-4">
+  <!-- Card Header - Accordion -->
+  <a href="#collapseCardExample13" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
+    <h6 class="m-0 font-weight-bold text-<?= $_SESSION["colorHeader"] ?>">Desvincular usuário de um equipamento ?</h6>
+  </a>
+  <!-- Card Content - Collapse -->
+  <div class="collapse " id="collapseCardExample13">
+    <div class="card-body centro">
+      <video width="600" height="300" controls>
+        <source src="../documentos/vd/19.mp4" type="video/mkv">
+        <source src="../documentos/vd/19.mp4" type="video/ogg">
+        Seu navegador não é suportado. Por favor atualize ou use navegadores mais utilizados pela a maioria!
+      </video>
+    </div>
+  </div>
+</div>
 
   <!-- Duvida 4º -->
   <div class="card shadow mb-4">
@@ -78,8 +96,8 @@ require_once('header.php');
     <div class="collapse " id="collapseCardExample4">
       <div class="card-body centro">
         <video width="600" height="300" controls>
-          <source src="../documentos/vd/01.mkv" type="video/mkv">
-          <source src="../documentos/vd/01.mkv" type="video/ogg">
+          <source src="../documentos/vd/11.mp4" type="video/mkv">
+          <source src="../documentos/vd/11.mp4" type="video/ogg">
           Seu navegador não é suportado. Por favor atualize ou use navegadores mais utilizados pela a maioria!
         </video>
       </div>
@@ -96,8 +114,8 @@ require_once('header.php');
     <div class="collapse " id="collapseCardExample5">
       <div class="card-body centro">
         <video width="600" height="300" controls>
-          <source src="../documentos/vd/01.mkv" type="video/mkv">
-          <source src="../documentos/vd/01.mkv" type="video/ogg">
+          <source src="../documentos/vd/12.mp4" type="video/mkv">
+          <source src="../documentos/vd/12.mp4" type="video/ogg">
           Seu navegador não é suportado. Por favor atualize ou use navegadores mais utilizados pela a maioria!
         </video>
       </div>
@@ -107,15 +125,33 @@ require_once('header.php');
   <!-- Duvida 6º -->
   <div class="card shadow mb-4">
     <!-- Card Header - Accordion -->
-    <a href="#collapseCardExample6" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
+    <a href="#collapseCardExample14" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
       <h6 class="m-0 font-weight-bold text-<?= $_SESSION["colorHeader"] ?>">Emitir um termo?</h6>
     </a>
     <!-- Card Content - Collapse -->
-    <div class="collapse " id="collapseCardExample6">
+    <div class="collapse " id="collapseCardExample14">
       <div class="card-body centro">
         <video width="600" height="300" controls>
-          <source src="../documentos/vd/01.mkv" type="video/mkv">
-          <source src="../documentos/vd/01.mkv" type="video/ogg">
+          <source src="../documentos/vd/13.mp4" type="video/mkv">
+          <source src="../documentos/vd/13.mp4" type="video/ogg">
+          Seu navegador não é suportado. Por favor atualize ou use navegadores mais utilizados pela a maioria!
+        </video>
+      </div>
+    </div>
+  </div>
+
+   <!-- Duvida 10º -->
+   <div class="card shadow mb-4">
+    <!-- Card Header - Accordion -->
+    <a href="#collapseCardExample15" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
+      <h6 class="m-0 font-weight-bold text-<?= $_SESSION["colorHeader"] ?>">Emitir um Modelo?</h6>
+    </a>
+    <!-- Card Content - Collapse -->
+    <div class="collapse " id="collapseCardExample15">
+      <div class="card-body centro">
+        <video width="600" height="300" controls>
+          <source src="../documentos/vd/20.mp4" type="video/mkv">
+          <source src="../documentos/vd/20.mp4" type="video/ogg">
           Seu navegador não é suportado. Por favor atualize ou use navegadores mais utilizados pela a maioria!
         </video>
       </div>
@@ -132,8 +168,8 @@ require_once('header.php');
     <div class="collapse " id="collapseCardExample7">
       <div class="card-body centro">
         <video width="600" height="300" controls>
-          <source src="../documentos/vd/01.mkv" type="video/mkv">
-          <source src="../documentos/vd/01.mkv" type="video/ogg">
+          <source src="../documentos/vd/14.mp4" type="video/mkv">
+          <source src="../documentos/vd/14.mp4" type="video/ogg">
           Seu navegador não é suportado. Por favor atualize ou use navegadores mais utilizados pela a maioria!
         </video>
       </div>
@@ -149,8 +185,8 @@ require_once('header.php');
     <div class="collapse " id="collapseCardExample8">
       <div class="card-body centro">
         <video width="600" height="300" controls>
-          <source src="../documentos/vd/01.mkv" type="video/mkv">
-          <source src="../documentos/vd/01.mkv" type="video/ogg">
+          <source src="../documentos/vd/15.mp4" type="video/mkv">
+          <source src="../documentos/vd/15.mp4" type="video/ogg">
           Seu navegador não é suportado. Por favor atualize ou use navegadores mais utilizados pela a maioria!
         </video>
       </div>
@@ -166,8 +202,8 @@ require_once('header.php');
     <div class="collapse " id="collapseCardExample9">
       <div class="card-body centro">
         <video width="600" height="300" controls>
-          <source src="../documentos/vd/01.mkv" type="video/mkv">
-          <source src="../documentos/vd/01.mkv" type="video/ogg">
+          <source src="../documentos/vd/16.mp4" type="video/mkv">
+          <source src="../documentos/vd/16.mp4" type="video/ogg">
           Seu navegador não é suportado. Por favor atualize ou use navegadores mais utilizados pela a maioria!
         </video>
       </div>
@@ -184,8 +220,8 @@ require_once('header.php');
     <div class="collapse " id="collapseCardExample10">
       <div class="card-body centro">
         <video width="600" height="300" controls>
-          <source src="../documentos/vd/01.mkv" type="video/mkv">
-          <source src="../documentos/vd/01.mkv" type="video/ogg">
+          <source src="../documentos/vd/17.mp4" type="video/mkv">
+          <source src="../documentos/vd/17.mp4" type="video/ogg">
           Seu navegador não é suportado. Por favor atualize ou use navegadores mais utilizados pela a maioria!
         </video>
       </div>
@@ -202,8 +238,8 @@ require_once('header.php');
     <div class="collapse " id="collapseCardExample11">
       <div class="card-body centro">
         <video width="600" height="300" controls>
-          <source src="../documentos/vd/01.mkv" type="video/mkv">
-          <source src="../documentos/vd/01.mkv" type="video/ogg">
+          <source src="../documentos/vd/18.mp4" type="video/mkv">
+          <source src="../documentos/vd/18.mp4" type="video/ogg">
           Seu navegador não é suportado. Por favor atualize ou use navegadores mais utilizados pela a maioria!
         </video>
       </div>
