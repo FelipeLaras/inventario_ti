@@ -5,7 +5,7 @@ session_start();
 $_SESSION["perfil"] != NULL ?: header('location: ../index.php');
 
 //data de hoje
-$dataHoje = date('d/m/yy');
+$dataHoje = date('d/m/Y');
 
 require_once('../inc/permissoes.php');
 
