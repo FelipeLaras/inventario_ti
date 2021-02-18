@@ -24,7 +24,9 @@ switch ($_GET['status']) {
 }
 
 $queryColaborador .= " WHERE MIF.deletar = 0 AND MIF.status IN (" . $status . ")";
+
 $resultColaborador = $conn->query($queryColaborador);
+
 
 ?>
 
@@ -138,7 +140,10 @@ $resultColaborador = $conn->query($queryColaborador);
               $validarEquip = "SELECT id_equipamento FROM manager_inventario_equipamento WHERE id_funcionario = " . $colaborador['id_funcionario'] . " AND tipo_equipamento IN (";
 
               $queryEquipamentoUsuario = "SELECT * FROM manager_profile_equip WHERE id_profile = " . $_SESSION['id'] . "";
-              $rs = $conn->query($queryEquipamentoUsuario);
+
+              if(!$rs = $conn->query($queryEquipamentoUsuario)){
+                printf('erro: %s\n', $conn->error);
+              }
 
               while ($permissaoEquip = $rs->fetch_assoc()) {
                 $validarEquip .= $permissaoEquip['id_equipamento'] . ',';
@@ -146,7 +151,9 @@ $resultColaborador = $conn->query($queryColaborador);
 
               $validarEquip .= "'')";
 
-              $resultValidar = $conn->query($validarEquip);
+              if(!$resultValidar = $conn->query($validarEquip)){
+                printf('erro: %s\n', $conn->error);
+              }
 
               if ($validar = $resultValidar->fetch_assoc()) {
                 echo '<tr>';
@@ -167,7 +174,10 @@ $resultColaborador = $conn->query($queryColaborador);
               WHERE MIE.id_funcionario = " . $colaborador['id_funcionario'] . " AND MIE.deletar = 0 AND MIE.tipo_equipamento in (";
 
                 $eq = "SELECT * FROM manager_profile_equip WHERE deletar = 0 AND id_profile = " . $_SESSION['id'] . "";
-                $reeq = $conn->query($eq);
+                
+                if(!$reeq = $conn->query($eq)){
+                  printf('erro: %s\n', $conn->error);
+                }
 
                 while ($eqip = $reeq->fetch_assoc()) {
                   $queryQuantidadeEquipamentos .= $eqip['id_equipamento'] . ",";
