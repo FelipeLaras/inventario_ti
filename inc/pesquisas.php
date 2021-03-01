@@ -21,14 +21,6 @@ manager_profile_type MPT ON (MP.profile_type = MPT.type_profile)";
 
 //COLABORADORES
 $queryColaborador = "SELECT 
-MIE.id_equipamento,
-MIE.tipo_equipamento AS idTipo_equipamento,
-MDEQ.nome AS tipo_equipamento,
-MIE.modelo,
-MIE.imei_chip,
-MIE.patrimonio,
-MIE.numero,
-MIE.valor,
 MIF.id_funcionario, 
 MIF.nome, 
 MIF.cpf,
@@ -50,11 +42,7 @@ manager_dropdepartamento MDD ON (MIF.departamento = MDD.id_depart)
 LEFT JOIN
 manager_dropempresa MDE ON (MIF.empresa = MDE.id_empresa)
 LEFT JOIN
-manager_dropstatus MDS ON (MIF.status = MDS.id_status)
-LEFT JOIN
-manager_inventario_equipamento MIE ON (MIF.id_funcionario = MIE.id_funcionario)
-LEFT JOIN
-manager_dropequipamentos MDEQ ON (MIE.tipo_equipamento = MDEQ.id_equip)";
+manager_dropstatus MDS ON (MIF.status = MDS.id_status)";
 
 //EQUIPAMENTOS
 $queryEquipamento = "SELECT 

@@ -36,8 +36,7 @@ $resultFuncionario = $conn->query($queryColaborador);
         <select name="status" class="form-control" required>
           <option value="">---</option>
           <?php
-
-          $queryStatusEquipamento .= " AND id_status IN (1, 2)";
+          
           $resultStatus = $conn->query($queryStatusEquipamento);
 
           while ($status = $resultStatus->fetch_assoc()) {

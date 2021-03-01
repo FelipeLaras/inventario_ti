@@ -27,7 +27,6 @@ $queryColaborador .= " WHERE MIF.deletar = 0 AND MIF.status IN (" . $status . ")
 
 $resultColaborador = $conn->query($queryColaborador);
 
-
 ?>
 
 <!-- Begin Page Content -->

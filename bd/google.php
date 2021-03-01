@@ -11,12 +11,12 @@
 
   //validando
   if (!$conn_db) {
-    /* echo "Errorrrr: não foi possível conectar-se ao MySQL." . PHP_EOL . "<br />";
+    echo "Erro: não foi possível conectar-se ao MySQL." . PHP_EOL . "<br />";
     echo "Depurando erro no: " . mysqli_connect_errno() . PHP_EOL . "<br />";
     echo "Depurando erro: " . mysqli_connect_error() . PHP_EOL;
-    exit; */
+    exit;
   }else{
-   /*  echo "Sucesso: Foi feita uma conexão adequada ao MySQL!<br />" . PHP_EOL;
-    echo "Informações do Host: " . mysqli_get_host_info($conn_db) . PHP_EOL; */
+    echo "Sucesso: Foi feita uma conexão adequada ao MySQL!<br />" . PHP_EOL;
+    echo "Informações do Host: " . mysqli_get_host_info($conn_db) . PHP_EOL;
   }      
 ?>

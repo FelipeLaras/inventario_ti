@@ -1,4 +1,7 @@
 <?php
+/* error_reporting(E_ALL);
+ini_set("display_errors", 1); */
+
 require_once('header.php');
 
 require_once('../bd/google.php');
@@ -13,10 +16,7 @@ require_once('../bd/google.php');
     <i class="fas fa-list"></i> Resultado
   </h1>
   <hr />
-
-  <!-- Conteudo -->
   <!-- Area de Pesquisa -->
-
   <div class="googleldados2">
     <img src="../img/google.png">
     <!-- <div class="dentro"> -->
@@ -38,17 +38,21 @@ require_once('../bd/google.php');
     </form>
   </div>
 </div>
-
 <hr class="absolutehr">
 </hr>
-
-
 <!-- Primeiro Card -->
-
 <?php
 
 $query = "SELECT * FROM google WHERE deleted = 0 AND (titulo like '%" . $_POST['pesquisa'] . "%' || body like '%" . $_POST['pesquisa'] . "%')";
-$result = $conn_db->query($query);
+
+echo $query;
+
+if(!$result = $conn_db->query($query)){
+  printf('Erro[1]: %s\n', $conn_db->error);
+
+  exit;
+}
+
 
 while ($row = $result->fetch_assoc()) {
   echo '<div class="card shadow mb-4">
@@ -64,7 +68,9 @@ while ($row = $result->fetch_assoc()) {
             </div>
             <div class="card-body">
             ' . $row['body'] . '
-            <div style="display: '; echo empty($row['caminho_arquivo'] ) ? 'none' : 'block'; echo '">
+            <div style="display: ';
+  echo empty($row['caminho_arquivo']) ? 'none' : 'block';
+  echo '">
               <iframe src="' . $row['caminho_arquivo'] . '" width="990" height="780" style="border: none;></iframe>
             </div>
             </div>
