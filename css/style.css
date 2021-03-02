@@ -16,6 +16,12 @@
     text-transform: uppercase;
 }
 
+.colorBlue {
+    color: #4e73df;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
 .colorTable {
     color: #858796;
 }
