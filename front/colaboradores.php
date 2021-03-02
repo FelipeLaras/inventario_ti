@@ -23,7 +23,7 @@ switch ($_GET['status']) {
     break;
 }
 
-$queryColaborador .= " WHERE MIF.deletar = 0 AND MIF.status IN (" . $status . ")";
+$queryColaborador .= " WHERE MIF.deletar = 0 AND MIF.status IN (" . $status . ") AND MIF.departamento is not NULL";
 
 $resultColaborador = $conn->query($queryColaborador);
 
@@ -113,7 +113,7 @@ $resultColaborador = $conn->query($queryColaborador);
               <th>FUNÇÃO</th>
               <th>DEPARTAMENTO</th>
               <th>EMPRESA</th>
-              <th>EQUIPAMENTOS</th>
+              <th>EQUIP</th>
               <th class="maior">STATUS</th>
               <th class="maior">AÇÃO</th>
             </tr>
@@ -126,7 +126,7 @@ $resultColaborador = $conn->query($queryColaborador);
               <th>FUNÇÃO</th>
               <th>DEPARTAMENTO</th>
               <th>EMPRESA</th>
-              <th>EQUIPAMENTOS</th>
+              <th>EQUIP</th>
               <th class="maior">STATUS</th>
               <th class="maior">AÇÃO</th>
             </tr>
@@ -135,26 +135,6 @@ $resultColaborador = $conn->query($queryColaborador);
             <?php
 
             while ($colaborador = $resultColaborador->fetch_assoc()) {
-
-              $validarEquip = "SELECT id_equipamento FROM manager_inventario_equipamento WHERE id_funcionario = " . $colaborador['id_funcionario'] . " AND tipo_equipamento IN (";
-
-              $queryEquipamentoUsuario = "SELECT * FROM manager_profile_equip WHERE id_profile = " . $_SESSION['id'] . "";
-
-              if(!$rs = $conn->query($queryEquipamentoUsuario)){
-                printf('erro: %s\n', $conn->error);
-              }
-
-              while ($permissaoEquip = $rs->fetch_assoc()) {
-                $validarEquip .= $permissaoEquip['id_equipamento'] . ',';
-              }
-
-              $validarEquip .= "'')";
-
-              if(!$resultValidar = $conn->query($validarEquip)){
-                printf('erro: %s\n', $conn->error);
-              }
-
-              if ($validar = $resultValidar->fetch_assoc()) {
                 echo '<tr>';
                 echo $colaborador['id_funcionario'] != NULL ?  '<td>' . $colaborador['id_funcionario'] . '</td>' :  '<td>----------</td>';
                 echo $colaborador['nome'] != NULL ?  '<td>' . $colaborador['nome'] . '</td>' :  '<td>----------</td>';
@@ -163,36 +143,7 @@ $resultColaborador = $conn->query($queryColaborador);
                 echo $colaborador['departamento'] != NULL ?  '<td>' . $colaborador['departamento'] . '</td>' :  '<td>----------</td>';
                 echo $colaborador['empresa'] != NULL ?  '<td>' . $colaborador['empresa'] . '</td>' :  '<td>----------</td>';
 
-                //quantidade equipamentos
-                $queryQuantidadeEquipamentos = "SELECT 
-              COUNT(*) AS quantidade, MDE.nome AS equipamento
-              FROM
-              manager_inventario_equipamento MIE
-              LEFT JOIN
-              manager_dropequipamentos MDE ON (MIE.tipo_equipamento = MDE.id_equip) 
-              WHERE MIE.id_funcionario = " . $colaborador['id_funcionario'] . " AND MIE.deletar = 0 AND MIE.tipo_equipamento in (";
-
-                $eq = "SELECT * FROM manager_profile_equip WHERE deletar = 0 AND id_profile = " . $_SESSION['id'] . "";
-                
-                if(!$reeq = $conn->query($eq)){
-                  printf('erro: %s\n', $conn->error);
-                }
-
-                while ($eqip = $reeq->fetch_assoc()) {
-                  $queryQuantidadeEquipamentos .= $eqip['id_equipamento'] . ",";
-                }
-
-                $queryQuantidadeEquipamentos .= "'') GROUP BY MDE.id_equip";
-
-                $resultQuantidadeEquipamentos = $conn->query($queryQuantidadeEquipamentos);
-
-                echo '<td>';
-
-                while ($quantidadeEquipamentos = $resultQuantidadeEquipamentos->fetch_assoc()) {
-                  echo '[ ' . $quantidadeEquipamentos['quantidade'] . ' - ' . $quantidadeEquipamentos['equipamento'] . ' ]<br>';
-                }
-
-                echo '</td>';
+                echo '<td><a href="funcionarioequip.php?pagina=3&id_fun='.$colaborador['id_funcionario'].'" title="Clique para ver"><i class="fas fa-eye fa-2x"></i></a></td>';
 
                 switch ($colaborador['id_status']) {
                   case '4':
@@ -219,7 +170,6 @@ $resultColaborador = $conn->query($queryColaborador);
                 echo '"><i class="far fa-list-alt"></i></a>
                       <a href="termo.php?id=' . $colaborador['id_funcionario'] . '" class="text-info menu rigtIcones" title="Termo"><i class="fas fa-file"></i></a>
                     </td>';
-              } //FIM IF $VALIDAR
 
             } //FIM WHILE $COLABORADOR
             ?>

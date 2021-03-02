@@ -5,10 +5,12 @@ require_once('header.php');
 require_once('../inc/pesquisas.php');
 require_once('../bd/conexao.php');
 
-$queryEquipamento .= " WHERE MIE.id_funcionario = " . $_SESSION['id_funcionario'] . " AND MIE.tipo_equipamento IN (";
+!empty($_GET['id_fun']) ? $idFun = $_GET['id_fun'] : $idFun = $_SESSION['id_funcionario'];
 
-while ($permissaoEquipamento = $resultPermissaoEquipamento->fetch_assoc()){
-  $queryEquipamento .= $permissaoEquipamento['id_equipamento']. ',';
+$queryEquipamento .= " WHERE MIE.id_funcionario = " . $idFun . " AND MIE.tipo_equipamento IN (";
+
+while ($permissaoEquipamento = $resultPermissaoEquipamento->fetch_assoc()) {
+  $queryEquipamento .= $permissaoEquipamento['id_equipamento'] . ',';
 }
 
 $queryEquipamento .= "'')";
@@ -23,7 +25,7 @@ $result = $conn->query($queryEquipamento);
   <h1 class="text-xs mb-6 text-gray-800">
     <a href="front.php?pagina=1"><i class="fas fa-home"></i> Home</a> /
     <a href="colaboradores.php?pagina=3"><i class="fas fa-users"></i> Colaboradores</a> /
-    <a href="funcionario.php?pagina=3"><i class="fas fa-user"></i> <?= $_SESSION['nomeFuncionario'] ?></a> /
+    <?= !empty($_GET['id_fun']) ? '' : '<a href="funcionario.php?pagina=3"><i class="fas fa-user"></i> '.$_SESSION['nome_funcionario'].'</a> /' ?>
     <i class="fas fa-laptop"></i> Equipamentos
   </h1>
   <hr />
@@ -33,8 +35,8 @@ $result = $conn->query($queryEquipamento);
     <div class="card-header py-3">
       <h6 class="m-0 font-weight-bold text-<?= $_SESSION["colorHeader"] ?>">
         Lista dos equipamentos
-        <a href="checklist.php?pagina=3" class="float-right btn btn-warning" style="display: <?= empty($_SESSION["emitir_check_list"]) ? "none" : "inline-block" ?>;" title="Check-list"><i class="fas fa-list"></i></a>
-        <a href="termo.php?pagina=3" class="float-right btn btn-info" style="margin-right: 10px;" title="Termo"><i class="fas fa-file"></i></a>
+        <a href="checklist.php?pagina=3&id=<?= $idFun ?>" class="float-right btn btn-warning" style="display: <?= empty($_SESSION["emitir_check_list"]) ? "none" : "inline-block" ?>;" title="Check-list"><i class="fas fa-list"></i></a>
+        <a href="termo.php?pagina=3&id=<?= $idFun ?>" class="float-right btn btn-info" style="margin-right: 10px;" title="Termo"><i class="fas fa-file"></i></a>
         <a href="equipamentosdisponiveis.php?pagina=5" class="float-right btn btn-success" style="margin-right: 10px;" title="Vincular Equipamento Disponível"><i class="fas fa-laptop-medical"></i></a>
       </h6>
     </div>
@@ -153,17 +155,15 @@ $result = $conn->query($queryEquipamento);
             while ($equipamento = $result->fetch_assoc()) {
 
               //LIBERADO CHECK-LIITS?
-              if($equipamento['id_tipoEquipamento'] == 8){//desktop
+              if ($equipamento['id_tipoEquipamento'] == 8) { //desktop
 
-                $liberado = 'href="../front/remequipusuario.php?pagina=3&id_equip='.$equipamento['id_equipamento'].'" class="text-warning  menu rigtIcones"';
-                
-              }else{
+                $liberado = 'href="../front/remequipusuario.php?pagina=3&id_equip=' . $equipamento['id_equipamento'] . '" class="text-warning  menu rigtIcones"';
+              } else {
 
-                $liberado = $equipamento['liberado_rh'] == 0 ? 'href="javascript:" onclick="alertar()" class="text-danger menu rigtIcones"' : 'href="../front/remequipusuario.php?pagina=3&id_equip='.$equipamento['id_equipamento'].'" class="text-warning menu rigtIcones"';
-
+                $liberado = $equipamento['liberado_rh'] == 0 ? 'href="javascript:" onclick="alertar()" class="text-danger menu rigtIcones"' : 'href="../front/remequipusuario.php?pagina=3&id_equip=' . $equipamento['id_equipamento'] . '" class="text-warning menu rigtIcones"';
               }
-              
-              
+
+
               //ICONES TERMO
               $equipamento['termo'] == 0 ? $termo = "<i class='fas fa-check-circle fa-2x colorGrenn' style='margin-left: 7px;'></i>" : $termo = "<i class='fas fa-times-circle fa-2x colorRed' style='margin-left: 7px;'></i>";
 
@@ -228,7 +228,7 @@ $result = $conn->query($queryEquipamento);
                       </td>';
                 /*FIM AÇÂO*/
                 echo '</tr>';
-              } elseif ($_SESSION['perfil'] == 2) {//tecnicos
+              } elseif ($_SESSION['perfil'] == 2) { //tecnicos
                 echo '<tr>';
                 echo $equipamento['tipo_equipamento'] != NULL ?  '<td>' . $equipamento['tipo_equipamento'] . '</td>' :  '<td>-</td>';
                 echo $equipamento['patrimonio'] != NULL ?  '<td>' . $equipamento['patrimonio'] . '</td>' :  '<td>-</td>';
@@ -278,7 +278,7 @@ $result = $conn->query($queryEquipamento);
                   echo '<td>-</td>';
                   echo '<td>-</td>';
                 }
-                  /*AÇÂO*/
+                /*AÇÂO*/
                 echo '<td>                  
                         <a href="editequipamento.php?pagina=5&id_equip=' . $equipamento['id_equipamento'] . '" class="text-success menu rigtIcones" title="Editar/Visualizar"><i class="fas fa-pen"></i></a>
                         <a ' . $liberado . ' title="Remover deste usuário"><i class="fas fa-times"></i></a>
@@ -309,15 +309,8 @@ $result = $conn->query($queryEquipamento);
     </div>
   </div>
 </footer>
-<!-- End of Footer -->
-
 </div>
-<!-- End of Content Wrapper -->
-
 </div>
-<!-- End of Page Wrapper -->
-
-<!-- Scroll to Top Button-->
 <a class="scroll-to-top rounded" href="#page-top">
   <i class="fas fa-angle-up"></i>
 </a>
