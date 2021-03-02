@@ -33,6 +33,10 @@ ul {
     display: flex;
 }
 
+.list-servidor {
+    display: block !important;
+}
+
 .data {
     margin-top: 7px;
     margin-right: 10px;

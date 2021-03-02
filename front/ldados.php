@@ -3,7 +3,6 @@
 ini_set("display_errors", 1); */
 
 require_once('header.php');
-
 require_once('../bd/google.php');
 ?>
 
@@ -45,14 +44,11 @@ require_once('../bd/google.php');
 
 $query = "SELECT * FROM google WHERE deleted = 0 AND (titulo like '%" . $_POST['pesquisa'] . "%' || body like '%" . $_POST['pesquisa'] . "%')";
 
-echo $query;
-
 if(!$result = $conn_db->query($query)){
   printf('Erro[1]: %s\n', $conn_db->error);
 
   exit;
 }
-
 
 while ($row = $result->fetch_assoc()) {
   echo '<div class="card shadow mb-4">
