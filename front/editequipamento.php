@@ -87,7 +87,7 @@ $equip = $resultEquipamento->fetch_assoc();
         </a>
       </div>
       <div class="termo" style="<?= $equip['id_tipoEquipamento'] == 8 || $equip['id_tipoEquipamento'] == 9  ?: 'margin-left: 71%;' ?>;">
-        <a href="../inc/termopdftecnicos.php?query=<?= $query ?>" class="btn btn-info btn-icon-split">
+        <a href="../inc/termogeral.php?query=<?= $query ?>" class="btn btn-info btn-icon-split">
           <span class="icon text-white-50">
             <i class="fas fa-file-signature"></i>
           </span>
