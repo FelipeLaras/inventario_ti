@@ -28,18 +28,9 @@ if($_POST['msn'] != NULL){
 //GERANDO O TERMO
 
 if ($_POST['equip'] == NULL) {
-     //sim é todos os equipamentos
 
-     if ($_SESSION["perfil"] == 1) {
+        header('location: termogeral.php?id_fun='.$id_fun.'');
 
-        header('location: termopdf.php?id_fun='.$id_fun.'');
-
-    } else {        
-
-        header('location: termopdftecnicos.php?id_fun='.$id_fun.'');
-    }
-
-   
 } else {
     
      //não é todos os equipamentos
@@ -60,13 +51,7 @@ if ($_POST['equip'] == NULL) {
  
          $cont++;
      }
- 
-     if ($_SESSION["perfil"] == 1) {
-         header('Location: termopdf.php?query=' . $equip . '');
-     } else {
-         header('Location: termopdftecnicos.php?query=' . $equip . '');
-     }
-   
+         header('Location: termogeral.php?query=' . $equip . '');
 }
 
 
