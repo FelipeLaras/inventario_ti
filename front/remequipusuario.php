@@ -39,7 +39,7 @@ $queryEquipamento .= "'')";
 $resultEquipamento = $conn->query($queryEquipamento);
 
 //FUNCIONÁRIO
-$queryColaborador .= " WHERE MIF.deletar = 0";
+$queryColaborador .= " WHERE MIF.deletar = 0  AND MIF.departamento is not null ORDER BY MIF.nome";
 $resultFuncionario = $conn->query($queryColaborador);
 
 ?>
