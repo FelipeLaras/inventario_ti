@@ -3,7 +3,7 @@
 $queryPerfil = "SELECT * FROM manager_profile_type";
 
 //função
-$queryFuncao = "SELECT id_funcao AS id, nome FROM manager_dropfuncao WHERE deletar = 0 ORDER BY nome ASC";
+$queryFuncao = "SELECT id_funcao AS id, nome FROM manager_dropfuncao WHERE deletar = '0' ORDER BY nome ASC";
 
 //Departamento
 $queryDepartamento = "SELECT id_depart AS id, nome FROM manager_dropdepartamento WHERE deletar = 0 ORDER BY nome ASC";

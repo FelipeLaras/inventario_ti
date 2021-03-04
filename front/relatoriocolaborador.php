@@ -34,7 +34,6 @@ require_once('../inc/dropdown.php');
         <option value="">----------</option>
         <?php
 
-        $queryFuncao .= " ORDER BY nome ASC";
         $resultFuncao = $conn->query($queryFuncao);
 
         while ($funcao = $resultFuncao->fetch_assoc()) {
@@ -53,7 +52,6 @@ require_once('../inc/dropdown.php');
       <select name="departamento" class="form-control">
         <option value="">----------</option>
         <?php
-        $queryDepartamento .= " ORDER BY nome ASC";
         $resultDepartamento = $conn->query($queryDepartamento);
 
         while ($departamento = $resultDepartamento->fetch_assoc()) {
@@ -72,7 +70,6 @@ require_once('../inc/dropdown.php');
       <select name="empresa" class="form-control">
         <option value="">----------</option>
         <?php
-        $queryEmpresa .= " ORDER BY nome ASC";
         $resultEmpresa = $conn->query($queryEmpresa);
 
         while ($empresa = $resultEmpresa->fetch_assoc()) {
@@ -91,7 +88,6 @@ require_once('../inc/dropdown.php');
       <select name="status" class="form-control">
         <option value="">----------</option>
         <?php
-        $queryStatusFuncionario .= " ORDER BY nome ASC";
         $resultStatusFuncionario = $conn->query($queryStatusFuncionario);
 
         while ($statusFuncionairio = $resultStatusFuncionario->fetch_assoc()) {

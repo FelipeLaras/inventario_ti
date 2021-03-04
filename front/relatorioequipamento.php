@@ -63,7 +63,6 @@ require_once('../inc/dropdown.php');
       <select name="status" class="form-control">
         <option value="">----------</option>
         <?php
-        $queryStatusEquipamento .= " ORDER BY nome ASC";
         $resultStatusEquipament = $conn->query($queryStatusEquipamento);
 
         while ($statusEquipament = $resultStatusEquipament->fetch_assoc()) {
