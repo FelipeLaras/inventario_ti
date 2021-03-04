@@ -17,6 +17,19 @@ $queryEquipamento .= "'')";
 
 $result = $conn->query($queryEquipamento);
 
+if ($_GET['id'] == NULL) {
+
+  $id_funcionario = $_SESSION['id_funcionario'];
+  $nomeFuncionario = $_SESSION['nomeFuncionario'];
+} else {
+  $id_funcionario = $_GET['id'];
+
+  //funcionario
+  $queryColaborador .= "WHERE MIF.id_funcionario = " . $id_funcionario . "";
+  $funcionario = $conn->query($queryColaborador);
+  $nomeFuncionario = $funcionario->fetch_assoc();
+}
+
 ?>
 
 <!-- Begin Page Content -->
@@ -25,7 +38,7 @@ $result = $conn->query($queryEquipamento);
   <h1 class="text-xs mb-6 text-gray-800">
     <a href="front.php?pagina=1"><i class="fas fa-home"></i> Home</a> /
     <a href="colaboradores.php?pagina=3"><i class="fas fa-users"></i> Colaboradores</a> /
-    <?= !empty($_GET['id_fun']) ? '' : '<a href="funcionario.php?pagina=3"><i class="fas fa-user"></i> '.$_SESSION['nome_funcionario'].'</a> /' ?>
+    <?= !empty($_GET['id_fun']) ? '' : '<a href="funcionario.php?pagina=3"><i class="fas fa-user"></i> '.$nomeFuncionario.'</a> /' ?>
     <i class="fas fa-laptop"></i> Equipamentos
   </h1>
   <hr />

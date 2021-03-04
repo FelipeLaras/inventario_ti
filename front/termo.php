@@ -52,7 +52,7 @@ $resultEquipamento = $conn->query($queryEquipamento);
           <a href="funcionarioequip.php?pagina=3"><i class="fas fa-laptop"></i> Equipamentos</a> /
           ';
       } else {
-        echo '<i class="fas fa-user"></i>' . $nomeFuncionario['nome'] . ' /';
+        echo '<a href="../inc/pesquisaFuncionario.php?id=' . $nomeFuncionario['id_funcionario'] . '"><i class="fas fa-user"></i> ' . $nomeFuncionario['nome'] . '</a> /';
       }
       ?>
 

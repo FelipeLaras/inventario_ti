@@ -88,9 +88,9 @@ $equip = $resultEquipamento->fetch_assoc();
       </div>
 
       
-        <div class="termo" style="<?= $equip['id_tipoEquipamento'] == 8 || $equip['id_tipoEquipamento'] == 9  ?: 'margin-left: 71%;' ?>;">
+        <div class="termo" <?php if($equip['id_tipoEquipamento'] == 8){ echo "style='margin-left: 84%'"; } elseif($equip['id_tipoEquipamento'] == 9){echo "style='margin-left: 57%'";}else{ echo "style='margin-left: 72%'";} ?> >
         <!-- Condicional para emissão de termo de responsabilidade -->
-        <?php if(!empty($equip['nome_funcionario'])){?>
+        <?php if(!empty($equip['nome_funcionario']) & $equip['id_tipoEquipamento'] != 8){?>
           <a href="../inc/termogeral.php?query=<?= $query ?>" class="btn btn-info btn-icon-split">
             <span class="icon text-white-50">
               <i class="fas fa-file-signature"></i>
