@@ -25,9 +25,6 @@ if($_POST['demitido'] == 0){//0=sim; 1=não
 
 //GERANDO O PDF
 
-//print_r ($_POST['equip']);
-//exit();
-
 if ($_POST['equip'] == NULL) {
      //SIM TODOS OS EQUIPAMENTOS
 
@@ -42,7 +39,7 @@ if ($_POST['equip'] == NULL) {
     //LEVANDO PARA GERAR O PDF
      if ($_SESSION["perfil"] == 1) {
 
-        header('location: checkpdftecnicos.php?id_fun='.$id_fun.'');
+        header('location: checkpdf.php?id_fun='.$id_fun.'');
 
     } else {        
 
@@ -81,7 +78,7 @@ if ($_POST['equip'] == NULL) {
       
  
      if ($_SESSION["perfil"] == 1) {
-         header('Location: checkpdftecnicos.php?query=' . $equip . '');
+         header('Location: checkpdf.php?query=' . $equip . '');
      } else {
          header('Location: checkpdftecnicos.php?query=' . $equip . '');
      }
