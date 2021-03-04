@@ -128,12 +128,10 @@ if (!empty($permissaoScanner = $resultScanner->fetch_assoc())) {
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="novoUsuario.php?pagina=2"><i class="fas fa-plus"></i> Novo usuário</a>
-                        <hr>
+                        <a class="collapse-item" href="novoUsuario.php?pagina=2">Novo Usuário</a>
                         <a class="collapse-item" href="perfil.php?pagina=2">Meu Perfil</a>
                         <a class="collapse-item" href="configUsers.php?pagina=2">Lista Usuários</a>
                         <a class="collapse-item" href="configDropdowns.php?pagina=2">Drop Downs</a>
-                        <a class="collapse-item" href="infodb.php?pagina=2">Banco de dados</a>
                     </div>
                 </div>
             </li>
@@ -285,8 +283,11 @@ if (!empty($permissaoScanner = $resultScanner->fetch_assoc())) {
                     function moveRelogio() {
                         momentoAtual = new Date()
                         hora = momentoAtual.getHours()
+                        hora = ("0" + hora).slice(-2)
                         minuto = momentoAtual.getMinutes()
+                        minuto = ("0" + minuto).slice(-2);
                         segundo = momentoAtual.getSeconds()
+                        segundo = ("0" + segundo).slice(-2);
 
                         horaImprimivel = hora + " : " + minuto + " : " + segundo
 

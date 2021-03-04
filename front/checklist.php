@@ -88,7 +88,7 @@ $resultEquipamento = $conn->query($queryEquipamento);
         </label>
       </div>
     </div>
-</div>
+
 <!-- End of Main Content -->
 
 <!-- DataTales Example -->

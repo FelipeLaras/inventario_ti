@@ -10,7 +10,7 @@ require_once('../inc/permissoes.php');
 
 
 //QUERY PARA O TERMO DE RESPONSABILIDADE
-$query = " WHERE MIE.id_equipamento = '" . $_GET['id_equip'] . "'";
+$query = " WHERE MIE.id_equipamento = " . $_GET['id_equip'] . "";
 
 //EQUIPAMENTO
 $queryEquipamento .= $query;
@@ -86,20 +86,26 @@ $equip = $resultEquipamento->fetch_assoc();
           </div>
         </a>
       </div>
-      <div class="termo" style="<?= $equip['id_tipoEquipamento'] == 8 || $equip['id_tipoEquipamento'] == 9  ?: 'margin-left: 71%;' ?>;">
-        <a href="../inc/termogeral.php?query=<?= $query ?>" class="btn btn-info btn-icon-split">
-          <span class="icon text-white-50">
-            <i class="fas fa-file-signature"></i>
-          </span>
-          <span class="text">Emitir Termo Responsabilidade</span>
-        </a>
-        <a href="../inc/equip_modelo.php?id_equip=<?= $_GET['id_equip'] ?>" class="btn btn-info btn-icon-split" style="display: <?= $equip['id_tipoEquipamento'] == 8 || $equip['id_tipoEquipamento'] == 9  ? 'inline-block' : 'none' ?>;">
-          <span class="icon text-white-50">
-            <i class="fas fa-file"></i>
-          </span>
-          <span class="text">Emitir Modelo</span>
-        </a>
-      </div>
+
+      
+        <div class="termo" style="<?= $equip['id_tipoEquipamento'] == 8 || $equip['id_tipoEquipamento'] == 9  ?: 'margin-left: 71%;' ?>;">
+        <!-- Condicional para emissão de termo de responsabilidade -->
+        <?php if(!empty($equip['nome_funcionario'])){?>
+          <a href="../inc/termogeral.php?query=<?= $query ?>" class="btn btn-info btn-icon-split">
+            <span class="icon text-white-50">
+              <i class="fas fa-file-signature"></i>
+            </span>
+            <span class="text">Emitir Termo Responsabilidade</span>
+          </a>
+        <?php }?>
+          <a href="../inc/equip_modelo.php?id_equip=<?= $_GET['id_equip'] ?>" class="btn btn-info btn-icon-split" style="display: <?= $equip['id_tipoEquipamento'] == 8 || $equip['id_tipoEquipamento'] == 9  ? 'inline-block' : 'none' ?>;">
+            <span class="icon text-white-50">
+              <i class="fas fa-file"></i>
+            </span>
+            <span class="text">Emitir Modelo</span>
+          </a>
+        </div>
+      
     </div>
 
     <div class="col-lg-6 left">
