@@ -8,8 +8,12 @@ require_once('../inc/dropdown.php');
 require_once('../inc/pesquisas.php');
 
 //quantidade equipamentos
-if (!empty($_SESSION['id_funcionario'])) {
-  $queryEquipamentosCount .= " WHERE id_funcionario = " . $_SESSION['id_funcionario'] . " AND tipo_equipamento IN (";
+if (!empty($_SESSION['id_funcionario']) || !empty($_GET['id_fun'])) {
+
+  !empty($_GET['id_fun']) ? $id_funcionario = $_GET['id_fun'] : $id_funcionario = $_SESSION['id_funcionario'];
+
+  //count
+  $queryEquipamentosCount .= " WHERE id_funcionario = " . $id_funcionario. " AND tipo_equipamento IN (";
 
   while ($permissaoEquipamento = $resultPermissaoEquipamento->fetch_assoc()) {
     $queryEquipamentosCount .= $permissaoEquipamento['id_equipamento'] . ',';
@@ -18,6 +22,11 @@ if (!empty($_SESSION['id_funcionario'])) {
   $queryEquipamentosCount .= "'') Group by id_funcionario";
   $resultCountEquip = $conn->query($queryEquipamentosCount);
   $countEquip = $resultCountEquip->fetch_assoc();
+
+  //funcionario
+  $queryColaborador .= " WHERE MIF.id_funcionario = ".$id_funcionario."";
+  $result = $conn->query($queryColaborador);
+  $funcionario = $result->fetch_assoc();
 }
 
 ?>
@@ -27,9 +36,9 @@ if (!empty($_SESSION['id_funcionario'])) {
   <h1 class="text-xs mb-6 text-gray-800">
     <a href="../front/front.php?pagina=1"><i class="fas fa-home"></i> Home</a> /
     <a href="../front/colaboradores.php?pagina=3"><i class="fas fa-users"></i> Colaboradores</a> /
-    <?= empty($_SESSION['nomeFuncionario']) ? "<i class='fas fa-user-plus'></i> Novo Funcionário" : "<i class='fas fa-user'></i> " . $_SESSION['nomeFuncionario'] ?>
+    <?= empty($funcionario['nome']) ? "<i class='fas fa-user-plus'></i> Novo Funcionário" : "<i class='fas fa-user'></i> " . $funcionario['nome'] ?>
   </h1>
-  <div class="row" style="margin-top: 30px; display: <?= empty($_SESSION['nomeFuncionario']) ? "none" : "flex" ?>;">
+  <div class="row" style="margin-top: 30px; display: <?= empty($funcionario['nome']) ? "none" : "flex" ?>;">
     <div class="col-xl-4 col-md-6 mb-4">
       <a href="funcionarioequip.php?pagina=3" class="text-decoration">
         <div class="card border-left-success shadow h-100 py-2" style="background-color: white">
@@ -88,33 +97,33 @@ if (!empty($_SESSION['id_funcionario'])) {
     <!-- Circle Buttons -->
     <div class="card shadow mb-4">
       <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-<?= $_SESSION["colorHeader"] ?>"><?= empty($_SESSION['nomeFuncionario']) ? "Novo Funcionário" : "Editando Colaborador" ?>
+        <h6 class="m-0 font-weight-bold text-<?= $_SESSION["colorHeader"] ?>"><?= empty($funcionario['nome']) ? "Novo Funcionário" : "Editando Colaborador" ?>
           <a href="#" data-toggle="modal" data-target="#desativar" class="float-right btn-danger" title="Excluir Colaborador" style="padding: 8px; border-radius: 5px; display: <?= $_SESSION['desativar_cpf'] == 1 ? "block" : "none" ?>;">
             <i class="fas fa-user-times"></i>
           </a>
         </h6>
       </div>
       <div class="card-body">
-        <form action="<?= empty($_SESSION['nomeFuncionario']) ? "../inc/novofuncionario.php" : "../inc/editefuncionario.php?id=" . $_SESSION['id_funcionario'] . "" ?>" method="POST">
+        <form action="<?= empty($funcionario['nome']) ? "../inc/novofuncionario.php" : "../inc/editefuncionario.php?id=" . $id_funcionario . "" ?>" method="POST">
           <div class="form-group">
             <label for="nome">Nome</label>
-            <input type="text" class="form-control" id="nome" value="<?= empty($_SESSION['nomeFuncionario']) ? "" : $_SESSION['nomeFuncionario'] ?>" name="nome">
+            <input type="text" class="form-control" id="nome" value="<?= empty($funcionario['nome']) ? "" : $funcionario['nome'] ?>" name="nome">
           </div>
           <div class="form-group">
             <label for="email">CPF</label>
-            <input type="text" class="form-control" id="cpf" value="<?= empty($_SESSION['cpf']) ? "" : $_SESSION['cpf'] ?>" name="cpf" onkeydown="javascript: fMasc( this, mCPF );" maxlength="14" onblur="ValidarCPF(this)" autofocus>
+            <input type="text" class="form-control" id="cpf" value="<?= empty($funcionario['cpf']) ? "" : $funcionario['cpf'] ?>" name="cpf" onkeydown="javascript: fMasc( this, mCPF );" maxlength="14" onblur="ValidarCPF(this)" autofocus>
             <span class="text-danger" style="display: none;" id="cpfInvalido"><i class="fas fa-times-circle"></i> CPF Invalido!</span>
             <span class="text-success" style="display: none;" id="cpfValido"><i class="fas fa-check-circle"></i> CPF OK!</span>
           </div>
           <div class="form-group">
             <label for="exampleFormControlSelect2">Função</label>
             <select class="form-control" id="exampleFormControlSelect2" name="funcao">
-              <option selected value="<?= empty($_SESSION['id_funcaoFuncionario']) ? "" : $_SESSION['id_funcaoFuncionario'] ?>">
-                <?= empty($_SESSION['funcaoFuncionario']) ? "----------" : $_SESSION['funcaoFuncionario'] ?>
+              <option selected value="<?= empty($funcionario['id_funcao']) ? "" : $funcionario['id_funcao'] ?>">
+                <?= empty($funcionario['funcao']) ? "----------" : $funcionario['funcao'] ?>
               </option>
               <?php
 
-              echo empty($_SESSION['funcaoFuncionario']) ? "" : "<option>----------</option>";
+              echo empty($funcionario['funcao']) ? "" : "<option>----------</option>";
 
               $resultFuncao = $conn->query($queryFuncao);
 
@@ -127,12 +136,12 @@ if (!empty($_SESSION['id_funcionario'])) {
           <div class="form-group">
             <label for="exampleFormControlSelect2">Departamento</label>
             <select class="form-control" id="exampleFormControlSelect2" name="departamento">
-              <option selected value="<?= empty($_SESSION['id_departamentoFuncionario']) ? "" : $_SESSION['id_departamentoFuncionario'] ?>">
-                <?= empty($_SESSION['departamentoFuncionario']) ? "----------" : $_SESSION['departamentoFuncionario'] ?>
+              <option selected value="<?= empty($funcionario['id_departamento']) ? "" : $funcionario['id_departamento'] ?>">
+                <?= empty($funcionario['departamento']) ? "----------" : $funcionario['departamento'] ?>
               </option>
               <?php
 
-              echo empty($_SESSION['departamentoFuncionario']) ? "" : "<option>----------</option>";
+              echo empty($funcionario['departamento']) ? "" : "<option>----------</option>";
 
               $resultDepartamento = $conn->query($queryDepartamento);
 
@@ -145,12 +154,12 @@ if (!empty($_SESSION['id_funcionario'])) {
           <div class="form-group">
             <label for="exampleFormControlSelect2">Empresa</label>
             <select class="form-control" id="exampleFormControlSelect2" name="empresa">
-              <option selected value="<?= empty($_SESSION['id_empresaFuncionario']) ? "" : $_SESSION['id_empresaFuncionario'] ?>">
-                <?= empty($_SESSION['empresaFuncionario']) ? "----------" : $_SESSION['empresaFuncionario'] ?>
+              <option selected value="<?= empty($funcionario['id_empresa']) ? "" : $funcionario['id_empresa'] ?>">
+                <?= empty($funcionario['empresa']) ? "----------" : $funcionario['empresa'] ?>
               </option>
               <?php
 
-              echo empty($_SESSION['empresaFuncionario']) ? "" : "<option>----------</option>";
+              echo empty($funcionario['empresa']) ? "" : "<option>----------</option>";
 
               $resultEmpresa = $conn->query($queryEmpresa);
 
@@ -164,12 +173,12 @@ if (!empty($_SESSION['id_funcionario'])) {
           <div class="form-group">
             <label for="exampleFormControlSelect2">Status</label>
             <select class="form-control" id="exampleFormControlSelect2" name="status">
-              <option selected value="<?= empty($_SESSION['id_statusFuncionario']) ? "" : $_SESSION['id_statusFuncionario'] ?>">
-                <?= empty($_SESSION['statusFuncionario']) ? "----------" : $_SESSION['statusFuncionario'] ?>
+              <option selected value="<?= empty($funcionario['id_status']) ? "" : $funcionario['id_status'] ?>">
+                <?= empty($funcionario['status']) ? "----------" : $funcionario['status'] ?>
               </option>
               <?php
 
-              echo empty($_SESSION['statusFuncionario']) ? "" : "<option>----------</option>";
+              echo empty($funcionario['status']) ? "" : "<option>----------</option>";
 
               $resultStatusFuncionario = $conn->query($queryStatusFuncionario);
 
@@ -181,7 +190,7 @@ if (!empty($_SESSION['id_funcionario'])) {
           </div>
 
           <?php
-          if (empty($_SESSION['nomeFuncionario'])) {
+          if (empty($funcionario['nome'])) {
             echo '<button type="submit" class="btn btn-info btn-block" id="procurar">Salvar</button>';
           } else {
             echo '<button type="submit" class="btn btn-success btn-block" id="procurar"';
@@ -242,12 +251,12 @@ if (!empty($_SESSION['id_funcionario'])) {
         </button>
       </div>
       <div class="modal-body">
-        <span class="textCenterModal"><?= $_SESSION['nomeFuncionario'] ?></span><hr>
+        <span class="textCenterModal"><?= $funcionario['nome'] ?></span><hr>
         <p class="colorRed textoCentro" style="display: <?= empty($countEquip['quantidade']) ? 'none' : 'block' ?>;"> Não é permitido excluir esse colaborador pois o mesmo possui equipamentos vinculados a sua responsabilidade</p>
       </div>
       <div class="modal-footer">
         <button class="btn btn-secondary" type="button" data-dismiss="modal">Não</button>
-        <a class="btn btn-primary" href="<?= empty($countEquip['quantidade']) ? '../inc/desativarfuncionario.php?id='.$_SESSION['id_funcionario'].'' : 'javascript:' ?>">Sim</a>
+        <a class="btn btn-primary" href="<?= empty($countEquip['quantidade']) ? '../inc/desativarfuncionario.php?id='.$id_funcionario.'' : 'javascript:' ?>">Sim</a>
       </div>
     </div>
   </div>

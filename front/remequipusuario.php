@@ -18,13 +18,21 @@ if ($_GET['pagina'] == 5) {
 
 } else {
 
-  $id_funcionario = $_SESSION['id_funcionario'];
+  if ($_GET['id_fun'] != NULL) {
+    $id_funcionario = $_GET['id_fun'];
+  } else {
+    $id_funcionario = $_SESSION['id_funcionario'];
+  }
 
+  //funcionario
+  $queryFunNome = "SELECT nome FROM manager_inventario_funcionario WHERE id_funcionario = " . $id_funcionario . "";
+  $funcionario = $conn->query($queryFunNome);
+  $nomeFuncionario = $funcionario->fetch_assoc();
+  
   $paginacao = '
   <a href="colaboradores.php?pagina=3"><i class="fas fa-users"></i> Colaboradores</a> / 
-  <a href="funcionario.php?pagina=3"><i class="fas fa-user"></i>' . $_SESSION['nomeFuncionario'] . '</a> /
-  <a href="funcionarioequip.php?pagina=3"><i class="fas fa-laptop"></i> Equipamentos</a> /';
-
+  <a href="funcionario.php?pagina=3&id_fun='.$id_funcionario.'"><i class="fas fa-user"></i>' . $nomeFuncionario['nome'] . '</a> /
+  <a href="funcionarioequip.php?pagina=3&id_fun='.$id_funcionario.'"><i class="fas fa-laptop"></i> Equipamentos</a> /';
 }
 
 //EQUIPAMENTO

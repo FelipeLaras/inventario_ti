@@ -9,12 +9,20 @@ require_once('../bd/conexao.php');
 //DATA DE HOJE
 $dataHoje = date('d/m/Y');
 
-//FUNCIONARIO
+//FUNCIONARIO - SERVE APENAS PARA RELATÓRIO
 if ($_SESSION['id_funcionario'] != NULL) {
+
     $id_funcionario = $_SESSION['id_funcionario'];
+
 } else {
-    echo "Sessão falhou, procure o administrador!";
-    exit;
+    $queryFun = "SELECT id_funcionario FROM manager_inventario_equipamento WHERE id_equipamento = ".$_POST['equip']."";
+    
+    if(!$resultFun = $conn->query($queryFun)){
+        echo "Não consegui localizar o funcionario, entre em contato com o administrador";
+    }else{
+        $fun = $resultFun->fetch_assoc();
+        $id_funcionario = $fun['id_funcionario'];
+    }
 }
 
 switch ($_POST['tipo_documento']) {

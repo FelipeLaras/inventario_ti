@@ -5,7 +5,21 @@ require_once('header.php');
 require_once('../inc/pesquisas.php');
 require_once('../bd/conexao.php');
 
-!empty($_GET['id_fun']) ? $idFun = $_GET['id_fun'] : $idFun = $_SESSION['id_funcionario'];
+
+if ($_GET['id_fun'] == NULL) {
+
+  $idFun = $_SESSION['id_funcionario'];
+  $nomeFuncionario = $_SESSION['nomeFuncionario'];
+
+} else {
+  
+  $idFun = $_GET['id_fun'];
+
+  //funcionario
+  $queryFunNome = "SELECT nome FROM manager_inventario_funcionario WHERE id_funcionario = " . $idFun . "";
+  $funcionario = $conn->query($queryFunNome);
+  $nomeFuncionario = $funcionario->fetch_assoc();
+}
 
 $queryEquipamento .= " WHERE MIE.id_funcionario = " . $idFun . " AND MIE.tipo_equipamento IN (";
 
@@ -17,19 +31,6 @@ $queryEquipamento .= "'')";
 
 $result = $conn->query($queryEquipamento);
 
-if ($_GET['id'] == NULL) {
-
-  $id_funcionario = $_SESSION['id_funcionario'];
-  $nomeFuncionario = $_SESSION['nomeFuncionario'];
-} else {
-  $id_funcionario = $_GET['id'];
-
-  //funcionario
-  $queryColaborador .= "WHERE MIF.id_funcionario = " . $id_funcionario . "";
-  $funcionario = $conn->query($queryColaborador);
-  $nomeFuncionario = $funcionario->fetch_assoc();
-}
-
 ?>
 
 <!-- Begin Page Content -->
@@ -38,7 +39,7 @@ if ($_GET['id'] == NULL) {
   <h1 class="text-xs mb-6 text-gray-800">
     <a href="front.php?pagina=1"><i class="fas fa-home"></i> Home</a> /
     <a href="colaboradores.php?pagina=3"><i class="fas fa-users"></i> Colaboradores</a> /
-    <?= !empty($_GET['id_fun']) ? '' : '<a href="funcionario.php?pagina=3"><i class="fas fa-user"></i> '.$nomeFuncionario.'</a> /' ?>
+    <a href="funcionario.php?pagina=3&id_fun=<?=$_GET['id_fun']?>"><i class="fas fa-user"></i> <?= empty($_GET['id_fun']) ? $nomeFuncionario : $nomeFuncionario['nome']  ?></a> /
     <i class="fas fa-laptop"></i> Equipamentos
   </h1>
   <hr />
@@ -170,12 +171,11 @@ if ($_GET['id'] == NULL) {
               //LIBERADO CHECK-LIITS?
               if ($equipamento['id_tipoEquipamento'] == 8) { //desktop
 
-                $liberado = 'href="../front/remequipusuario.php?pagina=3&id_equip=' . $equipamento['id_equipamento'] . '" class="text-warning  menu rigtIcones"';
+                $liberado = 'href="../front/remequipusuario.php?pagina=3&id_fun='.$idFun.'&id_equip=' . $equipamento['id_equipamento'] . '" class="text-warning  menu rigtIcones"';
               } else {
 
-                $liberado = $equipamento['liberado_rh'] == 0 ? 'href="javascript:" onclick="alertar()" class="text-danger menu rigtIcones"' : 'href="../front/remequipusuario.php?pagina=3&id_equip=' . $equipamento['id_equipamento'] . '" class="text-warning menu rigtIcones"';
+                $liberado = $equipamento['liberado_rh'] == 0 ? 'href="javascript:" onclick="alertar()" class="text-danger menu rigtIcones"' : 'href="../front/remequipusuario.php?pagina=3&id_fun='.$idFun.'&id_equip=' . $equipamento['id_equipamento'] . '" class="text-warning menu rigtIcones"';
               }
-
 
               //ICONES TERMO
               $equipamento['termo'] == 0 ? $termo = "<i class='fas fa-check-circle fa-2x colorGrenn' style='margin-left: 7px;'></i>" : $termo = "<i class='fas fa-times-circle fa-2x colorRed' style='margin-left: 7px;'></i>";
