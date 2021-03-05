@@ -293,15 +293,13 @@ if (empty($_GET['funcao'])) {
     if (empty($_GET['departamento'])) {
         if (empty($_GET['empresa'])) {
             if (!empty($_GET['status'])) {
-                $whereColaborador .= $_GET['status'];
+                $whereColaborador .= "MIF.status = ".$_GET['status'];
             }
         } else {
             $whereColaborador .= "MIF.empresa = '" . $_GET['empresa'] . "'";
 
-            if (empty($_GET['status'])) {
-            } else {
-
-                $whereColaborador .= " AND " . $_GET['status'] . "";
+            if (!empty($_GET['status'])) {
+                $whereColaborador .= " AND MIF.status = " . $_GET['status'] . "";
             }
         }
     } else {
@@ -314,7 +312,7 @@ if (empty($_GET['funcao'])) {
             $whereColaborador .= " AND MIF.empresa = '" . $_GET['empresa'] . "'";
             if (empty($_GET['status'])) {
             } else {
-                $whereColaborador .= " AND " . $_GET['status'] . "";
+                $whereColaborador .= " AND MIF.status= " . $_GET['status'] . "";
             }
         }
     }
@@ -325,14 +323,14 @@ if (empty($_GET['funcao'])) {
         if (empty($_GET['empresa'])) {
             if (empty($_GET['status'])) {
             } else {
-                $whereColaborador .= " AND " . $_GET['status'] . "";
+                $whereColaborador .= " AND MIF.status= " . $_GET['status'] . "";
             }
         } else {
             $whereColaborador .= " AND MIF.empresa = '" . $_GET['empresa'] . "'";
 
             if (empty($_GET['status'])) {
             } else {
-                $whereColaborador .= " AND " . $_GET['status'] . "";
+                $whereColaborador .= " AND MIF.status= " . $_GET['status'] . "";
             }
         }
     } else {
@@ -346,7 +344,7 @@ if (empty($_GET['funcao'])) {
 
             if (empty($_GET['status'])) {
             } else {
-                $whereColaborador .= " AND " . $_GET['status'] . "";
+                $whereColaborador .= " AND MIF.status= " . $_GET['status'] . "";
             }
         }
     }

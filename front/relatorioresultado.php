@@ -4,7 +4,8 @@ require_once('header.php');
 require_once('../inc/pesquisas.php');
 require_once('../bd/conexao.php');
 
-$queryRelatorio = $queryColaborador .= $whereColaborador;    
+$queryRelatorio = $queryColaborador .= $whereColaborador; 
+   
 $resultColaborador = $conn->query($queryRelatorio);
 
 //sessão para exportar EXCEL
