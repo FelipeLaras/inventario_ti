@@ -14,7 +14,7 @@ if ($_SESSION['perfil'] != '0') {
   <!-- Page Heading -->
   <h1 class="text-xs mb-6 text-gray-800">
     <a href="../front/front.php?pagina=1"><i class="fas fa-home"></i> Home</a> /
-    <a href="../front/config.php?pagina=2"><i class="fas fa-cogs"></i> Configuração</a> / 
+    <a href="../front/config.php?pagina=2"><i class="fas fa-cogs"></i> Configuração</a> /
     <i class="fas fa-wrench"></i> Drop Downs
   </h1>
   <hr />
@@ -116,7 +116,7 @@ if ($_SESSION['perfil'] != '0') {
         <div class="card border-left-secondary shadow h-100 py-2">
           <div class="card-body">
             <div class="row no-gutters align-items-center">
-              <div class="col mr-2">                
+              <div class="col mr-2">
                 <div class="h5 mb-0 font-weight-bold text-gray-800">Equipamentos</div>
               </div>
               <div class="col-auto">
@@ -134,7 +134,7 @@ if ($_SESSION['perfil'] != '0') {
         <div class="card border-left-primary shadow h-100 py-2">
           <div class="card-body">
             <div class="row no-gutters align-items-center">
-              <div class="col mr-2">                
+              <div class="col mr-2">
                 <div class="h5 mb-0 font-weight-bold text-gray-800">Status Equipamentos</div>
               </div>
               <div class="col-auto">
@@ -167,7 +167,7 @@ if ($_SESSION['perfil'] != '0') {
     <!-- Earnings (Monthly) Card Example -->
     <div class="col-xl-3 col-md-6 mb-4">
       <a href='dropdownlist.php?pagina=2&tipo=9' class="text-decoration">
-        <div class="card border-left-info shadow h-100 py-2">
+        <div class="card border-left-warning shadow h-100 py-2">
           <div class="card-body">
             <div class="row no-gutters align-items-center">
               <div class="col mr-2">
@@ -185,7 +185,7 @@ if ($_SESSION['perfil'] != '0') {
     <!-- Earnings (Monthly) Card Example -->
     <div class="col-xl-3 col-md-6 mb-4">
       <a href='dropdownlist.php?pagina=2&tipo=10' class="text-decoration">
-        <div class="card border-left-warning shadow h-100 py-2">
+        <div class="card border-left-info shadow h-100 py-2">
           <div class="card-body">
             <div class="row no-gutters align-items-center">
               <div class="col mr-2">
@@ -225,7 +225,7 @@ if ($_SESSION['perfil'] != '0') {
         <div class="card border-left-secondary shadow h-100 py-2">
           <div class="card-body">
             <div class="row no-gutters align-items-center">
-              <div class="col mr-2">                
+              <div class="col mr-2">
                 <div class="h5 mb-0 font-weight-bold text-gray-800">Office's</div>
               </div>
               <div class="col-auto">
@@ -244,7 +244,7 @@ if ($_SESSION['perfil'] != '0') {
         <div class="card border-left-primary shadow h-100 py-2">
           <div class="card-body">
             <div class="row no-gutters align-items-center">
-              <div class="col mr-2">                
+              <div class="col mr-2">
                 <div class="h5 mb-0 font-weight-bold text-gray-800">Sistemas Operacionais</div>
               </div>
               <div class="col-auto">
@@ -262,11 +262,29 @@ if ($_SESSION['perfil'] != '0') {
         <div class="card border-left-success shadow h-100 py-2">
           <div class="card-body">
             <div class="row no-gutters align-items-center">
-              <div class="col mr-2">                
+              <div class="col mr-2">
                 <div class="h5 mb-0 font-weight-bold text-gray-800">Tipos de Documentos</div>
               </div>
               <div class="col-auto">
                 <i class="fas fa-file fa-2x text-gray-300"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+      <a href='dropdownlist.php?pagina=2&tipo=15' class="text-decoration">
+        <div class="card border-left-warning shadow h-100 py-2">
+          <div class="card-body">
+            <div class="row no-gutters align-items-center">
+              <div class="col mr-2">
+                <div class="h5 mb-0 font-weight-bold text-gray-800">Fornecedores</div>
+              </div>
+              <div class="col-auto">
+                <i class="fas fa-dolly-flatbed fa-2x text-gray-300"></i>
               </div>
             </div>
           </div>
