@@ -431,6 +431,35 @@ switch ($_SESSION['tipo_equipamento']) {
   </div>
 </div>
 
+<!-- Logout Modal-->
+<div class="modal fade" id="adicionar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Localizar Funcionário</h5>
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="../inc/pesquisaFuncionario.php" method="POST" autocomplete="off">
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="Digite o CPF" id="RegraValida" name="cpf" onkeydown="javascript: fMasc( this, mCPF );" maxlength="14" onblur="ValidarCPF(this)">
+
+            <span class="small-lither">Veja se ja está cadastrado!</span><br />
+            <span class="text-danger" style="display: none;" id="cpfInvalido"><i class="fas fa-times-circle"></i> CPF Invalido!</span>
+            <span class="text-success" style="display: none;" id="cpfValido"><i class="fas fa-check-circle"></i> CPF OK!</span>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+            <button class="btn btn-info" id="procurar" type="submit" disabled="false">Procurar</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- End of Main Content -->
 
 <!-- Footer -->
