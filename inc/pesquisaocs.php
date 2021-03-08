@@ -30,7 +30,7 @@ if (!empty($row_ocs['patrimonio'])) {
 
     if (!empty($equipamento = $verificando->fetch_assoc())) {
 
-        header('location: ../front/editarequipamento.php?pagina=5&id_equip=' . $equipamento['id_equipamento'] . '');
+        header('location: ../front/editequipamento.php?pagina=5&id_equip=' . $equipamento['id_equipamento'] . '');
 
     } else {
         

@@ -188,7 +188,7 @@ manager_dropsistemaoperacional MDSO ON (MSO.versao = MDSO.id)
 LEFT JOIN
 manager_dropempresa MDE ON (MSO.empresa = MDE.id_empresa)
 LEFT JOIN
-manager_droplocacao MDL ON (MSO.empresa = MDE.id_empresa)";
+manager_droplocacao MDL ON (MSO.locacao = MDE.id_empresa)";
 
 //OFFICE
 $queryoffice = "SELECT 
