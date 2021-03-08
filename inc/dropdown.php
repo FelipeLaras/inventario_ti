@@ -43,4 +43,7 @@ $queryWindows = "SELECT id, nome FROM manager_dropsistemaoperacional WHERE delet
 
 //Documentos
 $queryDocumentos = "SELECT id, nome FROM manager_dropdocumento WHERE deletar = 0";
+
+//Fornecedores
+$queryFornecedor = "SELECT id_fornecedor as id, nome FROM manager_dropfornecedor WHERE deletar = 0 ORDER BY nome";
 ?>

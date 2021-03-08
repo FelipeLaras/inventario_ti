@@ -180,7 +180,7 @@ switch ($_SESSION['tipo_equipamento']) {
             <input type="text" class="form-control" name="patrimonio" value="<?= $_SESSION['patrimonio'] ?>">
           </div>
           <!--DOMINIO-->
-          <div class="form-group"> 
+          <div class="form-group">
             <label for="exampleFormControlSelect2" class="border-bottom-info" class="border-bottom-info">Dominío:</label>
             <div class="form-group col-md-3">
               <?= $_SESSION['possuidominio'] == 0 ? '<input type="text" class="form-control text-success" name="dominio" value="' . $_SESSION['possuidominio'] . '" style="text-align: center; display: none;" > <i class="fas fa-check-circle text-success" style="width: 175%;"> Cadastrado</i>' : '<input type="text" class="form-control text-danger" name="dominio" value="1" style="text-align: center; display: none; "><i class="fas fa-times-circle text-danger" style="width: 175%;"> Não cadastrado</i> ' ?>
@@ -264,11 +264,11 @@ switch ($_SESSION['tipo_equipamento']) {
           </div>
           <!--HOSTNAME-->
           <div class="form-group">
-            <label for="exampleFormControlSelect2"  class="border-bottom-info">Nome:</label>
+            <label for="exampleFormControlSelect2" class="border-bottom-info">Nome:</label>
             <input type="text" class="form-control" name="hostname" value="<?= $_SESSION['hostname'] ?>">
           </div>
           <!--HOSTNAME-->
-          <div class="form-group"> 
+          <div class="form-group">
             <label for="exampleFormControlSelect2" class="border-bottom-info">IP:</label>
             <input type="text" class="form-control" name="ip" value="<?= $_SESSION['ip'] ?>">
           </div>
@@ -315,7 +315,17 @@ switch ($_SESSION['tipo_equipamento']) {
               <!--FORNECEDOR-->
               <div class="form-group">
                 <label for="exampleFormControlSelect2">Fornecedor:</label>
-                <input type="text" class="form-control" name="fornecedor">
+                <select class="form-control" id="exampleFormControlSelect2" class="border-bottom-info" name="fornecedor">
+                  <option>----------</option>
+                  <?php
+
+                  $resultFornecedor = $conn->query($queryFornecedor);
+
+                  while ($fornecedor = $resultFornecedor->fetch_assoc()) {
+                    echo '<option value="' . $fornecedor['nome'] . '">' . $fornecedor['nome'] . '</option>';
+                  }
+                  ?>
+                </select>
               </div>
               <!--NUMERO NOTA-->
               <div class="form-group">
