@@ -71,6 +71,24 @@ require_once('../inc/dropdown.php');
         ?>
       </select>
     </div>
+
+    <!--EMPRESA-->
+    <h1 class="h6 mb-2 text-gray-800">
+      <i class="fas fa-angle-double-right"></i> Empresa:
+    </h1>
+
+    <div class="col-md-4 py-4 input-group">
+      <select name="empresa" class="form-control">
+        <option value="">----------</option>
+        <?php
+        $resultEmpresa = $conn->query($queryEmpresa);
+
+        while ($empresa = $resultEmpresa->fetch_assoc()) {
+          echo '<option value="' . $empresa['id'] . '">' . $empresa['nome'] . '</option>';
+        }
+        ?>
+      </select>
+    </div>
     <hr>
     <button type="submit" class="btn btn-success btn-icon-split textCenterTela mb-5">
       <span class="icon text-white-50">

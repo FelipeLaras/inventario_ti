@@ -293,7 +293,7 @@ if (empty($_GET['funcao'])) {
     if (empty($_GET['departamento'])) {
         if (empty($_GET['empresa'])) {
             if (!empty($_GET['status'])) {
-                $whereColaborador .= "MIF.status = ".$_GET['status'];
+                $whereColaborador .= "MIF.status = " . $_GET['status'];
             }
         } else {
             $whereColaborador .= "MIF.empresa = '" . $_GET['empresa'] . "'";
@@ -355,14 +355,37 @@ $whereEquipamento = " WHERE ";
 
 if (empty($_GET['tipoEquip'])) {
 
-    if (!empty($_GET['status'])) {        
+    if (empty($_GET['status'])) {
+
+        if (!empty($_GET['empresa'])) {
+
+            $whereEquipamento .= "MIE.filial =" . $_GET['empresa'];
+        }
+    } else {
+
         $whereEquipamento .= "MIE.status =" . $_GET['status'];
+
+        if (!empty($_GET['empresa'])) {
+
+            $whereEquipamento .= " AND MIE.filial =" . $_GET['empresa'];
+        }
     }
-     
 } else {
     $whereEquipamento .= "MIE.tipo_equipamento =" . $_GET['tipoEquip'];
 
-    if (!empty($_GET['status'])) {
+    if (empty($_GET['status'])) {
+
+        if (!empty($_GET['empresa'])) {
+
+            $whereEquipamento .= " AND MIE.filial =" . $_GET['empresa'];
+        }
+    } else {
+
         $whereEquipamento .= " AND MIE.status =" . $_GET['status'];
+
+        if (!empty($_GET['empresa'])) {
+
+            $whereEquipamento .= " AND MIE.filial =" . $_GET['empresa'];
+        }
     }
 }
