@@ -97,6 +97,7 @@ if ($office['id_equipamento'] != NULL) {
                   <th>EQUIPAMENTO</th>
                   <th>PATRIMÔNIO</th>
                   <th>FILIAL</th>
+                  <th>IMEI</th>
                   <th>NUMERO</th>
                   <th>IP</th>
                   <th>S.O</th>
@@ -111,6 +112,7 @@ if ($office['id_equipamento'] != NULL) {
                   <th>EQUIPAMENTO</th>
                   <th>PATRIMÔNIO</th>
                   <th>FILIAL</th>
+                  <th>IMEI</th>
                   <th>NUMERO</th>
                   <th>IP</th>
                   <th>S.O</th>
@@ -252,6 +254,7 @@ if ($office['id_equipamento'] != NULL) {
                 echo $equipamento['tipo_equipamento'] != NULL ?  '<td>' . $equipamento['tipo_equipamento'] . '</td>' :  '<td>-</td>';
                 echo $equipamento['patrimonio'] != NULL ?  '<td>' . $equipamento['patrimonio'] . '</td>' :  '<td>-</td>';
                 echo $equipamento['empresa'] != NULL ?  '<td>' . $equipamento['empresa'] . '</td>' :  '<td>-</td>';
+                echo $equipamento['imei_chip'] != NULL ?  '<td>' . $equipamento['imei_chip'] . '</td>' :  '<td>-</td>';
                 echo $equipamento['numero'] != NULL ?  '<td>' . $equipamento['numero'] . '</td>' :  '<td>-</td>';
                 echo $equipamento['ip'] != NULL ?  '<td>' . $equipamento['ip'] . '</td>' :  '<td>-</td>';
 
