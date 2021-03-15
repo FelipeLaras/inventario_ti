@@ -71,14 +71,15 @@ $equip = $resultEquipamento->fetch_assoc();
         </a>
       </div>
       <!--COLABORADOR-->
+      
       <div class="col-xl-4 col-md-6 mb-4">
-        <a href="../inc/pesquisaFuncionario.php?id=<?= $equip['id_funcionario'] ?>" class="text-decoration">
+        <a href="<?= !empty($equip['nome_funcionario']) ? "../inc/pesquisaFuncionario.php?id=".$equip['id_funcionario']."" : "vincular.php?pagina=5&id_equip=".$_GET['id_equip'].""  ?>" class="text-decoration">
           <div class="card border-left-info shadow h-100 py-2" style="background-color: white">
             <div class="card-body">
               <div class="row no-gutters align-items-center">
                 <div class="col mr-2">
                   <div class="menu font-weight-bold text-info text-uppercase mb-1">Respónsavel</div>
-                  <div class="menu font-weight-bold text-dark text-uppercase mb-1"><?= !empty($equip['nome_funcionario']) ? $equip['nome_funcionario'] : "Equipamento Disponivel"  ?></div>
+                  <div class="menu font-weight-bold text-dark text-uppercase mb-1"><?= !empty($equip['nome_funcionario']) ? $equip['nome_funcionario'] : "Vincular a funcionário"  ?></div>
                   <div class="h5 mb-0 font-weight-bold text-gray-800"></div>
                 </div>
               </div>
