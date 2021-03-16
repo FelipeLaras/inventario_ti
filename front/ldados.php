@@ -12,7 +12,7 @@ require_once('../bd/google.php');
   <h1 class="text-xs mb-6 text-gray-800">
     <a href="front.php?pagina=1"><i class="fas fa-home"></i> Home</a> /
     <a href="pdados.php?pagina=4"><i class="fab fa-google"></i> Pesquisa </a> /
-    <i class="fas fa-list"></i> Resultado
+    <i class="fas fa-list"></i> você pesquisou sobre <span class="colorRed">"<?= !empty($_POST['pesquisa']) ? $_POST['pesquisa'] : "Mostrar Tudo!" ?>"</span>
   </h1>
   <hr />
   <!-- Area de Pesquisa -->
@@ -44,34 +44,32 @@ require_once('../bd/google.php');
 
 $query = "SELECT * FROM google WHERE deleted = 0 AND (titulo like '%" . $_POST['pesquisa'] . "%' || body like '%" . $_POST['pesquisa'] . "%')";
 
-if(!$result = $conn_db->query($query)){
+if (!$result = $conn_db->query($query)) {
   printf('Erro[1]: %s\n', $conn_db->error);
-
-  exit;
 }
 
 while ($row = $result->fetch_assoc()) {
-  echo '<div class="card shadow mb-4">
-          <!-- Card Header - Accordion -->
-          <a href="#collapseCardExample' . $row['cod_tabela'] . '" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
-            <h6 class="m-0 font-weight-bold text-primary">' . $row['titulo'] . '</h6>
-          </a>
-          <!-- Card Content - Collapse -->
-          <div class="collapse " id="collapseCardExample' . $row['cod_tabela'] . '">  
-            <div class="float-rigth editar">        
-              <a href="adados.php?pagina=4&id=' . $row['cod_tabela'] . '" class="text-success" title="Editar"><i class="fas fa-pen"></i></a>
-              <a href="drdados.php?id=' . $row['cod_tabela'] . '" class="text-danger lixeira" title="Excluir"><i class="fas fa-trash"></i></a>
-            </div>
-            <div class="card-body">
-            ' . $row['body'] . '
-            <div style="display: ';
-  echo empty($row['caminho_arquivo']) ? 'none' : 'block';
-  echo '">
-              <iframe src="' . $row['caminho_arquivo'] . '" width="990" height="780" style="border: none;></iframe>
-            </div>
-            </div>
-          </div>
-        </div>';
+  echo '
+ <div class="card shadow mb-4">
+   <!-- Card Header - Accordion -->
+   <a href="#collapseCardExample' . $row['cod_tabela'] . '" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
+     <h6 class="m-0 font-weight-bold text-primary">' . $row['titulo'] . '</h6>
+   </a>
+   <!-- Card Content - Collapse -->
+   <div class="collapse " id="collapseCardExample' . $row['cod_tabela'] . '">  
+     <div class="float-rigth editar">        
+       <a href="adados.php?pagina=4&id=' . $row['cod_tabela'] . '" class="text-success" title="Editar"><i class="fas fa-pen"></i></a>
+       <a href="drdados.php?id=' . $row['cod_tabela'] . '" class="text-danger lixeira" title="Excluir"><i class="fas fa-trash"></i></a>
+     </div>
+     <div class="card-body">
+       ' . $row['body'] . '
+       <div style="display: ';
+  echo empty($row['caminho_arquivo']) ? 'none">' : 'block">';
+  echo '<iframe src="' . $row['caminho_arquivo'] . '" width="990" height="780" style="border: none;"></iframe>
+       </div>
+     </div>
+   </div>
+ </div>';
 }
 
 ?>
