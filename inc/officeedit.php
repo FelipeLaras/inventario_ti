@@ -61,8 +61,26 @@ if (!empty($_GET['id'])) {
         if (!$result = $conn->query($insert)) {
             printf('ERRO[4]: %s\n', $conn->error);
         } else {
-            header('location: ../front/office.php?pagina=5');
+            //caso já tenha um id de equipamento será vinculado ao mesmo!
+
+            if(!empty($_GET['id_equip'])){
+                $queryOffice = "SELECT max(id) AS id FROM manager_office";
+                $resultOffice = $conn->query($queryOffice);
+                $idOffice = $resultOffice->fetch_assoc();
+    
+                //salvando
+                $updateEquipamento = "UPDATE manager_office SET id_equipamento = '".$_GET['id_equip']."' WHERE id = '".$idOffice['id']."'";
+                if(!$resultUPdate = $conn->query($updateEquipamento)){
+                    printf('ERRO[5]: não foi possivel vincular equipamento pelo seguinte erro: %s\n', $conn->error);
+                    exit;
+                }else{
+                    header('location: ../front/editequipamento.php?pagina=5&id_equip='.$_GET['id_equip'].'');
+                }
+            }else{
+                header('location: ../front/office.php?pagina=5');
+            }            
         }
     }
 }
+
 $conn->close();

@@ -34,7 +34,7 @@ if (!empty($_GET['id'])) {
         <h6 class="m-0 font-weight-bold text-<?= $_SESSION["colorHeader"] ?>"> <?= empty($_GET['id']) ? "<i class='fas fa-plus'></i> Novo Office" : '<i class="fas fa-pen"></i> Editar Office' ?> </h6>
       </div>
       <div class="card-body">
-        <form action="../inc/officeedit.php?id=<?= $_GET['id'] ?>" method="POST" enctype="multipart/form-data">
+        <form action="../inc/officeedit.php?id=<?= $_GET['id'] ?>&id_equip=<?=$_GET['id_equip'] ?>" method="POST" enctype="multipart/form-data">
           <div class="form-group">
             <label for="versao">Versão:</label>
             <select class="form-control" id="exampleFormControlSelect2" name="versao">
@@ -132,8 +132,17 @@ if (!empty($_GET['id'])) {
             </div>
           </div>
           <hr>
-          <?= empty($_GET['id']) ? '<button type="submit" class="btn btn-success btn-block">Salvar</button>' : '<button type="submit" class="btn btn-info btn-block">Editar</button>' ?>
-
+          <?php
+            if(empty($_GET['id'])){
+              echo '<button type="submit" class="btn btn-success btn-block">Salvar';
+              if(!empty($_GET['id_equip'])){
+                echo " + Vincular ao equipamento";
+              }
+               echo "</button>";
+            }else{
+              echo '<button type="submit" class="btn btn-info btn-block">Editar</button>';
+            }
+          ?>
           <hr>
         </form>
       </div>

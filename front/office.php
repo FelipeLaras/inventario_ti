@@ -1,13 +1,13 @@
 <?php
-session_start();
+  session_start();
 
-require_once('header.php');
-require_once('../inc/pesquisas.php');
-require_once('../bd/conexao.php');
+  require_once('header.php');
+  require_once('../inc/pesquisas.php');
+  require_once('../bd/conexao.php');
 
-$queryoffice .= " WHERE MO.id_equipamento = 0 AND MO.deletar = 0";
+  $queryoffice .= " WHERE MO.id_equipamento = 0 AND MO.deletar = 0";
 
-$result = $conn->query($queryoffice);
+  $result = $conn->query($queryoffice);
 
 ?>
 
@@ -58,17 +58,31 @@ $result = $conn->query($queryoffice);
             <?php
             while ($office = $result->fetch_assoc()) {
               echo '<tr>';
-              echo empty($office['versao']) ?  '<td>-</td>' :  '<td>' . $office['versao'] . '</td>';
-              echo empty($office['serial']) ?  '<td>-</td>' :  '<td>' . $office['serial'] . '</td>';
-              echo empty($office['fornecedor']) ?  '<td>-</td>' :  '<td>' . $office['fornecedor'] . '</td>';
-              echo empty($office['numero_nota']) ?  '<td>-</td>' :  '<td>' . $office['numero_nota'] . ' <a href="' . $office['caminho'] . '" class="text-info" target="_blank" title="Ver Nota"><i class="fas fa-eye"></i></a></td>';
-              echo empty($office['data_nota']) ?  '<td>-</td>' :  '<td>' . $office['data_nota'] . '</td>';
-              echo empty($office['empresa']) ?  '<td>-</td>' :  '<td>' . $office['empresa'] . '</td>';
-              /*AÇÂO*/
-              echo '<td>
-                      <a href="officeedit.php?pagina=5&id=' . $office['id'] . '" class="text-success menu rigtIcones" title="Editar/Visualizar"><i class="fas fa-pen"></i></a>
-                      <a class="text-success menu rigtIcones" title="Vincular a um equipamento" href="vincularoffice.php?pagina=5&id=' . $office['id'] . '"><i class="fas fa-laptop-medical"></i></a></td>';
-              /*FIM AÇÂO*/
+
+                    echo empty($office['versao']) ?  '<td>-</td>' :  '<td>' . $office['versao'] . '</td>';
+                    echo empty($office['serial']) ?  '<td>-</td>' :  '<td>' . $office['serial'] . '</td>';
+                    echo empty($office['fornecedor']) ?  '<td>-</td>' :  '<td>' . $office['fornecedor'] . '</td>';
+                    echo empty($office['numero_nota']) ?  '<td>-</td>' :  '<td>' . $office['numero_nota'] . ' <a href="' . $office['caminho'] . '" class="text-info" target="_blank" title="Ver Nota"><i class="fas fa-eye"></i></a></td>';
+                    echo empty($office['data_nota']) ?  '<td>-</td>' :  '<td>' . $office['data_nota'] . '</td>';
+                    echo empty($office['empresa']) ?  '<td>-</td>' :  '<td>' . $office['empresa'] . '</td>';
+                    /*AÇÂO*/
+                    echo '<td>
+                            <a href="officeedit.php?pagina=5&id=' . $office['id'] . '" class="text-success menu rigtIcones" title="Editar/Visualizar">
+                              <i class="fas fa-pen"></i>
+                            </a>';
+
+                            if(!empty($_GET['id_equip'])){
+                              echo '<a class="text-success menu rigtIcones" title="Vincular para o equipamento id='.$_GET['id_equip'].'" href="../inc/vincularoffice.php?id='.$office['id'].'&id_equip='.$_GET['id_equip'].'">
+                              <i class="fas fa-plus"></i>
+                            </a>';
+                            }else{
+                              echo '<a class="text-success menu rigtIcones" title="Vincular a um equipamento" href="vincularoffice.php?pagina=5&id=' . $office['id'] . '">
+                              <i class="fas fa-laptop-medical"></i>
+                            </a>';
+                            }                          
+                    echo '</td>';
+                    /*FIM AÇÂO*/
+
               echo '</tr>';
             }
             ?>

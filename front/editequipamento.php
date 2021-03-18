@@ -18,6 +18,17 @@ $resultEquipamento = $conn->query($queryEquipamento);
 $equip = $resultEquipamento->fetch_assoc();
 
 
+//possui office?
+if (empty($equip['versao_off'])) {
+
+  $incluirOfficeDisplay = $equip['id_tipoEquipamento'] == 8 || $equip['id_tipoEquipamento'] == 9 ? 'inline-block' : 'none';
+
+} else {
+
+  $incluirOfficeDisplay = 'none';
+  
+}
+
 ?>
 <!-- Begin Page Content -->
 
@@ -71,9 +82,9 @@ $equip = $resultEquipamento->fetch_assoc();
         </a>
       </div>
       <!--COLABORADOR-->
-      
+
       <div class="col-xl-4 col-md-6 mb-4">
-        <a href="<?= !empty($equip['nome_funcionario']) ? "../inc/pesquisaFuncionario.php?id=".$equip['id_funcionario']."" : "vincular.php?pagina=5&id_equip=".$_GET['id_equip'].""  ?>" class="text-decoration">
+        <a href="<?= !empty($equip['nome_funcionario']) ? "../inc/pesquisaFuncionario.php?id=" . $equip['id_funcionario'] . "" : "vincular.php?pagina=5&id_equip=" . $_GET['id_equip'] . ""  ?>" class="text-decoration">
           <div class="card border-left-info shadow h-100 py-2" style="background-color: white">
             <div class="card-body">
               <div class="row no-gutters align-items-center">
@@ -88,25 +99,40 @@ $equip = $resultEquipamento->fetch_assoc();
         </a>
       </div>
 
-      
-        <div class="termo" <?php if($equip['id_tipoEquipamento'] == 8){ echo "style='margin-left: 84%'"; } elseif($equip['id_tipoEquipamento'] == 9){echo "style='margin-left: 57%'";}else{ echo "style='margin-left: 72%'";} ?> >
+
+      <div class="termo" <?php if ($equip['id_tipoEquipamento'] == 8) {
+                            echo "style='margin-left: 60%'";
+                          } elseif ($equip['id_tipoEquipamento'] == 9) {
+                            echo "style='margin-left: 50%'";
+                          } else {
+                            echo "style='margin-left: 72%'";
+                          } ?>>
         <!-- Condicional para emissão de termo de responsabilidade -->
-        <?php if(!empty($equip['nome_funcionario']) & $equip['id_tipoEquipamento'] != 8){?>
+        <?php if (!empty($equip['nome_funcionario']) & $equip['id_tipoEquipamento'] != 8) { ?>
           <a href="../inc/termogeral.php?query=<?= $query ?>" class="btn btn-info btn-icon-split">
             <span class="icon text-white-50">
               <i class="fas fa-file-signature"></i>
             </span>
             <span class="text">Emitir Termo Responsabilidade</span>
           </a>
-        <?php }?>
-          <a href="../inc/equip_modelo.php?id_equip=<?= $_GET['id_equip'] ?>" class="btn btn-info btn-icon-split" style="display: <?= $equip['id_tipoEquipamento'] == 8 || $equip['id_tipoEquipamento'] == 9  ? 'inline-block' : 'none' ?>;">
-            <span class="icon text-white-50">
-              <i class="fas fa-file"></i>
-            </span>
-            <span class="text">Emitir Modelo</span>
-          </a>
-        </div>
-      
+        <?php } ?>
+        <a href="../inc/equip_modelo.php?id_equip=<?= $_GET['id_equip'] ?>" class="btn btn-info btn-icon-split" style="display: <?= $equip['id_tipoEquipamento'] == 8 || $equip['id_tipoEquipamento'] == 9  ? 'inline-block' : 'none' ?>;">
+          <span class="icon text-white-50">
+            <i class="fas fa-file"></i>
+          </span>
+          <span class="text">Emitir Modelo</span>
+        </a>
+
+        <!--VINCULAR OFFICE-->
+        <a href="#" data-toggle="modal" data-target="#adicionarOffice" class="btn btn-warning btn-icon-split" title="Remover OFFICE" style="display: <?= $incluirOfficeDisplay ?>">
+          <span class="icon text-white-50">
+            <i class="fas fa-plus"></i>
+          </span>
+          <span class="text">Incluir Office</span>
+        </a>
+
+      </div>
+
     </div>
 
     <div class="col-lg-6 left">
@@ -929,7 +955,7 @@ $equip = $resultEquipamento->fetch_assoc();
                 </div>
                 <!--REMOVER OFFICE-->
                 <div class="float-rigth">
-                  <a href="../inc/remover.php?id_equip=<?= $_GET['id_equip'] ?>&id_of=<?= $equip['id_office'] ?>" class="btn btn-danger btn-icon-split" title="Remover Office">
+                  <a href="#" data-toggle="modal" data-target="#removerOffice" class="float-right btn-danger btn" title="Remover OFFICE">
                     <span class="icon text-white-50">
                       <i class="fas fa-times"></i>
                     </span>
@@ -992,6 +1018,56 @@ $equip = $resultEquipamento->fetch_assoc();
         <div class="modal-footer">
           <button class="btn btn-success" type="button" data-dismiss="modal">Não</button>
           <a class="btn btn-danger" href="<?= empty($equip['nome_funcionario']) ? '../inc/desativarequipamento.php?id=' . $equip['id_equipamento'] . '' : 'javascript:' ?>">Sim</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--Excluir OFFICE-->
+  <div class="modal fade" id="removerOffice" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Realmente quer <span class='colorRed'>Remover</span> este OFFICE ?</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-success" type="button" data-dismiss="modal">Não</button>
+          <a class="btn btn-danger" href="../inc/remover.php?id_equip=<?= $_GET['id_equip'] ?>&id_of=<?= $equip['id_office'] ?>">Sim</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--Cadastrar OFFICE-->
+  <div class="modal fade" id="adicionarOffice" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title " id="exampleModalLabel"><i class="fas fa-plus"></i> INCLUIR OFFICE</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body textoCentro">
+          <p>Você está presta a vincular um office neste equipamento, porém preciso que me responda a sequinte pergunta!</p>
+          <p class="colorRed">O Office já esta cadastrado no sistema ?</p>
+        </div>
+        <div class="modal-footer">
+          <a href="officeedit.php?pagina=5&id_equip=<?= $_GET['id_equip'] ?>" class="btn btn-success btn-icon-split" style="margin-right: 56%;">
+            <span class="icon text-white-50">
+              <i class="fas fa-plus"></i>
+            </span>
+            <span class="text">NÃO</span>
+          </a>
+          <a href="office.php?pagina=5&id_equip=<?= $_GET['id_equip'] ?>" class="btn btn-info btn-icon-split">
+            <span class="icon text-white-50">
+              <i class="fas fa-laptop-medical"></i>
+            </span>
+            <span class="text">SIM</span>
+          </a>
         </div>
       </div>
     </div>
