@@ -55,9 +55,24 @@ if (!empty($_GET['id'])) {
             <label for="email">Serial:</label>
             <input type="text" class="form-control" id="serial" value="<?= $office['serial'] ?>" name="serial">
           </div>
+
           <div class="form-group">
-            <label for="email">Fornecedor:</label>
-            <input type="text" class="form-control" id="serial" value="<?= $office['fornecedor'] ?>" name="fornecedor">
+            <label for="exampleFormControlSelect2">Fornecedor:</label>
+            <select class="form-control" id="exampleFormControlSelect2" class="border-bottom-info" name="fornecedor">
+
+              <?php
+
+              echo empty($office['fornecedor']) ?: "<option value='".$office['fornecedor']."'>".$office['fornecedor']."</option>";
+
+              echo "<option>----------</option>";
+
+              $resultFornecedor = $conn->query($queryFornecedor);
+
+              while ($fornecedor = $resultFornecedor->fetch_assoc()) {
+                echo '<option value="' . $fornecedor['nome'] . '">' . $fornecedor['nome'] . '</option>';
+              }
+              ?>
+            </select>
           </div>
 
           <div class="form-group">
@@ -217,12 +232,23 @@ if (!empty($_GET['id'])) {
       <div class="modal-body">
         <form action="../inc/novanota.php?id=<?= $office['id'] ?>" method="POST" enctype="multipart/form-data" autocomplete="off">
           <!--NOTA FISCAL DATA-->
-          <div class="input-group">
-            <div class="col-md-10 form-group">
-              <label for="nome">Fornecedor: </label>
-              <input type="text" class="form-control" name="fornecedor">
-            </div>
+
+
+          <div class="col-md-12 form-group">
+            <label for="exampleFormControlSelect2">Fornecedor:</label>
+            <select class="form-control" id="exampleFormControlSelect2" class="border-bottom-info" name="fornecedor">
+              <option>----------</option>
+              <?php
+
+              $resultFornecedor = $conn->query($queryFornecedor);
+
+              while ($fornecedor = $resultFornecedor->fetch_assoc()) {
+                echo '<option value="' . $fornecedor['nome'] . '">' . $fornecedor['nome'] . '</option>';
+              }
+              ?>
+            </select>
           </div>
+
           <div class="col-md-4 input-group">
             <div class="form-group">
               <label for="nome">Número Nota: </label>

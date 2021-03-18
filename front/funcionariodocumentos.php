@@ -154,22 +154,13 @@ $resultEquip = $conn->query($queryEquipamento);
               </select>
             </div>
           </div>
+          <hr />
           <!--NOTA FISCAL DATA-->
           <div id="datanota" style="display: none;" id="datanota">
+
+
             <div class="input-group">
-              <div class="col-md-10 form-group" class="display: block">
-                <label for="nome">Fornecedor: </label>
-                <input type="text" class="form-control" name="fornecedor">
-              </div>
-            </div>
-            <div class="col-md-4 input-group">
-              <div class="form-group" class="display: block">
-                <label for="nome">Data da nota: </label>
-                <input type="text" class="form-control" name="data_nota" placeholder="xx/xx/xxxx">
-              </div>
-            </div>
-            <div class="col-md-5 input-group">
-              <div class="form-group">
+              <div class="col-md-5 form-group">
                 <label for="nome">Tipo Nota: </label>
                 <select name="tipo_nota" id="tipo_nota" class="form-control" onchange="notas()">
                   <option>-----</option>
@@ -178,6 +169,36 @@ $resultEquip = $conn->query($queryEquipamento);
                   <option value="3">Diversos</option>
                 </select>
               </div>
+            </div>
+
+            <div class="input-group">
+              <div class="col-md-5 form-group">
+                <label for="nome">Número: </label>
+                <input type="text" class="form-control" name="numeroNota">
+              </div>
+            </div>
+
+
+            <div class="input-group">
+              <div class="col-md-5 form-group" class="display: block">
+                <label for="nome">Data da nota: </label>
+                <input type="text" class="form-control" name="data_nota" placeholder="xx/xx/xxxx">
+              </div>
+            </div>
+
+            <div class="col-md-12 form-group">
+              <label for="exampleFormControlSelect2">Fornecedor:</label>
+              <select class="form-control" id="exampleFormControlSelect2" class="border-bottom-info" name="fornecedor">
+                <option>----------</option>
+                <?php
+
+                $resultFornecedor = $conn->query($queryFornecedor);
+
+                while ($fornecedor = $resultFornecedor->fetch_assoc()) {
+                  echo '<option value="' . $fornecedor['nome'] . '">' . $fornecedor['nome'] . '</option>';
+                }
+                ?>
+              </select>
             </div>
           </div>
 
@@ -213,9 +234,10 @@ $resultEquip = $conn->query($queryEquipamento);
               </table>
             </div>
           </div>
-
+          
+          <hr />
           <div class="form-group">
-            <label for="nome">Anexo: </label>
+            <label for="nome">Documento: </label>
             <input type="file" class="form-control-file" name="anexo" required>
           </div>
 

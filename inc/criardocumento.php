@@ -1,7 +1,7 @@
 <?php
-/* ini_set('display_errors',1);
+/* ini_set('display_Erros',1);
 ini_set('display_startup_erros',1);
-error_reporting(E_ALL); */
+Erro_reporting(E_ALL); */
 session_start();
 
 require_once('../bd/conexao.php');
@@ -48,7 +48,7 @@ switch ($_POST['tipo_documento']) {
 
                 if (!$log = $conn->query($insertLog)) {
 
-                    printf('Erro[4]: %s\n', $conn->error);
+                    printf('Erro[1]: %s\n', $conn->Erro);
                 }
 
                 $cont++;
@@ -73,29 +73,29 @@ switch ($_POST['tipo_documento']) {
             if ($tipo_file != NULL) {
                 /*TRABALHAMDO COM O RESULTADO DA VALIDAÇÃO*/
                 if (!$row = $result->fetch_assoc()) { //se é arquivo valido       
-                    printf('Erro[4]: %s\n Arquivo Invalido! - POR FAVOR INFORMAR UM ARQUIVO NO FORMATO: <span style="color: red">PDF</span><br />');
+                    printf('Erro[2]: %s\n Arquivo Invalido! - POR FAVOR INFORMAR UM ARQUIVO NO FORMATO: <span style="color: red">PDF</span><br />');
                     exit;
                 } else {
                     if (move_uploaded_file($_FILES['anexo']['tmp_name'], $caminho)) { //aplicando o salvamento
-                        /*echo "<span style='color: green'>SUCESSO: </span>Arquivo enviado para = " . $caminho;*/
+                        echo "<span style='color: green'>SUCESSO: </span>Arquivo enviado para = " . $caminho;
                     } else {
-                        echo "Erro[5]: Arquivo não foi enviado! - CONTATO O ADMINISTRADOR DO SISTEMA<br />";
+                        echo "Erro[3]: Arquivo não foi enviado! - CONTATO O ADMINISTRADOR DO SISTEMA<br />";
                     } //se caso não salvar vai mostrar o erro!
                 }
             }
         } else {
-            printf('Erro[3]: Por favor inserir infomar uma nota no formato PDF para ser salvo!<br />');
+            printf('Erro[4]: Por favor inserir infomar uma nota no formato PDF para ser salvo!<br />');
         }
 
         //FINALIZANDO
         if ($_POST['tipo_nota'] == 1) {
 
             #WINDOWS
-            $query = "UPDATE manager_sistema_operacional SET fornecedor = '" . $_POST['fornecedor'] . "' , numero_nota = '" . $_POST['data_nota'] . "', file_nota = '" . $caminho_db . "', file_nota_nome = '$nome_db', data_nota = '" . $dataNota . "' WHERE id_equipamento IN (" . $where . ")";
+            $query = "UPDATE manager_sistema_operacional SET fornecedor = '" . $_POST['fornecedor'] . "' , numero_nota = '" . $_POST['numeroNota'] . "', file_nota = '" . $caminho_db . "', file_nota_nome = '$nome_db', data_nota = '" . $dataNota . "' WHERE id_equipamento IN (" . $where . ")";
         } elseif ($_POST['tipo_nota'] == 2) {
 
             #OFFICE
-            $query = "UPDATE manager_office SET fornecedor = '" . $_POST['fornecedor'] . "' , numero_nota = '" . $_POST['data_nota'] . "', file_nota = '" . $caminho_db . "', file_nota_nome = '$nome_db', data_nota = '" . $dataNota . "' WHERE id_equipamento IN (" . $where . ")";
+            $query = "UPDATE manager_office SET fornecedor = '" . $_POST['fornecedor'] . "' , numero_nota = '" . $_POST['numeroNota'] . "', file_nota = '" . $caminho_db . "', file_nota_nome = '$nome_db', data_nota = '" . $dataNota . "' WHERE id_equipamento IN (" . $where . ")";
         } else {
 
             if (!empty($_GET['id_equip'])) {
@@ -107,15 +107,21 @@ switch ($_POST['tipo_documento']) {
                 $idvalor = $id_funcionario;
             }
 
-            #DIVERSOS
+            #DIVERSOS - SALVANDO A NOTA
             $query = "INSERT INTO manager_inventario_anexo (".$id.", usuario, tipo_anexo, caminho, nome, tipo, data_criacao) 
-            VALUES ('" . $idvalor . "', '" . $_SESSION['id'] . "', '" . $tipo_file . "', '" . $caminho_db . "', '" . $nome_db . "', '4', '" . $dataHoje . "')";
+            VALUES ('" . $idvalor . "', '" . $_SESSION['id'] . "', '" . $tipo_file . "', '" . $caminho_db . "', '" . $nome_db . "', '1', '" . $dataHoje . "')";
+
+            #DIVERSOS - SALVANDO A NOTA!
+            $nota = "UPDATE manager_inventario_equipamento SET numero_nota = '".$_POST['numeroNota']."', data_nota = '".$dataNota."' WHERE id_equipamento IN (" . $where . ")";
+            $resultNota = $conn->query($nota);
         }
 
 
         if (!$resultDocumento = $conn->query($query)) {
-            printf('ERROR[1]: %s\n', $conn->error);
+            printf('Erro[5]: %s\n', $conn->Erro);
             exit;
+        }else{
+            echo $query;
         }
 
         break;
@@ -143,18 +149,18 @@ switch ($_POST['tipo_documento']) {
                 if ($tipo_file != NULL) {
                     /*TRABALHAMDO COM O RESULTADO DA VALIDAÇÃO*/
                     if (!$row = $result->fetch_assoc()) { //se é arquivo valido       
-                        printf('Erro[10]: %s\n Arquivo Invalido! - POR FAVOR INFORMAR UM ARQUIVO NO FORMATO: <span style="color: red">PDF</span><br />');
+                        printf('Erro[6]: %s\n Arquivo Invalido! - POR FAVOR INFORMAR UM ARQUIVO NO FORMATO: <span style="color: red">PDF</span><br />');
                         exit;
                     } else {
                         if (move_uploaded_file($_FILES['anexo']['tmp_name'], $caminho)) { //aplicando o salvamento
                             /*echo "<span style='color: green'>SUCESSO: </span>Arquivo enviado para = " . $caminho;*/
                         } else {
-                            echo "Erro[8]: Arquivo não foi enviado! - CONTATO O ADMINISTRADOR DO SISTEMA<br />";
+                            echo "Erro[7]: Arquivo não foi enviado! - CONTATO O ADMINISTRADOR DO SISTEMA<br />";
                         } //se caso não salvar vai mostrar o erro!
                     }
                 }
             } else {
-                printf('Erro[7]: Por favor inserir infomar uma termo no formato PDF para ser salvo!<br />');
+                printf('Erro[8]: Por favor inserir infomar uma termo no formato PDF para ser salvo!<br />');
             }
 
             foreach ($_POST['equip'] as $id_equipamento) {
@@ -165,7 +171,7 @@ switch ($_POST['tipo_documento']) {
 
 
                 if (!$resultDocumento = $conn->query($query)) {
-                    printf('ERROR[6]: %s\n', $conn->error);
+                    printf('Erro[9]: %s\n', $conn->Erro);
                     exit;
                 }
 
@@ -173,13 +179,13 @@ switch ($_POST['tipo_documento']) {
                 $updateTermo = "UPDATE manager_inventario_equipamento SET termo = 1 WHERE id_equipamento = '" . $id_equipamento . "'";
 
                 if (!$resultupdateTermo = $conn->query($updateTermo)) {
-                    printf('ERROR[2]: %s\n', $conn->error);
+                    printf('Erro[10]: %s\n', $conn->Erro);
                     exit;
                 }
             }
         } else {
 
-            printf('ERROR[9]: Selecione pelo menos um equipamento!');
+            printf('Erro[11]: Selecione pelo menos um equipamento!');
         }
 
         break;
@@ -205,18 +211,18 @@ switch ($_POST['tipo_documento']) {
                 if ($tipo_file != NULL) {
                     /*TRABALHAMDO COM O RESULTADO DA VALIDAÇÃO*/
                     if (!$row = $result->fetch_assoc()) { //se é arquivo valido       
-                        printf('Erro[10]: %s\n Arquivo Invalido! - POR FAVOR INFORMAR UM ARQUIVO NO FORMATO: <span style="color: red">PDF</span><br />');
+                        printf('Erro[12]: %s\n Arquivo Invalido! - POR FAVOR INFORMAR UM ARQUIVO NO FORMATO: <span style="color: red">PDF</span><br />');
                         exit;
                     } else {
                         if (move_uploaded_file($_FILES['anexo']['tmp_name'], $caminho)) { //aplicando o salvamento
                             /*echo "<span style='color: green'>SUCESSO: </span>Arquivo enviado para = " . $caminho;*/
                         } else {
-                            echo "Erro[8]: Arquivo não foi enviado! - CONTATO O ADMINISTRADOR DO SISTEMA<br />";
+                            echo "Erro[13]: Arquivo não foi enviado! - CONTATO O ADMINISTRADOR DO SISTEMA<br />";
                         } //se caso não salvar vai mostrar o erro!
                     }
                 }
             } else {
-                printf('Erro[7]: Por favor inserir infomar uma check-list no formato PDF para ser salvo!<br />');
+                printf('Erro[14]: Por favor inserir infomar uma check-list no formato PDF para ser salvo!<br />');
             }
 
             foreach ($_POST['equip'] as $id_equipamento) {
@@ -227,13 +233,13 @@ switch ($_POST['tipo_documento']) {
 
 
                 if (!$resultDocumento = $conn->query($query)) {
-                    printf('ERROR[6]: %s\n', $conn->error);
+                    printf('Erro[15]: %s\n', $conn->Erro);
                     exit;
                 }
             }
         } else {
 
-            printf('ERROR[9]: Selecione pelo menos um equipamento!');
+            printf('Erro[16]: Selecione pelo menos um equipamento!');
         }
         break;
     case '4':
@@ -254,18 +260,18 @@ switch ($_POST['tipo_documento']) {
             if ($tipo_file != NULL) {
                 /*TRABALHAMDO COM O RESULTADO DA VALIDAÇÃO*/
                 if (!$row = $result->fetch_assoc()) { //se é arquivo valido       
-                    printf('Erro[10]: %s\n Arquivo Invalido! - POR FAVOR INFORMAR UM ARQUIVO NO FORMATO: <span style="color: red">PDF</span><br />');
+                    printf('Erro[17]: %s\n Arquivo Invalido! - POR FAVOR INFORMAR UM ARQUIVO NO FORMATO: <span style="color: red">PDF</span><br />');
                     exit;
                 } else {
                     if (move_uploaded_file($_FILES['anexo']['tmp_name'], $caminho)) { //aplicando o salvamento
                         /*echo "<span style='color: green'>SUCESSO: </span>Arquivo enviado para = " . $caminho;*/
                     } else {
-                        echo "Erro[8]: Arquivo não foi enviado! - CONTATO O ADMINISTRADOR DO SISTEMA<br />";
+                        echo "Erro[18]: Arquivo não foi enviado! - CONTATO O ADMINISTRADOR DO SISTEMA<br />";
                     } //se caso não salvar vai mostrar o erro!
                 }
             }
         } else {
-            printf('Erro[7]: Por favor inserir infomar uma check-list no formato PDF para ser salvo!<br />');
+            printf('Erro[19]: Por favor inserir infomar uma check-list no formato PDF para ser salvo!<br />');
         }
 
         if (!empty($_GET['id_equip'])) {
@@ -283,7 +289,7 @@ switch ($_POST['tipo_documento']) {
 
 
         if (!$resultDocumento = $conn->query($query)) {
-            printf('ERROR[6]: %s\n', $conn->error);
+            printf('Erro[20]: %s\n', $conn->Erro);
             exit;
         }
 
@@ -292,7 +298,7 @@ switch ($_POST['tipo_documento']) {
 
         if (!$log = $conn->query($insertLog)) {
 
-            printf('Erro[4]: %s\n', $conn->error);
+            printf('Erro[21]: %s\n', $conn->Erro);
         }
 
         break;
