@@ -103,7 +103,7 @@ if (empty($equip['versao_off'])) {
       <div class="termo" <?php if ($equip['id_tipoEquipamento'] == 8) {
                             echo "style='margin-left: 60%'";
                           } elseif ($equip['id_tipoEquipamento'] == 9) {
-                            echo "style='margin-left: 50%'";
+                            echo "style='margin-left: 35%'";
                           } else {
                             echo "style='margin-left: 72%'";
                           } ?>>
@@ -116,7 +116,7 @@ if (empty($equip['versao_off'])) {
             <span class="text">Emitir Termo Responsabilidade</span>
           </a>
         <?php } ?>
-        <a href="../inc/equip_modelo.php?id_equip=<?= $_GET['id_equip'] ?>" class="btn btn-info btn-icon-split" style="display: <?= $equip['id_tipoEquipamento'] == 8 || $equip['id_tipoEquipamento'] == 9  ? 'inline-block' : 'none' ?>;">
+        <a href="../inc/equip_modelo.php?id_equip=<?= $_GET['id_equip'] ?>" class="btn btn-info btn-icon-split" style="display: <?= $equip['id_tipoEquipamento'] == 8 || $equip['id_tipoEquipamento'] == 9  ? 'inline-block' : 'none' ?>;" target="_blanks">
           <span class="icon text-white-50">
             <i class="fas fa-file"></i>
           </span>
@@ -957,9 +957,18 @@ if (empty($equip['versao_off'])) {
                 <div class="float-rigth">
                   <a href="#" data-toggle="modal" data-target="#removerOffice" class="float-right btn-danger btn" title="Remover OFFICE">
                     <span class="icon text-white-50">
-                      <i class="fas fa-times"></i>
+                      <i class="fas fa-trash"></i>
                     </span>
-                    <span class="text">Remover</span>
+                    <span class="text">- Remover</span>
+                  </a>
+                </div>
+                <!--EMITIR TERMO OFFICE-->
+                <div class="float-left">
+                  <a href="../inc/equip_modelo.php?id_office=<?=$office['id']?>&id_equip=<?=$_GET['id_equip']?>" class="float-right btn-warning btn" target="_blank">
+                    <span class="icon text-white-50">
+                      <i class="fas fa-file"></i>
+                    </span>
+                    <span class="text">- Emitir Modelo</span>
                   </a>
                 </div>
               </div>
