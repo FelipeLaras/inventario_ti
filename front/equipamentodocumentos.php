@@ -23,6 +23,13 @@ $resultDoc = $conn->query($queryDocumentos);
 //EQUIPAMENTOS
 $queryEquipamento .= " WHERE MIE.id_equipamento = " . $_GET['id_equip'] . " AND MIE.deletar = 0";
 $resultEquip = $conn->query($queryEquipamento);
+$equipamento = $resultEquip->fetch_assoc();
+
+if ($equipamento['id_tipoEquipamento'] == 8 || $equipamento['id_tipoEquipamento'] == 9) {
+  $display = "block";
+} else {
+  $display = "none";
+}
 
 ?>
 
@@ -33,7 +40,7 @@ $resultEquip = $conn->query($queryEquipamento);
     <a href="front.php?pagina=1"><i class="fas fa-home"></i> Home</a> /
     <a href="listequipamentos.php?pagina=5"><i class="fas fa-laptop"></i> Equipamentos</a> /
     <a href="editequipamento.php?pagina=5&id_equip=<?= $_GET['id_equip']  ?>"><i class="fas fa-pen"></i> Editando <?= $_GET['id_equip']  ?></a> /
-    
+
     <i class="fas fa-file"></i> Documentos
   </h1>
   <hr />
@@ -64,7 +71,7 @@ $resultEquip = $conn->query($queryEquipamento);
           </tfoot>
           <tbody class="colorTable">
             <?php
-            while ($documento = $result->fetch_assoc()) {//documentos diversos
+            while ($documento = $result->fetch_assoc()) { //documentos diversos
               echo '<tr>';
               echo $documento['nome'] != NULL ?  '<td> <a href="' . $documento['caminho'] . '"  target="_blank">' . $documento['nome'] . '</a></td>' :  '<td>----------</td>';
               echo $documento['data_criacao'] != NULL ?  '<td>' . $documento['data_criacao'] . '</td>' :  '<td>----------</td>';
@@ -86,7 +93,7 @@ $resultEquip = $conn->query($queryEquipamento);
                         </button>
                       </div>
                       <div class="modal-body">
-                        <form action="../inc/excluirdocumento.php?pagina=5&id=' . $documento['id_anexo'] . '&tipo=1&id_equip='.$_GET['id_equip'].'" method="POST" autocomplete="off">
+                        <form action="../inc/excluirdocumento.php?pagina=5&id=' . $documento['id_anexo'] . '&tipo=1&id_equip=' . $_GET['id_equip'] . '" method="POST" autocomplete="off">
                           <div class="form-group">
                             <h1 class="h4">Deseja realmente excluir esse documento ?</h1>
                           </div>
@@ -102,7 +109,7 @@ $resultEquip = $conn->query($queryEquipamento);
               echo '</tr>';
             }
 
-            while ($documento = $resultOffice->fetch_assoc()) {//OFFICE
+            while ($documento = $resultOffice->fetch_assoc()) { //OFFICE
               echo '<tr>';
               echo $documento['nome'] != NULL ?  '<td> <a href="' . $documento['caminho'] . '"  target="_blank">' . $documento['nome'] . '</a></td>' :  '<td>----------</td>';
               echo $documento['data_criacao'] != NULL ?  '<td>' . $documento['data_criacao'] . '</td>' :  '<td>----------</td>';
@@ -124,7 +131,7 @@ $resultEquip = $conn->query($queryEquipamento);
                         </button>
                       </div>
                       <div class="modal-body">
-                        <form action="../inc/excluirdocumento.php?pagina=5&id=' . $documento['id_anexo'] . '&tipo=2&id_equip='.$_GET['id_equip'].'" method="POST" autocomplete="off">
+                        <form action="../inc/excluirdocumento.php?pagina=5&id=' . $documento['id_anexo'] . '&tipo=2&id_equip=' . $_GET['id_equip'] . '" method="POST" autocomplete="off">
                           <div class="form-group">
                             <h1 class="h4">Deseja realmente excluir esse documento ?</h1>
                           </div>
@@ -140,7 +147,7 @@ $resultEquip = $conn->query($queryEquipamento);
               echo '</tr>';
             }
 
-            while ($documento = $resultSO->fetch_assoc()) {//WINDOWS
+            while ($documento = $resultSO->fetch_assoc()) { //WINDOWS
               echo '<tr>';
               echo $documento['nome'] != NULL ?  '<td> <a href="' . $documento['caminho'] . '"  target="_blank">' . $documento['nome'] . '</a></td>' :  '<td>----------</td>';
               echo $documento['data_criacao'] != NULL ?  '<td>' . $documento['data_criacao'] . '</td>' :  '<td>----------</td>';
@@ -162,7 +169,7 @@ $resultEquip = $conn->query($queryEquipamento);
                         </button>
                       </div>
                       <div class="modal-body">
-                        <form action="../inc/excluirdocumento.php?pagina=5&id=' . $documento['id_anexo'] . '&tipo=3&id_equip='.$_GET['id_equip'].'" method="POST" autocomplete="off">
+                        <form action="../inc/excluirdocumento.php?pagina=5&id=' . $documento['id_anexo'] . '&tipo=3&id_equip=' . $_GET['id_equip'] . '" method="POST" autocomplete="off">
                           <div class="form-group">
                             <h1 class="h4">Deseja realmente excluir esse documento ?</h1>
                           </div>
@@ -224,7 +231,8 @@ $resultEquip = $conn->query($queryEquipamento);
         </button>
       </div>
       <div class="modal-body">
-        <form action="../inc/criardocumento.php?id_equip=<?= $_GET['id_equip'] ?>" method="POST" enctype="multipart/form-data" autocomplete="off">
+        <form action="../inc/documento.php?id_equip=<?= $_GET['id_equip'] ?>" method="POST" enctype="multipart/form-data" autocomplete="off">
+
           <div class="col-md-5 input-group">
             <div class="form-group">
               <label for="nome">Tipo de Documento: </label>
@@ -240,68 +248,51 @@ $resultEquip = $conn->query($queryEquipamento);
               </select>
             </div>
           </div>
+          <hr />
           <!--NOTA FISCAL DATA-->
           <div id="datanota" style="display: none;" id="datanota">
-          <div class="input-group">
-              <div class="col-md-10 form-group" class="display: block">
-                <label for="nome">Fornecedor: </label>
-                <input type="text" class="form-control" name="fornecedor">
-              </div>
-            </div>
-            <div class="col-md-4 input-group">
-              <div class="form-group" class="display: block">
-                <label for="nome">Data da nota: </label>
-                <input type="text" class="form-control" name="data_nota" placeholder="xx/xx/xxxx">
-              </div>
-            </div>
-            <div class="col-md-5 input-group">
-              <div class="form-group">
+            <div class="input-group">
+              <div class="col-md-5 form-group">
                 <label for="nome">Tipo Nota: </label>
                 <select name="tipo_nota" id="tipo_nota" class="form-control" onchange="notas()">
                   <option>-----</option>
-                  <option value="1">Windows</option>
-                  <option value="2">Office</option>
+                  <option value="1" style="display:<?= $display ?>;">Windows</option>
+                  <option value="2" style="display:<?= $display ?>;">Office</option>
                   <option value="3">Diversos</option>
                 </select>
               </div>
             </div>
-          </div>
-
-          <!--EQUIPAMENTO-->
-          <div class="col-md-4 input-group" style="display: none;" id="listEquip">
-            <div class="form-group">
-              <label for="nome">Qual Equip ? </label>
-              <table class="table table-bordered small">
-                <thead>
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Tipo</th>
-                    <th scope="col">Modelo</th>
-                    <th scope="col">Patimônio</th>
-                    <th scope="col">Numero</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <?php
-
-                  while ($equip = $resultEquip->fetch_assoc()) {
-                    echo '<tr>
-                            <th scope="row"><input type="checkbox" value="' . $equip['id_equipamento'] . '" name="equip[]"></th>
-                            <td>' . $equip['tipo_equipamento'] . '</td>
-                            <td>' . $equip['modelo'] . '</td>
-                            <td>' . $equip['patrimonio'] . '</td>                    
-                            <td>' . $equip['numero'] . '</td>
-                          </tr>';
-                  }
-                  ?>
-
-                </tbody>
-              </table>
+            <div class="input-group">
+              <div class="col-md-5 form-group">
+                <label for="nome">Número: </label>
+                <input type="text" class="form-control" name="numeroNota">
+              </div>
             </div>
-          </div>
+            
+            <div class="input-group">
+              <div class="col-md-5 form-group">
+                <label for="nome">Data: </label>
+                <input type="text" class="form-control" name="data_nota" placeholder="xx/xx/xxxx">
+              </div>
+            </div>
+            <div class="col-md-12 form-group">
+              <label for="exampleFormControlSelect2">Fornecedor:</label>
+              <select class="form-control" id="exampleFormControlSelect2" class="border-bottom-info" name="fornecedor">
+                <option>----------</option>
+                <?php
 
+                $resultFornecedor = $conn->query($queryFornecedor);
+
+                while ($fornecedor = $resultFornecedor->fetch_assoc()) {
+                  echo '<option value="' . $fornecedor['nome'] . '">' . $fornecedor['nome'] . '</option>';
+                }
+                ?>
+              </select>
+            </div>
+            <hr />
+          </div>
           <div class="form-group">
-            <label for="nome">Anexo: </label>
+            <label for="nome">Documento: </label>
             <input type="file" class="form-control-file" name="anexo" required>
           </div>
 
@@ -314,4 +305,5 @@ $resultEquip = $conn->query($queryEquipamento);
     </div>
   </div>
 </div>
+
 </html>

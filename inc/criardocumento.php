@@ -77,7 +77,7 @@ switch ($_POST['tipo_documento']) {
                     exit;
                 } else {
                     if (move_uploaded_file($_FILES['anexo']['tmp_name'], $caminho)) { //aplicando o salvamento
-                        echo "<span style='color: green'>SUCESSO: </span>Arquivo enviado para = " . $caminho;
+                        /*echo "<span style='color: green'>SUCESSO: </span>Arquivo enviado para = " . $caminho;*/
                     } else {
                         echo "Erro[5]: Arquivo não foi enviado! - CONTATO O ADMINISTRADOR DO SISTEMA<br />";
                     } //se caso não salvar vai mostrar o erro!
@@ -147,7 +147,7 @@ switch ($_POST['tipo_documento']) {
                         exit;
                     } else {
                         if (move_uploaded_file($_FILES['anexo']['tmp_name'], $caminho)) { //aplicando o salvamento
-                            echo "<span style='color: green'>SUCESSO: </span>Arquivo enviado para = " . $caminho;
+                            /*echo "<span style='color: green'>SUCESSO: </span>Arquivo enviado para = " . $caminho;*/
                         } else {
                             echo "Erro[8]: Arquivo não foi enviado! - CONTATO O ADMINISTRADOR DO SISTEMA<br />";
                         } //se caso não salvar vai mostrar o erro!
@@ -209,7 +209,7 @@ switch ($_POST['tipo_documento']) {
                         exit;
                     } else {
                         if (move_uploaded_file($_FILES['anexo']['tmp_name'], $caminho)) { //aplicando o salvamento
-                            echo "<span style='color: green'>SUCESSO: </span>Arquivo enviado para = " . $caminho;
+                            /*echo "<span style='color: green'>SUCESSO: </span>Arquivo enviado para = " . $caminho;*/
                         } else {
                             echo "Erro[8]: Arquivo não foi enviado! - CONTATO O ADMINISTRADOR DO SISTEMA<br />";
                         } //se caso não salvar vai mostrar o erro!
@@ -258,7 +258,7 @@ switch ($_POST['tipo_documento']) {
                     exit;
                 } else {
                     if (move_uploaded_file($_FILES['anexo']['tmp_name'], $caminho)) { //aplicando o salvamento
-                        echo "<span style='color: green'>SUCESSO: </span>Arquivo enviado para = " . $caminho;
+                        /*echo "<span style='color: green'>SUCESSO: </span>Arquivo enviado para = " . $caminho;*/
                     } else {
                         echo "Erro[8]: Arquivo não foi enviado! - CONTATO O ADMINISTRADOR DO SISTEMA<br />";
                     } //se caso não salvar vai mostrar o erro!
