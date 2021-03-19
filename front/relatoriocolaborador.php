@@ -85,7 +85,7 @@ require_once('../inc/dropdown.php');
     </h1>
 
     <div class="col-md-4 py-4 input-group">
-      <select name="status" class="form-control">
+      <select name="status" id="status" class="form-control" onchange="mostrarEquip()">
         <option value="">----------</option>
         <?php
         $resultStatusFuncionario = $conn->query($queryStatusFuncionario);
@@ -96,6 +96,31 @@ require_once('../inc/dropdown.php');
         ?>
       </select>
     </div>
+
+    <div class="form-group" id="perguntar" style="display: none; margin-left: 15px;">
+      <label for="exampleFormControlSelect2" class="border-bottom-info">Demitidos com equipamento?</label>
+      <div class="py-2 input-group">
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="mostrarEquipamento" id="exampleRadios1" value="1">
+          <label class="form-check-label" for="exampleRadios1">
+            Sim
+          </label>
+        </div>
+        <div class="form-check" style="margin-left: 15px;">
+          <input class="form-check-input" type="radio" name="mostrarEquipamento" id="exampleRadios2" value="2">
+          <label class="form-check-label" for="exampleRadios2">
+            Não
+          </label>
+        </div>
+        <div class="form-check" style="margin-left: 15px;">
+          <input class="form-check-input" type="radio" name="mostrarEquipamento" id="exampleRadios3" value="3" checked>
+          <label class="form-check-label" for="exampleRadios1">
+            Todos
+          </label>
+        </div>
+      </div>
+    </div>
+
     <hr>
     <button type="submit" class="btn btn-success btn-icon-split textCenterTela mb-5">
       <span class="icon text-white-50">
@@ -128,5 +153,23 @@ require_once('../inc/dropdown.php');
   <i class="fas fa-angle-up"></i>
 </a>
 </body>
+
+<!--Status Demitido-->
+<script>
+  function mostrarEquip() {
+
+    var optvalue = document.getElementById("status").value;
+
+    if (optvalue == 8) {
+
+      document.getElementById("perguntar").style.display = "block";
+
+    }else{    
+
+      document.getElementById("perguntar").style.display = "none";
+    }
+
+  } //FIM FUNÇÂO
+</script>
 
 </html>

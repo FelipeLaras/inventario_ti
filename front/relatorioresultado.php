@@ -4,8 +4,18 @@ require_once('header.php');
 require_once('../inc/pesquisas.php');
 require_once('../bd/conexao.php');
 
-$queryRelatorio = $queryColaborador .= $whereColaborador; 
-   
+$queryRelatorio = $queryRelColab .= $whereColaborador;
+
+switch ($_GET['mostrarEquipamento']) {
+  case '1':
+    $queryRelatorio .= " AND MIE.id_equipamento IS NOT NULL"; //mostrar apenas os colaboradores COM equipamentos
+    break;
+
+  case '2':
+    $queryRelatorio .= " AND MIE.id_equipamento IS NULL";//mostrar apenas os colaboradores SEM equipamentos
+    break;
+}
+
 $resultColaborador = $conn->query($queryRelatorio);
 
 //sessão para exportar EXCEL
@@ -37,7 +47,7 @@ $_SESSION['query_relatorios'] = $queryRelatorio;
     </div>
     <div class="card-body">
       <div class="table-responsive">
-      <!--TABELA DOS FUNCIONARIOS-->
+        <!--TABELA DOS FUNCIONARIOS-->
         <table class="table table-bordered small-lither" id="dataTable" width="100%" cellspacing="0" style="display: <?= $tabelaFun ?>;">
           <thead>
             <tr>
@@ -46,7 +56,7 @@ $_SESSION['query_relatorios'] = $queryRelatorio;
               <th>FUNÇÃO</th>
               <th>DEPARTAMENTO</th>
               <th>EMPRESA</th>
-              <th>EQUIPAMENTO</th>
+              <th>ID EQUIP.</th>
               <th>STATUS</th>
             </tr>
           </thead>
@@ -57,7 +67,7 @@ $_SESSION['query_relatorios'] = $queryRelatorio;
               <th>FUNÇÃO</th>
               <th>DEPARTAMENTO</th>
               <th>EMPRESA</th>
-              <th>EQUIPAMENTO</th>
+              <th>ID EQUIP.</th>
               <th>STATUS</th>
             </tr>
           </tfoot>
@@ -65,34 +75,33 @@ $_SESSION['query_relatorios'] = $queryRelatorio;
             <?php
 
             while ($row = $resultColaborador->fetch_assoc()) {
-             
-                echo '<tr>';
-                echo $row['nome'] != NULL ?  '<td>' . $row['nome'] . '</td>' :  '<td>----------</td>';
-                echo $row['cpf'] != NULL ?  '<td>' . $row['cpf'] . '</td>' :  '<td>----------</td>';
-                echo $row['funcao'] != NULL ?  '<td>' . $row['funcao'] . '</td>' :  '<td>----------</td>';
-                echo $row['departamento'] != NULL ?  '<td>' . $row['departamento'] . '</td>' :  '<td>----------</td>';
-                echo $row['empresa'] != NULL ?  '<td>' . $row['empresa'] . '</td>' :  '<td>----------</td>';
-                echo $row['tipo_equipamento'] != NULL ?  '<td><a href="editequipamento.php?pagina=5&id_equip='.$row['id_equipamento'].'" target="_blank">' . $row['tipo_equipamento'] . '</a></td>' :  '<td>----------</td>';
 
-                switch ($row['id_status']) {
-                  case '4':
-                    echo '<td><span class="icone btn-success">' . $row['status'] . '</span></td>';
-                    break;
+              echo '<tr>';
+              echo $row['nome'] != NULL ?  '<td>' . $row['nome'] . '</td>' :  '<td>----------</td>';
+              echo $row['cpf'] != NULL ?  '<td>' . $row['cpf'] . '</td>' :  '<td>----------</td>';
+              echo $row['funcao'] != NULL ?  '<td>' . $row['funcao'] . '</td>' :  '<td>----------</td>';
+              echo $row['departamento'] != NULL ?  '<td>' . $row['departamento'] . '</td>' :  '<td>----------</td>';
+              echo $row['empresa'] != NULL ?  '<td>' . $row['empresa'] . '</td>' :  '<td>----------</td>';
+              echo $row['id_equipamento'] != NULL ?  '<td><a href="editequipamento.php?pagina=5&id_equip=' . $row['id_equipamento'] . '" target="_blank">' . $row['id_equipamento'] . '</a></td>' :  '<td>----------</td>';
 
-                  case '3':
-                    echo '<td><span class="icone btn-warning">' . $row['status'] . '</span></td>';
-                    break;
+              switch ($row['id_status']) {
+                case '4':
+                  echo '<td><span class="icone btn-success">' . $row['status'] . '</span></td>';
+                  break;
 
-                  case '8':
-                    echo '<td><span class="icone btn-danger">' . $row['status'] . '</span></td>';
-                    break;
+                case '3':
+                  echo '<td><span class="icone btn-warning">' . $row['status'] . '</span></td>';
+                  break;
 
-                  default:
-                    echo '<td>DESATIVADO</td>';
-                    break;
-                }
+                case '8':
+                  echo '<td><span class="icone btn-danger">' . $row['status'] . '</span></td>';
+                  break;
 
-              } //FIM WHILE $row
+                default:
+                  echo '<td>DESATIVADO</td>';
+                  break;
+              }
+            } //FIM WHILE $row
             ?>
           </tbody>
         </table>
@@ -127,4 +136,5 @@ $_SESSION['query_relatorios'] = $queryRelatorio;
 </a>
 
 </body>
+
 </html>
