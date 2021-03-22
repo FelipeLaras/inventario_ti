@@ -80,7 +80,7 @@ $body = "
       </tr>
       <tr>
         <td colspan='3'>Nota Fiscal: <span class='font'>" . $software['numero_nota'] . "</span></td>
-        <td colspan='2'>Data: <span class='font'>" . $software['data_criacao'] . "</span></td>
+        <td colspan='2'>Data: <span class='font'>" . $software['data_nota'] . "</span></td>
       </tr>
       <tr>
         <td colspan='5'>Software: <span class='font'>" . $software['versao'] . "</span></td>
