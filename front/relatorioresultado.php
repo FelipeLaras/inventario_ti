@@ -3,8 +3,20 @@ session_start();
 require_once('header.php');
 require_once('../inc/pesquisas.php');
 require_once('../bd/conexao.php');
+require_once('../inc/permissoes.php');
 
 $queryRelatorio = $queryRelColab .= $whereColaborador;
+
+//mostrar apenas equipamentos que o usuário é responsavel
+
+$queryRelatorio .= " AND MIE.tipo_equipamento IN (";
+
+while ($permissaoEquipamento = $resultPermissaoEquipamento->fetch_assoc()) {
+
+  $queryRelatorio .= $permissaoEquipamento['id_equipamento'] . ',';
+}
+
+$queryRelatorio .= "'')";
 
 switch ($_GET['mostrarEquipamento']) {
   case '1':
@@ -56,6 +68,7 @@ $_SESSION['query_relatorios'] = $queryRelatorio;
               <th>FUNÇÃO</th>
               <th>DEPARTAMENTO</th>
               <th>EMPRESA</th>
+              <th>EQUIP.</th>
               <th>ID EQUIP.</th>
               <th>STATUS</th>
             </tr>
@@ -67,6 +80,7 @@ $_SESSION['query_relatorios'] = $queryRelatorio;
               <th>FUNÇÃO</th>
               <th>DEPARTAMENTO</th>
               <th>EMPRESA</th>
+              <th>EQUIP.</th>
               <th>ID EQUIP.</th>
               <th>STATUS</th>
             </tr>
@@ -82,6 +96,7 @@ $_SESSION['query_relatorios'] = $queryRelatorio;
               echo $row['funcao'] != NULL ?  '<td>' . $row['funcao'] . '</td>' :  '<td>----------</td>';
               echo $row['departamento'] != NULL ?  '<td>' . $row['departamento'] . '</td>' :  '<td>----------</td>';
               echo $row['empresa'] != NULL ?  '<td>' . $row['empresa'] . '</td>' :  '<td>----------</td>';
+              echo $row['tipo_equipamento'] != NULL ?  '<td>'. $row['tipo_equipamento'] . '</td>' :  '<td>----------</td>';
               echo $row['id_equipamento'] != NULL ?  '<td><a href="editequipamento.php?pagina=5&id_equip=' . $row['id_equipamento'] . '" target="_blank">' . $row['id_equipamento'] . '</a></td>' :  '<td>----------</td>';
 
               switch ($row['id_status']) {

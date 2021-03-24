@@ -293,7 +293,8 @@ MDD.nome AS departamento,
 MDE.nome AS empresa,
 MIF.status AS id_status,
 MDS.nome AS status,
-MIE.id_equipamento
+MIE.id_equipamento,
+MDEQ.nome AS tipo_equipamento
 FROM
 manager_inventario_funcionario MIF
     LEFT JOIN
@@ -305,7 +306,9 @@ manager_dropempresa MDE ON (MIF.empresa = MDE.id_empresa)
     LEFT JOIN
 manager_dropstatus MDS ON (MIF.status = MDS.id_status)
     LEFT JOIN
-manager_inventario_equipamento MIE ON (MIF.id_funcionario = MIE.id_funcionario)";
+manager_inventario_equipamento MIE ON (MIF.id_funcionario = MIE.id_funcionario)
+    LEFT JOIN
+manager_dropequipamentos MDEQ ON (MIE.tipo_equipamento = MDEQ.id_equip)";
 
 //TIPOS DE QUERY PARA RELATÓRIO
 
