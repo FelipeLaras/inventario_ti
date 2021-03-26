@@ -1,4 +1,5 @@
 <?php
+session_start();
 /* ini_set('display_errors', 1);
 error_reporting(E_ALL); */
 
@@ -8,12 +9,14 @@ require_once('../inc/dropdown.php');
 require_once('../inc/pesquisas.php');
 
 
-//OFFICE QUE SERA EDITADO
+//WINDOWS QUE SERA EDITADO
 if (!empty($_GET['id'])) {
-  $queryoffice .= " WHERE MO.id = " . $_GET['id'] . "";
-  $resultOffice = $conn->query($queryoffice);
-  $office = $resultOffice->fetch_assoc();
+  $queryso .= " WHERE MSO.id = " . $_GET['id'] . "";
+  $resultos = $conn->query($queryso);
+  $windows = $resultos->fetch_assoc();
 }
+
+
 
 ?>
 <!-- Begin Page Content -->
@@ -22,8 +25,8 @@ if (!empty($_GET['id'])) {
   <h1 class="text-xs mb-6 text-gray-800">
     <a href="../front/front.php?pagina=1"><i class="fas fa-home"></i> Home</a> /
     <a href="../front/listequipamentos.php?pagina=5"><i class="fas fa-laptop"></i> Equipamentos</a> /
-    <a href="../front/office.php?pagina=5"><i class="fab fa-windows"></i> Office's </a> /
-    <?= empty($_GET['id']) ? "<i class='fas fa-plus'></i> Novo Office" : '<i class="fas fa-pen"></i> Editar Office' ?>
+    <a href="../front/windows.php?pagina=5"><i class="fab fa-windows"></i> windows's </a> /
+    <?= empty($_GET['id']) ? "<i class='fas fa-plus'></i> Novo windows" : '<i class="fas fa-pen"></i> Editar windows' ?>
   </h1>
   <!-- /.container-fluid -->
   <hr>
@@ -31,22 +34,23 @@ if (!empty($_GET['id'])) {
     <!-- Circle Buttons -->
     <div class="card shadow mb-4">
       <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-<?= $_SESSION["colorHeader"] ?>"> <?= empty($_GET['id']) ? "<i class='fas fa-plus'></i> Novo Office" : '<i class="fas fa-pen"></i> Editar Office' ?> </h6>
+        <h6 class="m-0 font-weight-bold text-<?= $_SESSION["colorHeader"] ?>"> <?= empty($_GET['id']) ? "<i class='fas fa-plus'></i> Novo windows" : '<i class="fas fa-pen"></i> Editar windows' ?> </h6>
       </div>
       <div class="card-body">
-        <form action="../inc/officeedit.php?id=<?= $_GET['id'] ?>&id_equip=<?= $_GET['id_equip'] ?>" method="POST" enctype="multipart/form-data">
+        <form action="../inc/windowsedit.php?id=<?= $_GET['id'] ?>&id_equip=<?= $_GET['id_equip'] ?>" method="POST" enctype="multipart/form-data">
           <div class="form-group">
             <label for="versao">Versão:</label>
             <select class="form-control" id="exampleFormControlSelect2" name="versao" required>
               <?php
 
-              echo empty($office['id_versao']) ? "" : "<option value='" . $office['id_versao'] . "'>" . $office['versao'] . "</option>";
+              echo empty($windows['id_versao']) ?: "<option value='" . $windows['id_versao'] . "'>" . $windows['versao'] . "</option>";
 
-              echo "<option value='' >----------</option>";
-              $r = $conn->query($queryListOffice);
+              echo "<option value=''>----------</option>";
 
-              while ($listOffice = $r->fetch_assoc()) {
-                echo '<option value="' . $listOffice['id'] . '">' . $listOffice['nome'] . '</option>';
+              $r = $conn->query($queryWindows);
+
+              while ($listWindows = $r->fetch_assoc()) {
+                echo '<option value="' . $listWindows['id'] . '">' . $listWindows['nome'] . '</option>';
               }
 
               ?>
@@ -54,7 +58,7 @@ if (!empty($_GET['id'])) {
           </div>
           <div class="form-group">
             <label for="email">Serial:</label>
-            <input type="text" class="form-control" id="serial" value="<?= $office['serial'] ?>" name="serial">
+            <input type="text" class="form-control" id="serial" value="<?= $windows['serial'] ?>" name="serial">
           </div>
 
           <div class="form-group">
@@ -63,9 +67,9 @@ if (!empty($_GET['id'])) {
 
               <?php
 
-              echo empty($office['fornecedor']) ?: "<option value='" . $office['fornecedor'] . "'>" . $office['fornecedor'] . "</option>";
+              echo empty($windows['fornecedor']) ?: "<option value='" . $windows['fornecedor'] . "'>" . $windows['fornecedor'] . "</option>";
 
-              echo "<option>----------</option>";
+              echo "<option value='' >----------</option>";
 
               $resultFornecedor = $conn->query($queryFornecedor);
 
@@ -81,9 +85,9 @@ if (!empty($_GET['id'])) {
             <select class="form-control" id="exampleFormControlSelect2" name="empresa">
               <?php
 
-              echo empty($office['id_empresa']) ?: "<option value='" . $office['id_empresa'] . "'>" . $office['empresa'] . "</option>";
+              echo empty($windows['id_empresa']) ?: "<option value='" . $windows['id_empresa'] . "'>" . $windows['empresa'] . "</option>";
 
-              echo "<option>----------</option>";
+              echo "<option value=''>----------</option>";
 
               $resultEmpresa = $conn->query($queryEmpresa);
 
@@ -93,15 +97,14 @@ if (!empty($_GET['id'])) {
               ?>
             </select>
           </div>
-
           <div class="form-group">
             <label for="exampleFormControlSelect2">Localização:</label>
             <select class="form-control" id="exampleFormControlSelect2" name="locacao">
               <?php
 
-              echo empty($office['id_locacao']) ?: "<option value='" . $office['id_locacao'] . "'>" . $office['locacao'] . "</option>";
+              echo empty($windows['id_locacao']) ?: "<option value='" . $windows['id_locacao'] . "'>" . $windows['locacao'] . "</option>";
 
-              echo "<option>----------</option>";
+              echo "<option value=''>----------</option>";
 
               $resultLocacao = $conn->query($queryLocacao);
 
@@ -133,14 +136,14 @@ if (!empty($_GET['id'])) {
               <div class="form-group">
                 <label for="exampleFormControlSelect2">Número Nota:</label>
                 <div class="col-md-6 py-2">
-                  <input type="text" class="form-control" value="<?= $office['fornecedor'] ?>" name="numero_nota">
+                  <input type="text" class="form-control" value="<?= $windows['fornecedor'] ?>" name="numero_nota">
                 </div>
               </div>
 
               <div class="form-group">
                 <label for="exampleFormControlSelect2">Data Nota:</label>
                 <div class="col-md-4 py-2">
-                  <input type="text" class="form-control" value="<?= $office['fornecedor'] ?>" name="data_nota" placeholder="xx/xx/xxxx">
+                  <input type="text" class="form-control" value="<?= $windows['fornecedor'] ?>" name="data_nota" placeholder="xx/xx/xxxx">
                 </div>
               </div>
 
@@ -173,7 +176,7 @@ if (!empty($_GET['id'])) {
   </div>
   <div class="card-body" style="display: <?= empty($_GET['id']) ? 'none' : 'block' ?>">
     <h6 class="m-0 font-weight-bold text-primary">
-      <i class="fas fa-file"></i> Nota Fiscal OFFICE
+      <i class="fas fa-file"></i> Nota Fiscal WINDOWS
       <a href="#" data-toggle="modal" data-target="#novo" class="float-right btn btn-success" style="margin-bottom: 20px;" title="Novo Documento"><i class="fas fa-plus"></i></a>
     </h6>
     <div class="table-responsive">
@@ -189,11 +192,11 @@ if (!empty($_GET['id'])) {
         <tbody class="colorTable">
           <?php
           echo '<tr>';
-          echo empty($office['nome'])  ?  '<td></td>' :  '<td><a href="' . $office['caminho'] . '" class="text-info" target="_blank" title="Ver documento">' . $office['nome'] . '</a></td>';
-          echo empty($office['numero_nota']) != 0 ?  '<td></td>' :  '<td>' . $office['numero_nota'] . '</td>';
-          echo empty($office['data_nota']) != 0 ?  '<td></td>' :  '<td>' . $office['data_nota'] . '</td>';
+          echo empty($windows['nome'])  ?  '<td></td>' :  '<td><a href="' . $windows['caminho'] . '" class="text-info" target="_blank" title="Ver documento">' . $windows['nome'] . '</a></td>';
+          echo empty($windows['numero_nota']) != 0 ?  '<td></td>' :  '<td>' . $windows['numero_nota'] . '</td>';
+          echo empty($windows['data_nota']) != 0 ?  '<td></td>' :  '<td>' . $windows['data_nota'] . '</td>';
           /*AÇÂO*/
-          echo empty($office['numero_nota']) ? '<td></td>' : '<td><a href="javascript:" class="text-danger menu rigtIcones" title="Excluir" data-toggle="modal" data-target="#desativar"><i class="fas fa-trash"></i></a>
+          echo empty($windows['numero_nota']) ? '<td></td>' : '<td><a href="javascript:" class="text-danger menu rigtIcones" title="Excluir" data-toggle="modal" data-target="#desativar"><i class="fas fa-trash"></i></a>
         </td>';
           /*FIM AÇÂO*/
           echo '</tr>';
@@ -239,11 +242,11 @@ if (!empty($_GET['id'])) {
         </button>
       </div>
       <div class="modal-body">
-        <span class="textCenterModal"><?= $office['nome']  ?></span>
+        <span class="textCenterModal"><?= $windows['nome']  ?></span>
       </div>
       <div class="modal-footer">
         <button class="btn btn-secondary" type="button" data-dismiss="modal">Não</button>
-        <a class="btn btn-primary" href="../inc/notadrop.php?pagina=5&id=<?= $office['id'] ?>">Sim</a>
+        <a class="btn btn-primary" href="../inc/notadrop.php?pagina=5&id_so=<?= $windows['id'] ?>">Sim</a>
       </div>
     </div>
   </div>
@@ -260,7 +263,7 @@ if (!empty($_GET['id'])) {
         </button>
       </div>
       <div class="modal-body">
-        <form action="../inc/novanota.php?id=<?= $office['id'] ?>" method="POST" enctype="multipart/form-data" autocomplete="off">
+        <form action="../inc/novanota.php?id_so=<?= $windows['id'] ?>" method="POST" enctype="multipart/form-data" autocomplete="off">
           <!--NOTA FISCAL DATA-->
 
 

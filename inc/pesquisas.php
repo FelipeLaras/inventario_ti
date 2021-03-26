@@ -171,13 +171,17 @@ manager_profile MP ON (ML.usuario = MP.id_profile)";
 
 //SISTEMA OPERCIONAL
 $queryso = "SELECT 
+MSO.id,
 MSO.versao AS id_versao, 
 MDSO.nome AS versao,
+MSO.serial,
 MSO.file_nota AS caminho,
 MSO.file_nota_nome AS nome,
-MSO.data_nota AS data_criacao,
+MSO.data_nota AS data_nota,
 MSO.id AS id_anexo,
+MSO.empresa AS id_empresa,
 MDE.nome AS empresa,
+MSO.locacao AS id_locacao,
 MDL.nome AS locacao,
 MSO.numero_nota,
 MSO.fornecedor
@@ -188,7 +192,7 @@ manager_dropsistemaoperacional MDSO ON (MSO.versao = MDSO.id)
 LEFT JOIN
 manager_dropempresa MDE ON (MSO.empresa = MDE.id_empresa)
 LEFT JOIN
-manager_droplocacao MDL ON (MSO.locacao = MDE.id_empresa)";
+manager_droplocacao MDL ON (MSO.locacao = MDL.id_empresa)";
 
 //OFFICE
 $queryoffice = "SELECT 
@@ -204,13 +208,18 @@ MO.data_nota AS data_nota,
 MO.numero_nota,
 MO.id AS id_anexo,
 MO.empresa AS id_empresa,
-MDE.nome AS empresa
+MDE.nome AS empresa,
+MO.locacao AS id_locacao,
+MDL.nome AS locacao
+
 FROM
 manager_office MO
 LEFT JOIN
 manager_dropoffice MDO ON (MO.versao = MDO.id)
 LEFT JOIN
-manager_dropempresa MDE ON (MO.empresa = MDE.id_empresa)";
+manager_dropempresa MDE ON (MO.empresa = MDE.id_empresa)
+LEFT JOIN
+manager_droplocacao MDL ON (MO.locacao = MDL.id_empresa)";
 
 
 //COLABORADORES PARA PDF

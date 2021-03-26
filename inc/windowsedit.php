@@ -7,9 +7,9 @@ require_once('../bd/conexao.php');
 $dataHoje = date('d/m/Y');
 
 
-if (!empty($_GET['id'])) { //EDITANDO OFFICE
+if (!empty($_GET['id'])) { //EDITANDO
 
-    $updateOffice = "UPDATE manager_office SET 
+    $update = "UPDATE manager_sistema_operacional SET 
     versao = '" . $_POST['versao'] . "',
     serial = '" . $_POST['serial'] . "',
     fornecedor = '" . $_POST['fornecedor'] . "',
@@ -17,14 +17,14 @@ if (!empty($_GET['id'])) { //EDITANDO OFFICE
     locacao = ".$_POST['locacao']."
     WHERE id= " . $_GET['id'] . "";
 
-    if (!$result = $conn->query($updateOffice)) {
+    if (!$result = $conn->query($update)) {
 
         printf('ERRO[1]: %s\n', $conn->error);
     } else {
 
-        header('location: ../front/officeedit.php?pagina=5&id=' . $_GET['id'] . '');
+        header('location: ../front/windowsedit.php?pagina=5&id=' . $_GET['id'] . '');
     }
-} else { //SALVANDO OFFICE
+} else { //SALVANDO
 
     //SUBINDO ARQUIVO
     if ($_FILES['anexo'] != NULL) {
@@ -54,7 +54,7 @@ if (!empty($_GET['id'])) { //EDITANDO OFFICE
         }
 
         //SALVANDO NO BANCO DE DADOS
-        $insert = "INSERT INTO manager_office (id_equipamento, locacao, empresa, versao, serial, fornecedor, numero_nota, file_nota, file_nota_nome, data_nota) 
+        $insert = "INSERT INTO manager_sistema_operacional (id_equipamento, locacao, empresa, versao, serial, fornecedor, numero_nota, file_nota, file_nota_nome, data_nota) 
         VALUES 
         ('0',
         '" . $_POST['locacao'] . "', 
@@ -73,28 +73,32 @@ if (!empty($_GET['id'])) { //EDITANDO OFFICE
             //caso já tenha um id de equipamento será vinculado ao mesmo!
 
             if (!empty($_GET['id_equip'])) {
-                $queryOffice = "SELECT max(id) AS id FROM manager_office";
-                $resultOffice = $conn->query($queryOffice);
-                $idOffice = $resultOffice->fetch_assoc();
+                $querySO = "SELECT max(id) AS id FROM manager_sistema_operacional";
+                $resultSO = $conn->query($querySO);
+                $idSO = $resultSO->fetch_assoc();
 
                 //salvando
-                $updateEquipamento = "UPDATE manager_office SET id_equipamento = '" . $_GET['id_equip'] . "' WHERE id = '" . $idOffice['id'] . "'";
+                $updateEquipamento = "UPDATE manager_sistema_operacional SET id_equipamento = '" . $_GET['id_equip'] . "' WHERE id = '" . $idSO['id'] . "'";
                 if (!$resultUPdate = $conn->query($updateEquipamento)) {
+                    
                     printf('ERRO[5]: não foi possivel vincular equipamento pelo seguinte erro: %s\n', $conn->error);
                     exit;
+
                 } else {
+
                     //salvando log no equipamento
                     $insertLog = "INSERT INTO manager_log (id_equipamento,  data_alteracao, usuario, tipo_alteracao) 
-                VALUES ('" . $_GET['id_equip'] . "', '" . $dataHoje . "', '" . $_SESSION["id"] . "', '15')";
+                VALUES ('" . $_GET['id_equip'] . "', '" . $dataHoje . "', '" . $_SESSION["id"] . "', '17')";
 
                     if (!$log = $conn->query($insertLog)) {
                         printf('Erro[6]: %s\n', $conn->error);
                     } else {
+
                         header('location: ../front/editequipamento.php?pagina=5&id_equip=' . $_GET['id_equip'] . '');
                     }
                 }
             } else {
-                header('location: ../front/office.php?pagina=5');
+                header('location: ../front/windows.php?pagina=5');
             }
         }
     }

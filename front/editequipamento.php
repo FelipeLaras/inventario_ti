@@ -17,16 +17,18 @@ $queryEquipamento .= $query;
 $resultEquipamento = $conn->query($queryEquipamento);
 $equip = $resultEquipamento->fetch_assoc();
 
-
 //possui office?
 if (empty($equip['versao_off'])) {
-
   $incluirOfficeDisplay = $equip['id_tipoEquipamento'] == 8 || $equip['id_tipoEquipamento'] == 9 ? 'inline-block' : 'none';
-
 } else {
-
   $incluirOfficeDisplay = 'none';
-  
+}
+
+//possui windows?
+if (empty($equip['versao_so'])) {
+  $incluirWindowsDisplay = $equip['id_tipoEquipamento'] == 8 || $equip['id_tipoEquipamento'] == 9 ? 'inline-block' : 'none';
+} else {
+  $incluirWindowsDisplay = 'none';
 }
 
 ?>
@@ -109,19 +111,13 @@ if (empty($equip['versao_off'])) {
                           } ?>>
         <!-- Condicional para emissão de termo de responsabilidade -->
         <?php if (!empty($equip['nome_funcionario']) & $equip['id_tipoEquipamento'] != 8) { ?>
-          <a href="../inc/termogeral.php?query=<?= $query ?>" class="btn btn-info btn-icon-split">
+          <a href="../inc/termogeral.php?query=<?= $query ?>" class="btn btn-primary btn-icon-split">
             <span class="icon text-white-50">
               <i class="fas fa-file-signature"></i>
             </span>
             <span class="text">Emitir Termo Responsabilidade</span>
           </a>
         <?php } ?>
-        <a href="../inc/equip_modelo.php?id_equip=<?= $_GET['id_equip'] ?>" class="btn btn-info btn-icon-split" style="display: <?= $equip['id_tipoEquipamento'] == 8 || $equip['id_tipoEquipamento'] == 9  ? 'inline-block' : 'none' ?>;" target="_blanks">
-          <span class="icon text-white-50">
-            <i class="fas fa-file"></i>
-          </span>
-          <span class="text">Emitir Modelo</span>
-        </a>
 
         <!--VINCULAR OFFICE-->
         <a href="#" data-toggle="modal" data-target="#adicionarOffice" class="btn btn-warning btn-icon-split" title="Remover OFFICE" style="display: <?= $incluirOfficeDisplay ?>">
@@ -129,6 +125,14 @@ if (empty($equip['versao_off'])) {
             <i class="fas fa-plus"></i>
           </span>
           <span class="text">Incluir Office</span>
+        </a>
+
+        <!--VINCULAR WINDOWS-->
+        <a href="#" data-toggle="modal" data-target="#adicionarWindows" class="btn btn-success btn-icon-split" title="Remover WINDOWS" style="display: <?= $incluirWindowsDisplay ?>">
+          <span class="icon text-white-50">
+            <i class="fas fa-plus"></i>
+          </span>
+          <span class="text">Incluir Windows</span>
         </a>
 
       </div>
@@ -903,33 +907,53 @@ if (empty($equip['versao_off'])) {
                 <input type="text" class="form-control" name="serial_numberCPU" value="<?= $equip['serialnumber'] ?>">
               </div>
               <!--SISTEMA OPERACIONAL-->
-              <hr>
-              <h6 class="m-0 font-weight-bold text-primary"><i class="fab fa-windows"></i> Sistema Operacional</h6><br>
+              <div style="display: <?= !empty($equip['versao_so']) ? "block; margin-bottom: 69px;" : "none;" ?>">
 
-              <!--VERSÃO-->
-              <div class="form-group">
-                <label for="exampleFormControlSelect2">Versão:</label>
-                <select class="form-control" id="exampleFormControlSelect2" name="versaoSO">
-                  <?php
+                <hr>
+                <h6 class="m-0 font-weight-bold text-primary"><i class="fab fa-windows"></i> Sistema Operacional</h6><br>
 
-                  $queryWindows  .= " AND id = '" . $equip['versao_so'] . "'";
-                  $resultWindows  = $conn->query($queryWindows);
-                  $windows = $resultWindows->fetch_assoc();
+                <!--VERSÃO-->
+                <div class="form-group">
+                  <label for="exampleFormControlSelect2">Versão:</label>
+                  <select class="form-control" id="exampleFormControlSelect2" name="versaoSO">
+                    <?php
 
-                  if (!empty($windows['id'])) {
-                    echo '<option value="' . $windows['id'] . '">' . $windows['nome'] . '</option>';
-                  }
-                  ?>
-                </select>
+                    $queryWindows  .= " AND id = '" . $equip['versao_so'] . "'";
+                    $resultWindows  = $conn->query($queryWindows);
+                    $windows = $resultWindows->fetch_assoc();
+
+                    if (!empty($windows['id'])) {
+                      echo '<option value="' . $windows['id'] . '">' . $windows['nome'] . '</option>';
+                    }
+                    ?>
+                  </select>
+                </div>
+                <!--SERIAL-->
+                <div class="form-group">
+                  <label for="exampleFormControlSelect2">Chave do produto:</label>
+                  <input type="text" class="form-control" name="chaveProdutoSO" value="<?= $equip['chave_windows'] ?>">
+                </div>
+                <!--REMOVER WINDOWSS-->
+                <div class="float-rigth">
+                  <a href="#" data-toggle="modal" data-target="#removerWindows" class="float-right btn-danger btn" title="Remover WINDOWS">
+                    <span class="icon text-white-50">
+                      <i class="fas fa-trash"></i>
+                    </span>
+                    <span class="text">- Remover</span>
+                  </a>
+                </div>
+                <!--EMITIR MODELO WINDOWS-->
+                <div class="float-left">
+                  <a href="../inc/equip_modelo.php?id_equip=<?= $_GET['id_equip'] ?>" class="float-right btn-warning btn" target="_blank">
+                    <span class="icon text-white-50">
+                      <i class="fas fa-file"></i>
+                    </span>
+                    <span class="text">- Emitir Modelo</span>
+                  </a>
+                </div>
               </div>
-              <!--SERIAL-->
-              <div class="form-group">
-                <label for="exampleFormControlSelect2">Chave do produto:</label>
-                <input type="text" class="form-control" name="chaveProdutoSO" value="<?= $equip['chave_windows'] ?>">
-              </div>
-
               <!--OFFICE-->
-              <div style="display: <?= !empty($equip['versao_off']) ? "block" : "none" ?>;margin-top: 69px;">
+              <div style="display: <?= !empty($equip['versao_off']) ? "block;" : "none;" ?>">
                 <hr>
                 <h6 class="m-0 font-weight-bold text-primary"><i class="fab fa-windows"></i> OFFICE</h6><br>
                 <!--VERSÃO-->
@@ -962,9 +986,9 @@ if (empty($equip['versao_off'])) {
                     <span class="text">- Remover</span>
                   </a>
                 </div>
-                <!--EMITIR TERMO OFFICE-->
+                <!--EMITIR MODELO OFFICE-->
                 <div class="float-left">
-                  <a href="../inc/equip_modelo.php?id_office=<?=$office['id']?>&id_equip=<?=$_GET['id_equip']?>" class="float-right btn-warning btn" target="_blank">
+                  <a href="../inc/equip_modelo.php?id_office=<?= $office['id'] ?>&id_equip=<?= $_GET['id_equip'] ?>" class="float-right btn-warning btn" target="_blank">
                     <span class="icon text-white-50">
                       <i class="fas fa-file"></i>
                     </span>
@@ -1050,6 +1074,24 @@ if (empty($equip['versao_off'])) {
     </div>
   </div>
 
+  <!--Excluir WINDOWS-->
+  <div class="modal fade" id="removerWindows" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Realmente quer <span class='colorRed'>Remover</span> este WINDOWS ?</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-success" type="button" data-dismiss="modal">Não</button>
+          <a class="btn btn-danger" href="../inc/remover.php?id_equip=<?= $_GET['id_equip'] ?>&id_so=<?= $equip['id_windows'] ?>">Sim</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!--Cadastrar OFFICE-->
   <div class="modal fade" id="adicionarOffice" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -1072,6 +1114,38 @@ if (empty($equip['versao_off'])) {
             <span class="text">NÃO</span>
           </a>
           <a href="office.php?pagina=5&id_equip=<?= $_GET['id_equip'] ?>" class="btn btn-info btn-icon-split">
+            <span class="icon text-white-50">
+              <i class="fas fa-laptop-medical"></i>
+            </span>
+            <span class="text">SIM</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--Cadastrar WINDOWS-->
+  <div class="modal fade" id="adicionarWindows" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title " id="exampleModalLabel"><i class="fas fa-plus"></i> INCLUIR WINDOWS</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body textoCentro">
+          <p>Você está presta a vincular um sistema operacional neste equipamento, porém preciso que me responda a sequinte pergunta!</p>
+          <p class="colorRed">O Windows já esta cadastrado no sistema ?</p>
+        </div>
+        <div class="modal-footer">
+          <a href="windowsedit.php?pagina=5&id_equip=<?= $_GET['id_equip'] ?>" class="btn btn-success btn-icon-split" style="margin-right: 56%;">
+            <span class="icon text-white-50">
+              <i class="fas fa-plus"></i>
+            </span>
+            <span class="text">NÃO</span>
+          </a>
+          <a href="windows.php?pagina=5&id_equip=<?= $_GET['id_equip'] ?>" class="btn btn-info btn-icon-split">
             <span class="icon text-white-50">
               <i class="fas fa-laptop-medical"></i>
             </span>

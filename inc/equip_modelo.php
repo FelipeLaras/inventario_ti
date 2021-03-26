@@ -44,7 +44,6 @@ if (!empty($_GET['id_office'])) { //OFFICE
 }
 
 
-
 $body = "
 <!DOCTYPE html>
 <html lang='en'>
@@ -76,7 +75,7 @@ $body = "
         <td colspan='5'>Empresa: <span class='font'>" . $software['empresa'] . "</span></td> 
       </tr>
       <tr>
-        <td colspan='5'>Localização: <span class='font'>" . $software['locacao'] . "</span></td>
+        <td colspan='5'>Localização: <span class='font'>" . $software['empresa'] . "</span></td>
       </tr>
       <tr>
         <td colspan='3'>Nota Fiscal: <span class='font'>" . $software['numero_nota'] . "</span></td>

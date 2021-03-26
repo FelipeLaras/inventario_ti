@@ -30,22 +30,46 @@ if ($_FILES['anexo'] != NULL) {
     printf('Erro[3]: Por favor inserir infomar uma nota fiscal no formato PDF para ser salvo!<br />');
 }
 
-//SALVANDO NOTA FISCAL
-$updateNotaOffice = "UPDATE manager_office SET
-fornecedor = '".$_POST['fornecedor']."',
-numero_nota = '".$_POST['numero_nota']."',
-file_nota = '".$caminho_db."',
-file_nota_nome = '".$nome_db."',
-data_nota = '".$_POST['data_nota']."'
 
-WHERE id = ".$_GET['id']."";
+if(!empty($_GET['id'])){
 
-if(!$resultNota = $conn->query($updateNotaOffice)){
-    printf('Erro[4]: %s\n', $conn->error);
+    //OFFICE
+
+    $updateNota = "UPDATE manager_office SET
+    fornecedor = '".$_POST['fornecedor']."',
+    numero_nota = '".$_POST['numero_nota']."',
+    file_nota = '".$caminho_db."',
+    file_nota_nome = '".$nome_db."',
+    data_nota = '".$_POST['data_nota']."'
+
+    WHERE id = ".$_GET['id']."";
+
+    if(!$resultNota = $conn->query($updateNota)){
+        printf('Erro[4]: %s\n', $conn->error);
+    }else{
+        header('location: ../front/officeedit.php?pagina=5&id='.$_GET['id'].'');
+    }
+
 }else{
-    header('location: ../front/officeedit.php?pagina=5&id='.$_GET['id'].'');
+
+    //WINDOWS
+
+    $updateNota = "UPDATE manager_sistema_operacional SET
+    fornecedor = '".$_POST['fornecedor']."',
+    numero_nota = '".$_POST['numero_nota']."',
+    file_nota = '".$caminho_db."',
+    file_nota_nome = '".$nome_db."',
+    data_nota = '".$_POST['data_nota']."'
+
+    WHERE id = ".$_GET['id_so']."";
+
+    if(!$resultNota = $conn->query($updateNota)){
+        printf('Erro[5]: %s\n', $conn->error);
+    }else{
+        header('location: ../front/windowsedit.php?pagina=5&id='.$_GET['id_so'].'');
+    }
+
 }
 
-$conn->close();
 
-?>
+$conn->close();

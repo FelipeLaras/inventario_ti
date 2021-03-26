@@ -1,13 +1,13 @@
 <?php
-  session_start();
+session_start();
 
-  require_once('header.php');
-  require_once('../inc/pesquisas.php');
-  require_once('../bd/conexao.php');
+require_once('header.php');
+require_once('../inc/pesquisas.php');
+require_once('../bd/conexao.php');
 
-  $queryoffice .= " WHERE MO.id_equipamento = 0 AND MO.deletar = 0";
+$queryso .= " WHERE MSO.id_equipamento = 0 AND MSO.deletar = 0";
 
-  $result = $conn->query($queryoffice);
+$result = $conn->query($queryso);
 
 ?>
 
@@ -17,7 +17,7 @@
   <h1 class="text-xs mb-6 text-gray-800">
     <a href="front.php?pagina=1"><i class="fas fa-home"></i> Home</a> /
     <a href="listequipamentos.php?pagina=5"><i class="fas fa-laptop"></i> Equipamentos</a> /
-    <i class="fab fa-windows"></i> Office's
+    <i class="fab fa-windows"></i> Windows's
   </h1>
   <hr />
 
@@ -25,8 +25,8 @@
   <div class="card shadow mb-4">
     <div class="card-header py-3">
       <h6 class="m-0 font-weight-bold text-<?= $_SESSION["colorHeader"] ?>">
-        <i class="fab fa-windows"></i> Office's
-        <a href="officeedit.php?pagina=5" class="float-right btn btn-success" title="Novo Office"><i class="fas fa-plus"></i></a>
+        <i class="fab fa-windows"></i> Windows's
+        <a href="windowsedit.php?pagina=5" class="float-right btn btn-success" title="Novo Windows"><i class="fas fa-plus"></i></a>
       </h6>
     </div>
     <div class="card-body">
@@ -58,33 +58,33 @@
           </tfoot>
           <tbody class="colorTable">
             <?php
-            while ($office = $result->fetch_assoc()) {
+            while ($windows = $result->fetch_assoc()) {
               echo '<tr>';
 
-                    echo empty($office['versao']) ?  '<td>-</td>' :  '<td>' . $office['versao'] . '</td>';
-                    echo empty($office['serial']) ?  '<td>-</td>' :  '<td>' . $office['serial'] . '</td>';
-                    echo empty($office['fornecedor']) ?  '<td>-</td>' :  '<td>' . $office['fornecedor'] . '</td>';
-                    echo empty($office['numero_nota']) ?  '<td>-</td>' :  '<td>' . $office['numero_nota'] . ' <a href="' . $office['caminho'] . '" class="text-info" target="_blank" title="Ver Nota"><i class="fas fa-eye"></i></a></td>';
-                    echo empty($office['data_nota']) ?  '<td>-</td>' :  '<td>' . $office['data_nota'] . '</td>';
-                    echo empty($office['empresa']) ?  '<td>-</td>' :  '<td>' . $office['empresa'] . '</td>';
-                    echo empty($office['locacao']) ?  '<td>-</td>' :  '<td>' . $office['locacao'] . '</td>';
-                    /*AÇÂO*/
-                    echo '<td>
-                            <a href="officeedit.php?pagina=5&id=' . $office['id'] . '" class="text-success menu rigtIcones" title="Editar/Visualizar">
+              echo empty($windows['versao']) ?  '<td>-</td>' :  '<td>' . $windows['versao'] . '</td>';
+              echo empty($windows['serial']) ?  '<td>-</td>' :  '<td>' . $windows['serial'] . '</td>';
+              echo empty($windows['fornecedor']) ?  '<td>-</td>' :  '<td>' . $windows['fornecedor'] . '</td>';
+              echo empty($windows['numero_nota']) ?  '<td>-</td>' :  '<td>' . $windows['numero_nota'] . ' <a href="' . $windows['caminho'] . '" class="text-info" target="_blank" title="Ver Nota"><i class="fas fa-eye"></i></a></td>';
+              echo empty($windows['data_nota']) ?  '<td>-</td>' :  '<td>' . $windows['data_nota'] . '</td>';
+              echo empty($windows['empresa']) ?  '<td>-</td>' :  '<td>' . $windows['empresa'] . '</td>';
+              echo empty($windows['locacao']) ?  '<td>-</td>' :  '<td>' . $windows['locacao'] . '</td>';
+              /*AÇÂO*/
+              echo '<td>
+                            <a href="windowsedit.php?pagina=5&id=' . $windows['id'] . '" class="text-success menu rigtIcones" title="Editar/Visualizar">
                               <i class="fas fa-pen"></i>
                             </a>';
 
-                            if(!empty($_GET['id_equip'])){
-                              echo '<a class="text-success menu rigtIcones" title="Vincular para o equipamento id='.$_GET['id_equip'].'" href="../inc/vincularoffice.php?id='.$office['id'].'&id_equip='.$_GET['id_equip'].'">
+              if (!empty($_GET['id_equip'])) {
+                echo '<a class="text-success menu rigtIcones" title="Vincular para o equipamento id=' . $_GET['id_equip'] . '" href="../inc/vincularwindows.php?id=' . $windows['id'] . '&id_equip=' . $_GET['id_equip'] . '">
                               <i class="fas fa-plus"></i>
                             </a>';
-                            }else{
-                              echo '<a class="text-success menu rigtIcones" title="Vincular a um equipamento" href="vincularoffice.php?pagina=5&id=' . $office['id'] . '">
+              } else {
+                echo '<a class="text-success menu rigtIcones" title="Vincular a um equipamento" href="vincularwindows.php?pagina=5&id=' . $windows['id'] . '">
                               <i class="fas fa-laptop-medical"></i>
                             </a>';
-                            }                          
-                    echo '</td>';
-                    /*FIM AÇÂO*/
+              }
+              echo '</td>';
+              /*FIM AÇÂO*/
 
               echo '</tr>';
             }

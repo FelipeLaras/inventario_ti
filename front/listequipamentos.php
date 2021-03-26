@@ -90,6 +90,24 @@ require_once('../bd/conexao.php');
     </div>
 
     <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4" style="display: <?= $mostrar ?>;">
+      <a href='windows.php?pagina=5' class="text-decoration">
+        <div class="card border-left-dark shadow h-100 py-2">
+          <div class="card-body">
+            <div class="row no-gutters align-items-center">
+              <div class="col mr-2">
+                <div class="h5 mb-0 font-weight-bold text-dark">Windows Disponíveis</div>
+              </div>
+              <div class="col-auto">
+                <i class="fab fa-windows fa-2x text-gray-300"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <!-- Earnings (Monthly) Card Example -->
     <div class="col-xl-3 col-md-6 mb-4" style="display: <?= $mostrarScanner ?>;">
       <a href='scanner.php?pagina=5' class="text-decoration">
         <div class="card border-left-warning shadow h-100 py-2">
