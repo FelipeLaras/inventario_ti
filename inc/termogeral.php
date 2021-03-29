@@ -373,6 +373,10 @@ $html .= "
 	</body>
 </html>";
 
+
+echo $html;
+exit;
+
 require_once '../dompdf/autoload.inc.php';
 require_once '../dompdf/lib/html5lib/Parser.php';
 require_once '../dompdf/lib/php-font-lib/src/FontLib/Autoloader.php';

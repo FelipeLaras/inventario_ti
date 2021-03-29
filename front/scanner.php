@@ -72,17 +72,26 @@ $result = $conn->query($queryEquipamento);
               echo empty($scanner['data_fim_contrato']) ?  '<td>-</td>' :  '<td>' . $scanner['data_fim_contrato'] . '</td>';
               echo empty($scanner['empresa']) ?  '<td>-</td>' :  '<td>' . $scanner['empresa'] . '</td>';
               echo empty($scanner['locacao']) ?  '<td>-</td>' :  '<td>' . $scanner['locacao'] . '</td>';
-              echo empty($scanner['status']) ?  '<td>-</td>' :  '<td>' . $scanner['status'] . '</td>';
+              echo empty($scanner['status']) ?  '<td>-</td>' :  '<td style="font-size: 8px;">' . $scanner['status'] . '</td>';
               /*AÇÂO*/
-              echo '<td>
-                      <a href="editequipamento.php?pagina=5&id_equip=' . $scanner['id_equipamento'] . '" class="text-success menu rigtIcones" title="Editar/Visualizar"><i class="fas fa-pen"></i></a>';
 
-              if(!empty($scanner['nome_funcionario'])){
-                echo '<a class="text-info menu rigtIcones" title="'.$scanner['nome_funcionario'].'" href="../inc/pesquisaFuncionario.php?id='.$scanner['id_funcionario'].'"><i class="fas fa-user"></i></a>';
-              }else{
-                echo '<a class="text-success menu rigtIcones" title="Vincular Funcionario" href="vincular.php?pagina=5&amp;id_equip='.$scanner['id_equipamento'].'"><i class="fas fa-user-plus"></i></a>';
+              //EDITAR
+              echo '<td>
+              <a class="text-success menu rigtIcones" title="Editar" href="editequipamento.php?pagina=5&id_equip=' . $scanner['id_equipamento'] . '"><i class="fas fa-pen"></i></a>';
+
+              //USUÀRIO
+              if (!empty($scanner['nome_funcionario'])) {
+                echo '<a class="text-info menu rigtIcones" title="' . $scanner['nome_funcionario'] . '" href="../inc/pesquisaFuncionario.php?id=' . $scanner['id_funcionario'] . '"><i class="fas fa-user"></i></a>';
+              } else {
+                echo '<a class="text-warning menu rigtIcones" title="Vincular Colaborador" href="vincular.php?pagina=5&amp;id_equip=' . $scanner['id_equipamento'] . '"><i class="fas fa-user-plus"></i></a>';
               }
-              
+
+              //TERMO
+              echo '
+              <a href="../inc/termo_scanner.php?id=' . $scanner['id_equipamento'] . '&id_fun=' . $scanner['id_funcionario'] . '" class="text-primary menu rigtIcones" title="Emitir termo" target="_blank">
+                <i class="fas fa-file"></i>
+              </a>';
+
               echo '</td>';
               /*FIM AÇÂO*/
               echo '</tr>';
