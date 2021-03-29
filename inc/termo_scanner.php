@@ -13,7 +13,7 @@ $resultEquip = $conn->query($queryEquipamento);
 
 //FUNCIONARIO
 if(!empty($_GET['id_fun'])){
-	$queryColaborador .= " AND MIF.id_funcionario = ".$_GET['id_fun']."";
+	$queryColaborador .= " WHERE MIF.id_funcionario = ".$_GET['id_fun']."";
 	
 	$resultFun = $conn->query($queryColaborador);
 	$colaborador = $resultFun->fetch_assoc();
@@ -81,11 +81,11 @@ $html = "
 			</div>
 			
 			<div id='tabela_titulo_principal'>
-				<p class='titulo_segundario'><u>TERMO:</u></p>
+				<p class='titulo_segundario'><u>Termo:</u></p>
 			</div>
 			<div id='termo_texto'>
 				<p class='text-sm-left texto'>
-					Recebi da empresa: <b>"; $html .= empty($colaborador['locacao']) ? "_______________________________________________________________" : $colaborador['empresa']; $html .= "</b> a título de empréstimo, para meu uso exclusivo, o equipamento especificado neste termo de responsabilidade, comprometendo-me a matê-lo em perfeito estado de conservação, ficando ciente de que:
+					Recebi da empresa: <b>"; $html .= empty($colaborador['empresa']) ? "_______________________________________________________________" : $colaborador['empresa']; $html .= "</b> a título de empréstimo, para meu uso exclusivo, o equipamento especificado neste termo de responsabilidade, comprometendo-me a matê-lo em perfeito estado de conservação, ficando ciente de que:
 				</p>
 
 				<p class='text-sm-left texto'>
@@ -105,9 +105,7 @@ $html = "
 				<p>
 
 			</div>
-			<div id='tabela_titulo_principal'>
-				<p class='titulo_segundario'><u>Observações:</u></p>
-			</div>
+			<br />
 			<div id='termo_data'>
 				<p class='text-center'>____________, ____ de _____________ de ________</p>
 			</div>
