@@ -523,11 +523,16 @@ $resultFuncionario = $conn->query($queryColaborador);
               <div class="input-group-append">
 
                 <div class="col-md-6 py-2">
-                  <input type="text" class="form-control iconeAjustarDireita" name="patimonioEquipamento">
-                  <button class="btn btn-primary fajusteDireita" type="submit" for="cpuNote">
-                    <i class="fas fa-fw fa-search"></i>
-                  </button>
+                  <div class="input-group">
+                    <input type="text" class="form-control bg-light border-0 small" aria-label="Search" aria-describedby="basic-addon2" name="patimonioEquipamento">
+                    <div class="input-group-append">
+                      <button class="btn btn-primary" type="submit" for="cpuNote">
+                        <i class="fas fa-search fa-sm"></i>
+                      </button>
+                    </div>
+                  </div>
                 </div>
+
               </div>
             </div>
           </form>
