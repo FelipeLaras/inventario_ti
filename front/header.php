@@ -236,6 +236,12 @@ if (!empty($permissaoScanner = $resultScanner->fetch_assoc())) {
                                 <a class="dropdown-item" href="../inc/color.php?color=warning">
                                     <div class="px-3 py-2 bg-gradient-warning text-white"></div>
                                 </a>
+                                <a class="dropdown-item" href="../inc/color.php?color=pink">
+                                    <div class="px-3 py-2 bg-gradient-pink text-white"></div>
+                                </a>
+                                <a class="dropdown-item" href="../inc/color.php?color=purple">
+                                    <div class="px-3 py-2 bg-gradient-purple text-white"></div>
+                                </a>
                                 <a class="dropdown-item" href="../inc/color.php?color=danger">
                                     <div class="px-3 py-2 bg-gradient-danger text-white"></div>
                                 </a>
