@@ -118,22 +118,46 @@ switch ($_SESSION['tipo_equipamento']) {
             </div>
           </div>
           <div id="tabelaFun" style="display: none;">
-            <h1 class="h6 mb-2 text-gray-800 "> Escolha o colaborador:</h1>
-            <div class="col-md-8 py-4 input-group">
-              <select name="newfun" class="form-control">
-                <option value="">---</option>
-                <?php
+            <div class="col-md-20 py-4 input-group">
+              <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-<?= $_SESSION["colorHeader"] ?>">Escolha o Colaborador
 
-                while ($funcionario = $resultFuncionario->fetch_assoc()) {
-                  echo '
-                <option value="' . $funcionario['id_funcionario'] . '">' . $funcionario['nome'] . '</option>';
-                }
-                ?>
-              </select>
-              <div class="input-group-append">
-                <a class="btn btn-success btn-pen-square btn-sm float-rigth" title="Novo Usuário" href="#" data-toggle="modal" data-target="#adicionar">
-                  <i class="fas fa-user-plus fa-sm"></i>
-                </a>
+                    <a class="btn btn-success btn-pen-square btn-sm float-rigth" title="Novo Usuário" href="#" data-toggle="modal" data-target="#adicionar">
+                      <i class="fas fa-user-plus fa-sm"></i>
+                    </a>
+                  </h6>
+                </div>
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <table class="table table-bordered small-lither" id="dataTable" width="100%" cellspacing="0">
+                      <thead>
+                        <tr>
+                          <th>AÇÃO</th>
+                          <th>NOME</th>
+                          <th>C.P.F</th>
+                        </tr>
+                      </thead>
+                      <tfoot>
+                        <tr>
+                          <th>AÇÃO</th>
+                          <th>NOME</th>
+                          <th>C.P.F</th>
+                        </tr>
+                      </tfoot>
+                      <tbody>
+                        <?php
+
+                        while ($colaborador = $resultFuncionario->fetch_assoc()) {
+                          echo '<tr><td> <input class="" type="radio" name="newfun" value="' . $colaborador['id_funcionario'] . '" > </td>';
+                          echo $colaborador['nome'] != NULL ?  '<td>' . $colaborador['nome'] . '</td>' :  '<td>----------</td>';
+                          echo $colaborador['cpf'] != NULL ?  '<td>' . $colaborador['cpf'] . '</td>' :  '<td>----------</td>';
+                        } //FIM WHILE $COLABORADOR
+                        ?>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
