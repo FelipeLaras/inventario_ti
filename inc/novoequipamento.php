@@ -1,15 +1,10 @@
 <?php
-/*
-CPU E NOTEBOOK ESTÃO SENDO TRATAOS EM OUTRA TELA, 
-veja o form do campo input Patrimonio desses dois equipamentos
-*/
 session_start();
 require_once('../bd/conexao.php');
 require_once('../bd/conexao_ocs.php');
 
 //DATA DE HOJE
 $dataHoje = date('d/m/Y');
-
 
 switch ($_POST['tipo_equipamento']) {
     case '1':
@@ -913,6 +908,17 @@ switch ($_POST['tipo_equipamento']) {
     case '8':
         # CPU...
 
+        //VERIFICANDO SE O EQUIPAMENTO ESTA CADASTRADO
+
+        $queryValidar = "SELECT id_equipamento, patrimonio FROM manager_inventario_equipamento WHERE patrimonio =  '" . $_POST['patrimonio'] . "'";
+        $result = $conn -> query($queryValidar);
+        $validar = $result -> fetch_assoc();
+
+        if(!empty($validar['patrimonio'])){
+            header('location: ../front/editequipamento.php?pagina=5&id_equip=' . $validar['id_equipamento'] . '');
+            exit;
+        }        
+
         //alterando patrimonio no OCS
         $updateAcount = "UPDATE accountinfo SET TAG = '" . $_POST['patrimonio'] . "' WHERE HARDWARE_ID = '" . $_SESSION['hardware_id'] . "'";
 
@@ -1112,6 +1118,17 @@ switch ($_POST['tipo_equipamento']) {
 
     case '9':
         # NOTEBOOK...
+
+        //VERIFICANDO SE O EQUIPAMENTO ESTA CADASTRADO
+
+        $queryValidar = "SELECT id_equipamento, patrimonio FROM manager_inventario_equipamento WHERE patrimonio =  '" . $_POST['patrimonio'] . "'";
+        $result = $conn -> query($queryValidar);
+        $validar = $result -> fetch_assoc();
+
+        if(!empty($validar['patrimonio'])){
+            header('location: ../front/editequipamento.php?pagina=5&id_equip=' . $validar['id_equipamento'] . '');
+            exit;
+        } 
 
         //alterando patrimonio no OCS
         $updateAcount = "UPDATE accountinfo SET TAG = '" . $_POST['patrimonio'] . "' WHERE HARDWARE_ID = '" . $_SESSION['hardware_id'] . "'";
