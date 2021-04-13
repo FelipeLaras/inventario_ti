@@ -27,8 +27,15 @@ $equipamento = $resultEquip->fetch_assoc();
 
 if ($equipamento['id_tipoEquipamento'] == 8 || $equipamento['id_tipoEquipamento'] == 9) {
   $display = "block";
+
+  $valueWindows = empty($equipamento['versao_so']) ? '0' : '1';
+  $valueOffice = empty($equipamento['versao_off']) ? '0' : '2';
+
+
 } else {
+
   $display = "none";
+
 }
 
 ?>
@@ -254,12 +261,13 @@ if ($equipamento['id_tipoEquipamento'] == 8 || $equipamento['id_tipoEquipamento'
             <div class="input-group">
               <div class="col-md-5 form-group">
                 <label for="nome">Tipo Nota: </label>
-                <select name="tipo_nota" id="tipo_nota" class="form-control" onchange="notas()">
+                <select name="tipo_nota" id="tipo_nota" class="form-control" onchange="tiponota()">
                   <option>-----</option>
-                  <option value="1" style="display:<?= $display ?>;">Windows</option>
-                  <option value="2" style="display:<?= $display ?>;">Office</option>
+                  <option value="<?= $valueWindows ?>" style="display:<?= $display ?>;">Windows</option>
+                  <option value="<?= $valueOffice ?>" style="display:<?= $display ?>;">Office</option>
                   <option value="3">Diversos</option>
                 </select>
+                <p id="noPermitida" class="text-xs colorRed" style="width: 230%; margin-top: 10px; display: none;">ação não permitida. Esse software não está vinculado a esse equipamento</p>
               </div>
             </div>
             <div class="input-group">
@@ -268,7 +276,7 @@ if ($equipamento['id_tipoEquipamento'] == 8 || $equipamento['id_tipoEquipamento'
                 <input type="text" class="form-control" name="numeroNota">
               </div>
             </div>
-            
+
             <div class="input-group">
               <div class="col-md-5 form-group">
                 <label for="nome">Data: </label>
@@ -298,7 +306,7 @@ if ($equipamento['id_tipoEquipamento'] == 8 || $equipamento['id_tipoEquipamento'
 
           <div class="modal-footer">
             <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-            <button class="btn btn-success" type="submit">Salvar</a>
+            <button class="btn btn-success" type="submit" id="salvar">Salvar</a>
           </div>
         </form>
       </div>
